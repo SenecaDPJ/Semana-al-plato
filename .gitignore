@@ -1,0 +1,14 @@
+node_modules/
+src-tauri/target/
+src-tauri/gen/
+dist/
+*.log
+.DS_Store
+Instalador/
+repositorio.bundle
+Mesa-prueba.html
+src-tauri/icons/64x64.png
+src-tauri/icons/Square*.png
+src-tauri/icons/StoreLogo.png
+src-tauri/icons/android/
+src-tauri/icons/ios/

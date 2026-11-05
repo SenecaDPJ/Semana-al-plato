@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Semana al Plato · Calendario semanal</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="#" aria-label="Semana al Plato, inicio"
+        ><span class="brand-icon">s<span>·</span></span
+        ><span>Semana al Plato<small>CALENDARIO DE COMIDAS</small></span></a
+      >
+      <div class="signature"><span>© David De Prado · 2026</span><a href="https://github.com/SenecaDPJ" target="_blank" rel="noopener noreferrer">github.com/SenecaDPJ</a></div>
+      <div class="header-right">
+        <span class="local-dot">En tu dispositivo</span>
+        <span class="version-pill">VERSIÓN 1.0.0</span>
+        <button id="theme-toggle" type="button" aria-label="Activar tema oscuro" title="Activar tema oscuro">☾</button>
+        <details id="backup">
+          <summary>Mis datos <span>⌄</span></summary>
+          <div class="backup-menu">
+            <button id="export">Exportar copia</button
+            ><button id="import">Restaurar copia</button>
+            <p>Guarda una copia para mover tus datos a otro dispositivo.</p>
+          </div>
+        </details>
+      </div>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">UN POCO DE ORDEN, CADA DÍA</p>
+          <h1>Tu semana, plato a plato.</h1>
+          <p>Organiza lo que te apetece. Deja espacio para improvisar.</p>
+        </div>
+        <div class="intro-mark" aria-hidden="true">
+          ◒<span>Hecho a tu gusto</span>
+        </div>
+      </section>
+      <nav class="toolbar" aria-label="Acciones del calendario">
+        <div class="stack">
+          <button class="primary" data-catalog="meal">＋ Añadir comida</button
+          ><button class="action-food" data-catalog="food">＋ Añadir alimento</button>
+        </div>
+        <button id="recipes" class="action-recipe">▤ Añadir receta</button>
+        <button id="categories" class="action-category">◈ Añadir Categoría</button>
+        <div class="toolbar-right">
+          <div class="week-picker">
+            <label for="week">SEMANA</label
+            ><input id="week" type="date" aria-label="Seleccionar semana" />
+          </div>
+        </div>
+      </nav>
+      <section class="planner" aria-label="Calendario semanal">
+        <div class="week-heading">
+          <div>
+            <p class="eyebrow">TU PLAN SEMANAL</p>
+            <h2 id="range"></h2>
+          </div>
+          <div class="week-actions">
+            <span id="count"></span
+            ><button id="prev" aria-label="Semana anterior">←</button
+            ><button id="today">Hoy</button
+            ><button id="next" aria-label="Semana siguiente">→</button>
+          </div>
+        </div>
+        <div id="placement" role="status" hidden></div>
+        <div class="calendar-scroll"><div id="calendar"></div></div>
+      </section>
+      <span id="save-status" class="sr-only" role="status">Todo empieza con una buena idea.</span>
+    </main>
+    <aside id="catalog" hidden aria-label="Catálogo"></aside>
+    <dialog id="editor" aria-label="Editar elemento"></dialog>
+    <dialog id="confirm" aria-label="Confirmación"></dialog>
+    <dialog id="recipe-list" class="floating" aria-label="Recetario"></dialog>
+    <dialog
+      id="recipe-detail"
+      class="floating detail"
+      aria-label="Detalle de receta"
+    ></dialog>
+    <div id="toast" role="status" hidden></div>
+    <input id="file" type="file" accept=".json,application/json" hidden />
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
