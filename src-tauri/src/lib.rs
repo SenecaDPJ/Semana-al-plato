@@ -1,6 +1,8 @@
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
+        .invoke_handler(tauri::generate_handler![export_backup])
         .setup(|app| {
             #[cfg(target_os = "windows")]
             place_main_window(app)?;
@@ -8,6 +10,23 @@ pub fn run() {
         })
         .run(tauri::generate_context!())
         .expect("No se pudo iniciar el calendario");
+}
+
+#[tauri::command]
+async fn export_backup(app: tauri::AppHandle, json: String) -> Result<bool, String> {
+    use tauri_plugin_dialog::DialogExt;
+
+    let selected = app
+        .dialog()
+        .file()
+        .set_title("Guardar copia de Semana al Plato")
+        .set_file_name("Semana_al_Plato_copia.json")
+        .add_filter("Copia JSON", &["json"])
+        .blocking_save_file();
+    let Some(selected) = selected else { return Ok(false) };
+    let path = selected.into_path().map_err(|e| e.to_string())?;
+    std::fs::write(path, json).map_err(|e| e.to_string())?;
+    Ok(true)
 }
 
 #[cfg(target_os = "windows")]

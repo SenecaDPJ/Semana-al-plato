@@ -660,9 +660,14 @@ $("#week").onchange = (e) => {
     }
   }
 };
-$("#export").onclick = () => {
-  download(state);
+$("#export").onclick = async () => {
   $("#backup").open = false;
+  try {
+    const saved = await download(state);
+    if (saved) toast("Copia exportada. Comprueba el archivo JSON en la ubicación elegida.");
+  } catch (err) {
+    toast("No se ha exportado la copia: " + String(err));
+  }
 };
 $("#import").onclick = () => {
   $("#file").click();

@@ -8,13 +8,24 @@ export function save(state) {
   validate(state);
   localStorage.setItem(KEY, JSON.stringify(state));
 }
-export function download(state) {
+export async function download(state) {
+  validate(state);
+  const json = JSON.stringify(state, null, 2);
+  if (window.__TAURI__?.core?.invoke) {
+    return window.__TAURI__.core.invoke("export_backup", { json });
+  }
   const url = URL.createObjectURL(
-    new Blob([JSON.stringify(state, null, 2)], { type: "application/json" }),
+    new Blob([json], { type: "application/json" }),
   );
   const a = document.createElement("a");
   a.href = url;
-  a.download = "calendario-comidas-copia.json";
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  a.download = "Semana_al_Plato_copia.json";
+  document.body.append(a);
+  try {
+    a.click();
+  } finally {
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  }
+  return true;
 }

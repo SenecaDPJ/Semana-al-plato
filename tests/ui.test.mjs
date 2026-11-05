@@ -6,7 +6,7 @@ const html = await readFile(
   new URL("../dist/index.html", import.meta.url),
   "utf8",
 );
-function boot(raw, theme) {
+function boot(raw, theme, nativeInvoke) {
   const dom = new JSDOM(
     html.replace(/<script type="module">[\s\S]*?<\/script>/, ""),
     {
@@ -28,6 +28,7 @@ function boot(raw, theme) {
   };
   if (raw) w.localStorage.setItem("calendario-comidas.v1", raw);
   if (theme) w.localStorage.setItem("calendario-comidas.theme", theme);
+  if (nativeInvoke) w.__TAURI__ = { core: { invoke: nativeInvoke } };
   w.eval(html.match(/<script type="module">([\s\S]*?)<\/script>/)[1]);
   const $ = (s) => w.document.querySelector(s);
   const click = (s) => {
@@ -53,6 +54,31 @@ function boot(raw, theme) {
     data: () => JSON.parse(w.localStorage.getItem("calendario-comidas.v1")),
   };
 }
+test("exportación nativa: envía la copia, informa del resultado y respeta la cancelación", async () => {
+  const calls = [];
+  const b = boot(undefined, undefined, async (command, args) => {
+    calls.push({ command, args });
+    return true;
+  });
+  await b.$("#export").onclick();
+  assert.equal(calls[0].command, "export_backup");
+  const copy = JSON.parse(calls[0].args.json);
+  assert.equal(copy.version, 1);
+  assert.equal(copy.items.length, 60);
+  assert.deepEqual(copy.plan, {});
+  assert.match(b.$("#toast").textContent, /Copia exportada/);
+  b.dom.window.close();
+
+  const cancelled = boot(undefined, undefined, async () => false);
+  await cancelled.$("#export").onclick();
+  assert.equal(cancelled.$("#toast").hidden, true);
+  cancelled.dom.window.close();
+
+  const failed = boot(undefined, undefined, async () => { throw Error("Acceso denegado"); });
+  await failed.$("#export").onclick();
+  assert.match(failed.$("#toast").textContent, /Acceso denegado/);
+  failed.dom.window.close();
+});
 test("tema claro y oscuro: alternancia, accesibilidad y preferencia persistente", () => {
   const b = boot();
   assert.equal(b.w.document.documentElement.dataset.theme, "light");

@@ -1,6 +1,6 @@
 [package]
 name = "semana-al-plato"
-version = "1.0.0"
+version = "1.0.1"
 description = "Calendario interactivo de comidas, alimentos y recetas para Windows 11"
 authors = ["David De Prado"]
 edition = "2021"
@@ -14,4 +14,5 @@ tauri-build = { version = "2", features = [] }
 
 [dependencies]
 tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
 windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_Graphics_Gdi"] }
