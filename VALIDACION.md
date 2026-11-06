@@ -1,5 +1,13 @@
 # Validación de Semana al Plato 1.0.1
 
+## Discrepancia entre la release y el registro manual
+
+- **Release v1.0.1 publicada el 5 de noviembre de 2026:** su cuerpo afirma que la exportación y la restauración de copias se comprobaron en la aplicación instalada.
+- **Este registro, sección «Comprobación manual pendiente»:** mantiene pendientes la exportación desde la app instalada y la restauración de la copia, junto con las comprobaciones indicadas allí.
+- **Estado:** las fuentes discrepan y el material disponible en esta revisión documental no permite reconciliarlas. Se conservan ambas afirmaciones con su procedencia; esta sección no marca la comprobación como superada. La discrepancia requiere reconciliar el registro con evidencia concreta antes de cambiar su estado.
+
+Esta revisión documental no ejecutó pruebas ni compilaciones de la aplicación y no aporta evidencia para resolver la discrepancia.
+
 ## Comprobado en esta revisión
 
 - `npm test`: 17 pruebas correctas. La nueva prueba simula la exportación nativa, su cancelación y un error de escritura. Las pruebas se ejecutan en un DOM simulado.
