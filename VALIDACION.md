@@ -37,5 +37,5 @@
 - `npm test`: 30 pruebas correctas. Se comprueban el selector de idioma y su persistencia, las traducciones de calendario, categorías, ejemplos, recetas y diálogos, y que la preferencia no modifica los datos guardados.
 - `npm run build`: correcto; genera `dist/index.html`, excluido de Git.
 - `git diff --check`: correcto.
-- La compilación local de Tauri no pudo ejecutarse porque `cargo` no está instalado en este entorno. La compilación del instalador Windows queda pendiente del flujo de GitHub Actions; no se considera validada hasta que termine correctamente.
+- La compilación local de Tauri no pudo ejecutarse porque `cargo` no está instalado en este entorno. El flujo de Windows [terminó correctamente](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42411277902): ejecutó las pruebas y compiló un instalador NSIS x64, publicado como artefacto descargable.
 - No se ha hecho una comprobación visual del instalador ni una prueba manual en Windows.
