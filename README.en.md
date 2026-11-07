@@ -93,7 +93,7 @@ Click the **☾ / ☀** button in the header to switch between light and dark th
 
 ### 7. Change the language
 
-The application starts in **Español 🇪🇸**. The text and flag identify the active language; select **Idioma → English 🇬🇧** to switch it. The interface, calendar, original categories and starter examples are translated. The preference is saved on this device. Names you enter yourself stay as written.
+The application starts in **Español** and displays its flag beside the language name. Select **Idioma → English** to switch; the flag follows the active language. The interface, calendar, original categories and starter examples are translated. The preference is saved on this device. Names you enter yourself stay as written.
 
 ### 8. Remove an entry without deleting it from the catalogue
 

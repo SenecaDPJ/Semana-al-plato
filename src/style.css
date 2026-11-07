@@ -147,17 +147,28 @@ header {
   letter-spacing: 0.5px;
 }
 #language-flag {
-  font-size: 12px;
-  line-height: 1;
-  letter-spacing: 0;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.language-flag-icon {
+  display: block;
+  width: 20px;
+  height: 13px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px #0002;
+}
+#language-flag-es[hidden],
+#language-flag-en[hidden] {
+  display: none;
 }
 #language-toggle {
   min-width: 86px;
   padding: 5px 10px;
-  border: 2.5px solid #5c7d08;
+  border: 2.5px solid #398000;
   border-radius: 8px;
   background: #fafbf6;
-  color: #5c7d08;
+  color: #398000;
   font-size: 12px;
   font-weight: 750;
 }
@@ -1159,8 +1170,8 @@ html[data-theme="dark"] #theme-toggle:hover {
 }
 html[data-theme="dark"] #language-toggle {
   background: #1b2929;
-  color: #b9e43a;
-  border-color: #b9e43a;
+  color: #39ff14;
+  border-color: #39ff14;
 }
 html[data-theme="dark"] #language-toggle[data-language="en"] {
   color: #70a8ff;

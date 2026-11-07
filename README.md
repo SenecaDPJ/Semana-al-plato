@@ -91,7 +91,7 @@ Pulsa el botón **☾ / ☀** de la cabecera para alternar entre claro y oscuro.
 
 ### 7. Cambia el idioma
 
-La aplicación se abre en **Español 🇪🇸**. El texto y la bandera identifican el idioma activo; pulsa **Idioma → English 🇬🇧** para cambiarlo. La interfaz, el calendario, las categorías iniciales y los ejemplos se traducen. La preferencia se guarda en este dispositivo. Los nombres que añadas tú se mantienen tal como los escribiste.
+La aplicación se abre en **Español** y muestra su bandera junto al nombre del idioma. Pulsa **Idioma → English** para cambiarlo; la bandera acompaña al idioma activo. La interfaz, el calendario, las categorías iniciales y los ejemplos se traducen. La preferencia se guarda en este dispositivo. Los nombres que añadas tú se mantienen tal como los escribiste.
 
 ### 8. Quita un elemento sin borrarlo del catálogo
 

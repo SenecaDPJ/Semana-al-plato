@@ -101,7 +101,8 @@ test("idioma español e inglés: controles, calendario y contenido inicial se lo
   const b = boot();
   assert.equal(b.w.document.documentElement.lang, "es");
   assert.equal(b.$("#language-name").textContent, "Idioma");
-  assert.equal(b.$("#language-flag").textContent, "🇪🇸");
+  assert.equal(b.$("#language-flag-es").hidden, false);
+  assert.equal(b.$("#language-flag-en").hidden, true);
   assert.equal(b.$("#language-toggle").textContent, "Español");
   b.$("#week").value = "2026-11-02";
   b.$("#week").dispatchEvent(new b.w.Event("change", { bubbles: true }));
@@ -111,7 +112,8 @@ test("idioma español e inglés: controles, calendario y contenido inicial se lo
   b.click("#language-toggle");
   assert.equal(b.w.document.documentElement.lang, "en");
   assert.equal(b.$("#language-name").textContent, "Language");
-  assert.equal(b.$("#language-flag").textContent, "🇬🇧");
+  assert.equal(b.$("#language-flag-es").hidden, true);
+  assert.equal(b.$("#language-flag-en").hidden, false);
   assert.equal(b.$("#language-toggle").textContent, "English");
   assert.equal(b.$("#language-toggle").dataset.language, "en");
   const englishHome = b.w.document.body.textContent;
@@ -138,7 +140,8 @@ test("idioma español e inglés: controles, calendario y contenido inicial se lo
 
   b.click("#language-toggle");
   assert.equal(b.w.document.documentElement.lang, "es");
-  assert.equal(b.$("#language-flag").textContent, "🇪🇸");
+  assert.equal(b.$("#language-flag-es").hidden, false);
+  assert.equal(b.$("#language-flag-en").hidden, true);
   assert.equal(b.$("#language-toggle").textContent, "Español");
   assert.equal(b.$(".slot-label").textContent.trim(), "○Desayuno");
   assert.match(b.$(".entry").textContent, /Tortilla francesa/);
