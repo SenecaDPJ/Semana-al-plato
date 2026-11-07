@@ -55,5 +55,7 @@
 - v2.2.0 retains v2.1.0 features. Both README files now document the Spain and UK flags, application/installer/uninstaller icon, category palette, theme controls, cloning, moving, multi-selection, and the SmartScreen warning for an installer without a recognised signature.
 - `npm test`: 30 passing tests and 0 failures, including palette contrast, language and flags, themes, cloning, movement, multi-selection, backups and external-link permission.
 - `npm run build`: successful; generated `dist/index.html`, which is excluded from Git. `git diff --check`: successful.
-- The Windows NSIS x64 build for this version will be recorded when the PR #6 workflow finishes; the same checks will run again when the private v2.2.0 release is published.
+- The Windows workflow for [PR #6](https://github.com/SenecaDPJ/semana-al-plato/pull/6) completed successfully in [run 42424168586](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42424168586): 30 passing tests, 0 failures and an NSIS x64 build.
+- The test build was uploaded as an artifact (ID `13595047537`; ZIP size 1,973,021 bytes; SHA-256 `437bd854c9ec8706e90c04bac3c03d83c44a7a413904c8b584bfe1f261b20d82`). It is retained for 14 days.
+- The private v2.2.0 release workflow will run the tests again and build the production installer; its details will be added when it completes.
 - Visual review of the installer on Windows is pending; successful automation is not a visual check or a test on another computer.
