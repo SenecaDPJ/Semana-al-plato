@@ -123,10 +123,38 @@ header {
   height: 64px;
   border-bottom: 1px solid var(--line);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   padding: 0 5vw;
   background: #fafbf6;
+}
+.language-control {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  justify-self: start;
+  margin-left: clamp(18px, 3vw, 48px);
+  line-height: 1.1;
+}
+#language-label {
+  color: #b42318;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+#language-toggle {
+  min-width: 86px;
+  padding: 5px 10px;
+  border: 2.5px solid #5c7d08;
+  border-radius: 8px;
+  background: #fafbf6;
+  color: #5c7d08;
+  font-size: 12px;
+  font-weight: 750;
+}
+#language-toggle[data-language="en"] {
+  border-color: #075fc4;
+  color: #075fc4;
 }
 .brand {
   display: flex;
@@ -174,7 +202,13 @@ header {
   padding: 0;
   font-size: 21px;
   line-height: 1;
-  color: #294f3d;
+  color: #fff;
+  background: #000;
+  border-color: #000;
+}
+#theme-toggle:hover {
+  background: #252525;
+  border-color: #252525;
 }
 .version-pill {
   border: 1px solid #98aa62;
@@ -812,7 +846,7 @@ h3 {
   header {
     height: auto;
     min-height: 64px;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 8px;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -858,6 +892,11 @@ h3 {
   }
   .brand {
     font-size: 20px;
+  }
+  .language-control {
+    justify-self: start;
+    margin-left: 0;
+    grid-column: 1;
   }
   .brand-icon {
     width: 40px;
@@ -1053,5 +1092,26 @@ html[data-theme="dark"] .swatch {
   border-color: #647774;
 }
 html[data-theme="dark"] #theme-toggle {
-  color: #f4d984;
+  color: #b18400;
+  background: #fff;
+  border-color: #fff;
+}
+html[data-theme="dark"] #theme-toggle:hover {
+  background: #f2f2f2;
+  border-color: #f2f2f2;
+}
+html[data-theme="dark"] #language-toggle {
+  background: #1b2929;
+  color: #b9e43a;
+  border-color: #b9e43a;
+}
+html[data-theme="dark"] #language-toggle[data-language="en"] {
+  color: #70a8ff;
+  border-color: #70a8ff;
+}
+html[data-theme="dark"] #language-label {
+  color: #ff7777;
+}
+html[data-theme="dark"] #language-toggle:hover {
+  background: #263637;
 }

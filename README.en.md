@@ -4,11 +4,11 @@
 
 [Español](README.md) · **English**
 
-[Download for Windows 11 · x64 · v1.0.3](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v1.0.3/Semana.al.Plato_1.0.3_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Download for Windows 11 · x64 · v2.0.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.0.0/Semana.al.Plato_2.0.0_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
-<img width="1397" height="1013" alt="Captura de pantalla 2026-11-07 174358" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
+<img width="1397" height="1013" alt="Semana al Plato screenshot from 7 November 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
 
-<img width="1394" height="1010" alt="Captura de pantalla 2026-11-07 174421" src="https://github.com/user-attachments/assets/fe564464-a3e8-4745-8dbf-34e497739123" />
+<img width="1394" height="1010" alt="Second Semana al Plato screenshot from 7 November 2026" src="https://github.com/user-attachments/assets/fe564464-a3e8-4745-8dbf-34e497739123" />
 
 ## What you can do
 
@@ -27,12 +27,17 @@ It works locally, without an account or a meal-planning service. Your menu stays
 | Built-in recipe collection | Stores ingredients, instructions, minutes and servings, and schedules recipes. |
 | Non-modal recipe panels | Keeps the calendar usable while viewing a recipe; panels can be moved by their headers. |
 | Light and dark themes | Switches appearance with the moon/sun button and remembers the choice. |
+| Spanish and English | Translates the interface, calendar, categories and starter examples; remembers your choice. Spanish is selected on first launch. |
+| Individual and group cloning | Copies entries to another day in the current week or to a date in another week, preserving each meal slot. |
+| Drag and reorder | Moves entries between days in the same row and changes their order within a slot. |
+| Multi-selection | Drag from an empty calendar area to select entries, then clone the group or delete it after two confirmations. |
+| Confirmed profile link | Opens the GitHub profile only after you confirm. |
 | Local saving and JSON backups | Retains your plans and lets you export or restore them. |
 | Change confirmation | Lets you review where an entry will be added and confirm deletions. |
 
 ## Download and install
 
-1. Download **Semana.al.Plato_1.0.3_x64-setup.exe** using the link above or the [v1.0.3 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.3).
+1. Download **Semana.al.Plato_2.0.0_x64-setup.exe** using the link above or the [v2.0.0 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.0.0).
 2. Run the installer and follow its instructions.
 3. Open **Semana al Plato** and start planning.
 
@@ -42,60 +47,64 @@ The available installer targets **64-bit Windows 11**. You do not need Node.js, 
 
 ## Getting started
 
-The application currently uses Spanish labels. The instructions below keep those labels so you can find the controls.
+The application starts in Spanish. Use **Language → English** in the header to switch the interface. The preference is saved on this device.
 
 ### 1. Choose a week
 
-The current week appears on startup. Under **SEMANA** (week), choose any date to display the week containing it. Use **← / →** to move between weeks and **Hoy** (today) to return to the current week.
+The current week appears on startup. Under **WEEK**, choose any date to display the week containing it. Use **← / →** to move between weeks and **Today** to return to the current week.
 
-The three rows are **Desayuno** (breakfast), **Comida** (lunch) and **Cena** (dinner). The “X de 21 momentos” counter shows how many slots contain entries, not the number of dishes or servings.
+The three rows are **Breakfast**, **Lunch** and **Dinner**. The “X of 21 time slots” counter shows how many slots contain entries, not the number of dishes or servings.
 
 ### 2. Add what you want to eat
 
 There are two starting points:
 
-- **Top buttons:** select **Añadir comida** (add a dish) or **Añadir alimento** (add a food item), search or filter the catalogue and choose an entry. A banner asks you to select a slot. Click the desired day and meal, then confirm.
+- **Top buttons:** select **Add dish** or **Add food**, search or filter the catalogue and choose an entry. A banner asks you to select a slot. Click the desired day and meal, then confirm.
 - **A calendar slot:** click **+**, choose a dish, food item or recipe, select the entry and confirm adding it to that slot.
 
-Repeat to add several entries. Existing entries are retained. **Cancelar** (cancel) exits without adding the entry.
+Repeat to add several entries. Existing entries are retained. **Cancel** exits without adding the entry.
 
 **Example:** add “Café”, “Tostada con tomate” and “Fruta” to Monday's breakfast. Food items and complete dishes can share a slot.
 
 ### 3. Personalise your catalogues
 
-In the relevant catalogue, select **Añadir nueva comida** (add a new dish) or **Añadir nuevo alimento** (add a new food item), enter a name and assign a category. Built-in entries can also be edited with **Editar** or deleted with **Eliminar**.
+In the relevant catalogue, select **Add a new dish** or **Add new food**, enter a name and assign a category. Built-in entries can also be edited with **Edit** or deleted with **Delete**.
 
 Duplicate names are rejected within each catalogue, ignoring differences in letter case, accents and repeated spaces. Editing an entry updates its appearances in the calendar.
 
 ### 4. Organise with categories
 
-Select **Añadir Categoría** (add a category), enter a name and choose text and fill colours. A preview shows the result before you save it.
+Select **Add category**, enter a name and choose text and fill colours. A preview shows the result before you save it.
 
-The original **Desayuno**, **Comida** and **Cena** categories are protected. Custom categories can be edited and deleted, provided no food items, dishes or recipes use them.
+The original **Breakfast**, **Lunch** and **Dinner** categories are protected. Custom categories can be edited and deleted, provided no food items, dishes or recipes use them.
 
 Categories are labels: they do not add calendar rows or restrict placement. A dish categorised as dinner can also be scheduled for lunch.
 
 ### 5. Use your recipes
 
-Select **Añadir receta** (add a recipe) to open the collection. Double-click a recipe or select **Abrir** (open) to view its ingredients and instructions in another panel. Both panels leave the calendar usable.
+Select **Add recipe** to open the collection. Double-click a recipe or select **Open** to view its ingredients and instructions in another panel. Both panels leave the calendar usable.
 
-Use **Crear nueva receta** (create a new recipe) to save a name, category, minutes, servings, ingredients and steps. Recipes can be edited, deleted and scheduled with **Al calendario** or **Añadir al calendario** (add to calendar).
+Use **Create a new recipe** to save a name, category, minutes, servings, ingredients and method. Recipes can be edited, deleted and scheduled with **Add to calendar**.
 
 ### 6. Change the theme
 
-Click the **☾ / ☀** button in the header to switch between light and dark themes. The preference is saved locally. This is a manual choice; there is no setting to follow the operating system theme automatically.
+Click the **☾ / ☀** button in the header to switch between light and dark themes. In the light theme, the black button shows a white moon; in the dark theme, the white button shows a yellow sun. The preference is saved locally. This is a manual choice; there is no setting to follow the operating system theme automatically.
 
-### 7. Remove an entry without deleting it from the catalogue
+### 7. Change the language
 
-Click an entry in the calendar and choose **Eliminar de esta casilla** (remove from this slot). It remains available for other days.
+The application starts in **Español**. Select **Idioma → English** in the top bar to translate the controls, calendar, original categories and starter examples; select it again to return to **Español**. The preference is saved on this device. Names you enter yourself stay as written.
+
+### 8. Remove an entry without deleting it from the catalogue
+
+Click an entry in the calendar and choose **Remove from this slot**. It remains available for other days.
 
 Deleting it from its catalogue or the recipe collection also removes its calendar appearances. The confirmation reports the affected appearances.
 
-### 8. Clone, move and select multiple entries
+### 9. Clone, move and select multiple entries
 
-- Click a calendar entry and choose **Clonar** (clone) to copy it to another day in the same week or to a date in another week. Its breakfast, lunch or dinner row is preserved.
+- Click a calendar entry and choose **Clone** to copy it to another day in the same week or to a date in another week. Its breakfast, lunch or dinner row is preserved.
 - Press and hold an entry, then drag it to reorder it within its row or move it to another day in that row.
-- To work with multiple entries, drag from an empty area of the calendar. Choose **Clonar TODOS** (clone all) or **Eliminar TODOS** (delete all). Cloning asks for a destination day; deleting requires two confirmations.
+- To work with multiple entries, drag from an empty area of the calendar. Choose **Clone ALL** or **Delete ALL**. Cloning asks for a destination day; deleting requires two confirmations.
 - The **github.com/SenecaDPJ** link asks for confirmation before opening the profile in the default browser.
 
 ## Starter content
@@ -105,18 +114,18 @@ The first run includes **30 food items and 30 dishes**: ten of each type for eac
 | Category | Example food items | Example dishes |
 | --- | --- | --- |
 | Breakfast | Coffee, milk, fruit, oats | Omelette, tomato toast, yoghurt with fruit |
-| Lunch | Lettuce, oily fish, chickpeas | Spaghetti Bolognese, cocido, paella |
+| Lunch | Lettuce, oily fish, chickpeas | Spaghetti Bolognese, Spanish stew, paella |
 | Dinner | Rice, eggs, courgette | Poached hake fillet, boiled egg, courgette soup |
 
-The recipe collection starts with **tomato and olive oil toast**, **simple chickpea salad** and **smooth courgette soup**, including ingredients, steps, time and servings. Starter content is displayed in Spanish in the application.
+The recipe collection starts with **tomato and olive oil toast**, **simple chickpea salad** and **creamy courgette soup**, including ingredients, method, time and servings. The starter examples follow the selected language.
 
 ## Your data and backups
 
 Confirmed changes are saved automatically in the application's local storage. There is no account, menu server or automatic cross-device synchronisation.
 
-- **Export:** open **Mis datos → Exportar copia** (my data → export backup). The Windows application opens a native dialog to choose where to save `Semana_al_Plato_copia.json`. The standalone HTML version starts a browser download.
-- **Restore:** open **Mis datos → Restaurar copia** (restore backup), choose a compatible JSON file and confirm. Its structure is validated before changes are applied.
-- **Backup contents:** calendar, food items, dishes, recipes and categories. The theme preference is stored separately and **is not included**.
+- **Export:** open **My data → Export backup**. The Windows application opens a native dialog to choose where to save `Semana_al_Plato_copia.json`. The standalone HTML version starts a browser download.
+- **Restore:** open **My data → Restore backup**, choose a compatible JSON file and confirm. Its structure is validated before changes are applied.
+- **Backup contents:** calendar, food items, dishes, recipes and categories. Theme and language preferences are stored separately and **are not included**.
 - **Replace, not merge:** restoring replaces current data. Export first if you want to keep it. Files of up to 5 MB are accepted.
 - **Another device or browser:** use export and restore. The standalone HTML and installed application do not share their data automatically.
 
@@ -178,7 +187,8 @@ The installer is generated in `src-tauri/target/release/bundle/nsis/`. `npm run 
 | --- | --- |
 | `src/domain.js` | Local dates, starter data, rules and validation |
 | `src/storage.js` | Persistence and backup export |
-| `src/app.js` | Calendar, catalogues, recipes and theme |
+| `src/app.js` | Calendar, catalogues, recipes, language and theme |
+| `src/i18n.js` | Interface and starter-content translations |
 | `src/style.css` | Layout, size adaptation and themes |
 | `scripts/` | Build and development server |
 | `tests/` | Logic and simulated interaction tests |
@@ -187,7 +197,7 @@ The installer is generated in `src-tauri/target/release/bundle/nsis/`. `npm run 
 
 ## Current scope
 
-The application interface is in **Spanish**. This documentation is fully available in Spanish and English; this does not imply an in-app language selector.
+The interface starts in **Spanish** and can be switched to English from the language selector. Text entered by the user stays in the language in which it was written.
 
 There is no automatic menu generation, nutritional analysis, automatic shopping list or cloud synchronisation. Simulated tests do not replace real installation, window and saving checks on Windows.
 

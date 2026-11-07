@@ -1,5 +1,5 @@
 import { readFile, mkdir, writeFile } from "node:fs/promises";
-const files = ["domain", "storage", "app"];
+const files = ["domain", "storage", "i18n", "app"];
 const js = (
   await Promise.all(files.map((x) => readFile(`src/${x}.js`, "utf8")))
 )

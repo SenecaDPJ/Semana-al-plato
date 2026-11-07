@@ -7,7 +7,7 @@ const html = await readFile(
   new URL("../dist/index.html", import.meta.url),
   "utf8",
 );
-function boot(raw, theme, nativeInvoke) {
+function boot(raw, theme, nativeInvoke, language) {
   const dom = new JSDOM(
     html.replace(/<script type="module">[\s\S]*?<\/script>/, ""),
     {
@@ -29,6 +29,7 @@ function boot(raw, theme, nativeInvoke) {
   };
   if (raw) w.localStorage.setItem("calendario-comidas.v1", raw);
   if (theme) w.localStorage.setItem("calendario-comidas.theme", theme);
+  if (language) w.localStorage.setItem("calendario-comidas.language", language);
   if (nativeInvoke) w.__TAURI__ = { core: { invoke: nativeInvoke } };
   w.eval(html.match(/<script type="module">([\s\S]*?)<\/script>/)[1]);
   const $ = (s) => w.document.querySelector(s);
@@ -94,6 +95,156 @@ test("tema claro y oscuro: alternancia, accesibilidad y preferencia persistente"
   reopened.click("#theme-toggle");
   assert.equal(reopened.w.localStorage.getItem("calendario-comidas.theme"), "light");
   reopened.dom.window.close();
+  b.dom.window.close();
+});
+test("idioma español e inglés: controles, calendario y contenido inicial se localizan sin cambiar los datos", () => {
+  const b = boot();
+  assert.equal(b.w.document.documentElement.lang, "es");
+  assert.equal(b.$("#language-label").textContent, "Idioma");
+  assert.equal(b.$("#language-toggle").textContent, "Español");
+  b.$("#week").value = "2026-11-02";
+  b.$("#week").dispatchEvent(new b.w.Event("change", { bubbles: true }));
+  assert.match(b.$("#range").textContent, /noviembre/);
+  assert.equal(b.$(".slot-label").textContent.trim(), "○Desayuno");
+
+  b.click("#language-toggle");
+  assert.equal(b.w.document.documentElement.lang, "en");
+  assert.equal(b.$("#language-label").textContent, "Language");
+  assert.equal(b.$("#language-toggle").textContent, "English");
+  assert.equal(b.$("#language-toggle").dataset.language, "en");
+  const englishHome = b.w.document.body.textContent;
+  for (const untranslated of ["Añadir", "Desayuno", "Comida", "Cena", "Mis datos", "SEMANA", "Hoy", "TU PLAN SEMANAL"]) {
+    assert.equal(englishHome.includes(untranslated), false, `Queda texto en español: ${untranslated}`);
+  }
+  assert.equal(b.$(".slot-label").textContent.trim(), "○Breakfast");
+  assert.match(b.$("#range").textContent, /November/);
+  assert.equal(b.$('[data-catalog="meal"]').textContent.trim(), "＋ Add dish");
+  b.click('[data-catalog="meal"]');
+  assert.equal(b.$("#catalog h2").textContent, "Dishes");
+  assert.equal(b.$("#new-item").textContent.trim(), "＋ Add a new dish");
+  assert.match(b.$('[data-select="meal-0-0"]').textContent, /French omelette/);
+  b.click('[data-select="meal-0-0"]');
+  b.click(".cell");
+  assert.match(b.$("#confirm").textContent, /Add “French omelette” to Breakfast on/);
+  assert.match(b.$("#confirm").textContent, /Existing entries will be kept/);
+  b.click("#accept-confirm");
+  const stored = b.data();
+  assert.equal(stored.plan["2026-11-02|Desayuno"][0].refId, "meal-0-0");
+  assert.equal(stored.items.find((item) => item.id === "meal-0-0").name, "Tortilla francesa");
+  assert.equal(b.w.localStorage.getItem("calendario-comidas.language"), "en");
+  assert.match(b.$(".entry").textContent, /French omelette/);
+
+  b.click("#language-toggle");
+  assert.equal(b.w.document.documentElement.lang, "es");
+  assert.equal(b.$("#language-toggle").textContent, "Español");
+  assert.equal(b.$(".slot-label").textContent.trim(), "○Desayuno");
+  assert.match(b.$(".entry").textContent, /Tortilla francesa/);
+  assert.equal(b.w.localStorage.getItem("calendario-comidas.language"), "es");
+  const reopened = boot(JSON.stringify(stored), undefined, undefined, "en");
+  assert.equal(reopened.w.document.documentElement.lang, "en");
+  assert.match(reopened.$(".entry").textContent, /French omelette/);
+  reopened.dom.window.close();
+  b.dom.window.close();
+});
+test("el control de tema usa relleno e icono según el tema al que cambia", () => {
+  const b = boot();
+  const css = b.w.document.querySelector("style").textContent;
+  assert.equal(b.$("#theme-toggle").textContent, "☾");
+  assert.match(css, /#theme-toggle\s*\{[^}]*background:\s*#000/s);
+  assert.match(css, /#theme-toggle\s*\{[^}]*color:\s*#fff/s);
+  assert.match(css, /html\[data-theme="dark"\] #theme-toggle\s*\{[^}]*background:\s*#fff/s);
+  assert.match(css, /html\[data-theme="dark"\] #theme-toggle\s*\{[^}]*color:\s*#[0-9a-f]{6}/s);
+  b.click("#theme-toggle");
+  assert.equal(b.$("#theme-toggle").textContent, "☀");
+  assert.equal(b.w.document.documentElement.dataset.theme, "dark");
+  b.click("#language-toggle");
+  assert.equal(b.$("#language-toggle").textContent, "English");
+  assert.equal(b.$("#language-toggle").dataset.language, "en");
+  b.dom.window.close();
+});
+test("categorías, recetas y formularios mantienen el idioma inglés al abrirse", () => {
+  const b = boot(undefined, undefined, undefined, "en");
+  b.click("#categories");
+  assert.equal(b.$("#catalog h2").textContent, "Categories");
+  assert.equal(b.$("#new-category").textContent.trim(), "＋ Add category");
+  assert.deepEqual(
+    [...b.w.document.querySelectorAll("#category-items .badge")].map((node) => node.textContent),
+    ["Breakfast", "Lunch", "Dinner"],
+  );
+  b.click("#new-category");
+  assert.equal(b.$("#editor h2").textContent, "Add category");
+  assert.equal(b.$("#editor .preview-badge").textContent, "Category preview");
+  assert.match(b.$("#editor").textContent, /Text colour/);
+  b.click("#editor [data-close]");
+
+  b.click("#recipes");
+  assert.equal(b.$("#recipe-list h2").textContent, "Your recipes");
+  assert.match(b.$("#recipe-list").textContent, /Create a new recipe/);
+  assert.match(b.$('[data-recipe="recipe-3"] strong').textContent, /Creamy courgette soup/);
+  b.click('[data-open="recipe-3"]');
+  assert.deepEqual(
+    [...b.w.document.querySelectorAll("#recipe-detail h3")].map((node) => node.textContent),
+    ["Ingredients", "Method"],
+  );
+  assert.match(b.$("#recipe-detail .recipe-text").textContent, /courgettes/);
+  b.click("#edit-recipe");
+  assert.equal(b.$('#recipe-form [name="name"]').value, "Creamy courgette soup");
+  assert.match(b.$("#recipe-form").textContent, /Ingredients · one per line/);
+  b.click("#editor [data-close]");
+  b.click("#language-toggle");
+  assert.equal(b.$("#recipe-list h2").textContent, "Tu recetario");
+  assert.match(b.$('[data-recipe="recipe-3"] strong').textContent, /Crema suave de calabacín/);
+  assert.match(b.$("#recipe-detail .recipe-text").textContent, /calabacines/);
+  b.dom.window.close();
+});
+test("los diálogos de clonado, selección múltiple y perfil también se traducen", () => {
+  const state = seed();
+  state.plan["2026-11-02|Desayuno"] = [
+    { id: "planned-en", refId: "meal-0-0", kind: "meal" },
+  ];
+  const b = boot(JSON.stringify(state), undefined, undefined, "en");
+  b.$("#week").value = "2026-11-02";
+  b.$("#week").dispatchEvent(new b.w.Event("change", { bubbles: true }));
+  b.click('[data-entry="planned-en"]');
+  assert.match(b.$("#editor").textContent, /Clone/);
+  assert.match(b.$("#editor").textContent, /Remove from this slot/);
+  b.click("#clone-entry");
+  assert.match(b.$("#confirm").textContent, /Clone 1 entry/);
+  assert.match(b.$("#confirm").textContent, /Choose a destination day/);
+  assert.match(b.$("#confirm").textContent, /Another day this week/);
+  assert.match(b.$("#confirm").textContent, /A day in another week/);
+  assert.equal(b.$("#clone-week-date").getAttribute("aria-label"), "Day this week");
+  b.click("#cancel-clone");
+
+  const pointer = (target, type, x, y) =>
+    target.dispatchEvent(new b.w.MouseEvent(type, {
+      bubbles: true,
+      cancelable: true,
+      button: 0,
+      clientX: x,
+      clientY: y,
+    }));
+  b.$('[data-entry="planned-en"]').getBoundingClientRect = () => ({ left: 30, right: 100, top: 30, bottom: 70 });
+  b.w.document.elementFromPoint = () => b.$('[data-cell="2026-11-02|Desayuno"]');
+  const blankCell = b.$('[data-cell="2026-11-02|Desayuno"]');
+  pointer(blankCell, "pointerdown", 10, 10);
+  pointer(b.w.document, "pointermove", 120, 100);
+  pointer(b.w.document, "pointerup", 120, 100);
+  assert.match(b.$("#confirm").textContent, /1 entry selected/);
+  assert.match(b.$("#confirm").textContent, /Clone ALL/);
+  assert.match(b.$("#confirm").textContent, /Delete ALL/);
+  b.click("#delete-selected");
+  assert.match(b.$("#confirm").textContent, /remove 1 selected entry from the calendar/);
+  b.click("#accept-confirm");
+  assert.equal(b.$("#confirm h2").textContent, "Final confirmation");
+  assert.match(b.$("#confirm").textContent, /The selected entry will be removed from the plan/);
+  b.click("#cancel-confirm");
+
+  b.click("#profile-link");
+  assert.match(b.$("#confirm").textContent, /Allow opening https:\/\/github\.com\/SenecaDPJ/);
+  assert.equal(b.$("#cancel-confirm").textContent, "Cancel");
+  assert.equal(b.$("#accept-confirm").textContent, "Open link");
+  b.click("#cancel-confirm");
   b.dom.window.close();
 });
 test("la firma solicita permiso y solo entonces invoca la apertura externa", async () => {
