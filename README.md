@@ -6,7 +6,9 @@
 
 [Descargar para Windows 11 · x64 · v2.0.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.0.0/Semana.al.Plato_2.0.0_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
-![Vista de referencia de Semana al Plato, captura de la versión 1.0.1](docs/semana-al-plato-1.0.1.jpg)
+<img width="1397" height="1013" alt="Captura de Semana al Plato del 7 de noviembre de 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
+
+<img width="1394" height="1010" alt="Segunda captura de Semana al Plato del 7 de noviembre de 2026" src="https://github.com/user-attachments/assets/fe564464-a3e8-4745-8dbf-34e497739123" />
 
 ## Qué puedes hacer
 
