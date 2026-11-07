@@ -16,15 +16,18 @@
 - La release privada [v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.2) está publicada. Contiene `Semana.al.Plato_1.0.2_x64-setup.exe` (1.970.092 bytes; SHA-256 `36f4afecac82dd0ab65bf0c7027330e129fdfdc6767f3a8fdb6e1484cbcb5426`).
 - Se comprobó que el repositorio continúa siendo privado.
 
-## Comprobación manual pendiente
+## Comprobaciones manuales pendientes de v1.0.2
 
 - Instalar el paquete y revisar visualmente el icono del instalador y desinstalador, además de las etiquetas en los temas claro y oscuro.
 - Probar exportar y restaurar una copia, conservando los datos, y revisar el calendario con contenido abundante.
 - La compilación automatizada no demuestra por sí sola la comprobación visual del instalador ni el funcionamiento manual en otro PC.
 
-## Candidatura v1.0.3: clonado, arrastre y apertura del perfil
+## Comprobaciones de v1.0.3
 
-- `npm test`: 26 pruebas correctas. Las pruebas nuevas comprueban ambos destinos de clonado, el reordenado y movimiento entre días de la misma fila, el clonado múltiple, las dos confirmaciones de borrado y la confirmación del enlace a GitHub.
+- `npm test`: 26 pruebas correctas. Las pruebas incluyen ambos destinos de clonado, el reordenado y movimiento entre días de la misma fila, el clonado múltiple, las dos confirmaciones de borrado y el permiso para abrir el perfil de GitHub.
 - `git diff --check`: correcto.
 - `npm run build`: correcto; generó `dist/index.html`, excluido de Git.
-- La compilación NSIS x64 y la publicación de la release quedan pendientes de la CI de Windows.
+- El flujo de [Publicación de Windows](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42403188032) terminó correctamente: pruebas y compilación NSIS x64.
+- La release privada [v1.0.3](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.3) está publicada. Contiene `Semana.al.Plato_1.0.3_x64-setup.exe` (1.981.890 bytes; SHA-256 `183334182d63a0ceb74cb184c6f627efb1ea4fd6bc131b54c830c2227a1cbb5b`).
+- Las pruebas automatizadas verifican que cancelar no abre el enlace y que aceptar invoca la apertura nativa. No se ha comprobado manualmente el navegador desde la aplicación instalada.
+- La información de GitHub confirma que el repositorio continúa siendo privado.
