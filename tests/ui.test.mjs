@@ -96,6 +96,34 @@ test("tema claro y oscuro: alternancia, accesibilidad y preferencia persistente"
   reopened.dom.window.close();
   b.dom.window.close();
 });
+test("la firma solicita permiso y solo entonces invoca la apertura externa", async () => {
+  const calls = [];
+  const b = boot(undefined, undefined, async (command, args) => {
+    calls.push({ command, args });
+    return true;
+  });
+  b.click("#profile-link");
+  assert.equal(b.$("#confirm").open, true);
+  assert.match(b.$("#confirm").textContent, /¿Permites abrir https:\/\/github\.com\/SenecaDPJ/);
+  assert.deepEqual(calls, []);
+  b.click("#cancel-confirm");
+  assert.deepEqual(calls, []);
+  b.click("#profile-link");
+  b.click("#accept-confirm");
+  assert.deepEqual(calls, [{ command: "open_github_profile", args: undefined }]);
+  await Promise.resolve();
+  b.dom.window.close();
+});
+test("la vista previa abre el perfil solo después de confirmar", () => {
+  const b = boot(),
+    opened = [];
+  b.w.open = (...args) => opened.push(args);
+  b.click("#profile-link");
+  assert.deepEqual(opened, []);
+  b.click("#accept-confirm");
+  assert.deepEqual(opened, [["https://github.com/SenecaDPJ", "_blank", "noopener,noreferrer"]]);
+  b.dom.window.close();
+});
 test("calendario, cancelar/confirmar, múltiples entradas, navegación y persistencia", () => {
   const { dom, w, $, click, data } = boot();
   assert.equal(w.document.querySelectorAll(".cell").length, 21);

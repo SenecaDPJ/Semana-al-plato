@@ -1,4 +1,4 @@
-# Validación de Semana al Plato 1.0.2
+# Validación de Semana al Plato 1.0.3
 
 ## Registro heredado de v1.0.1
 
@@ -22,8 +22,9 @@
 - Probar exportar y restaurar una copia, conservando los datos, y revisar el calendario con contenido abundante.
 - La compilación automatizada no demuestra por sí sola la comprobación visual del instalador ni el funcionamiento manual en otro PC.
 
-## Rama de prueba: clonado, arrastre y selección múltiple
+## Candidatura v1.0.3: clonado, arrastre y apertura del perfil
 
-- `npm test`: 24 pruebas correctas. Las pruebas nuevas comprueban el clonado individual dentro y fuera de la semana visible, el reordenado y movimiento entre días de la misma fila, el clonado de varios elementos y las dos confirmaciones de borrado.
+- `npm test`: 26 pruebas correctas. Las pruebas nuevas comprueban ambos destinos de clonado, el reordenado y movimiento entre días de la misma fila, el clonado múltiple, las dos confirmaciones de borrado y la confirmación del enlace a GitHub.
 - `git diff --check`: correcto.
-- No se ha generado ni comprobado visualmente un instalador. Esta rama no cambia la versión ni publica una release.
+- `npm run build`: correcto; generó `dist/index.html`, excluido de Git.
+- La compilación NSIS x64 y la publicación de la release quedan pendientes de la CI de Windows.

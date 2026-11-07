@@ -41,6 +41,8 @@ jobs:
           releaseBody: |
             Calendario semanal de comidas para Windows 11.
 
-            Esta versión mejora la distribución de los controles, el contraste de las etiquetas y el icono del instalador.
+            Incluye clonado de elementos, reordenado y movimiento por arrastre, selección múltiple y borrado con doble confirmación.
+
+            El enlace al perfil de GitHub ahora pide confirmación y se abre en el navegador predeterminado.
           releaseDraft: false
           prerelease: false

@@ -48,7 +48,8 @@ let week = monday(new Date()),
   pointerGesture = null,
   clearSelectionOnConfirmClose = false,
   suppressCalendarClick = false;
-const THEME_KEY = "calendario-comidas.theme";
+const THEME_KEY = "calendario-comidas.theme",
+  PROFILE_URL = "https://github.com/SenecaDPJ";
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   const label = theme === "dark" ? "Activar tema claro" : "Activar tema oscuro";
@@ -70,6 +71,28 @@ $("#theme-toggle").onclick = () => {
   } catch {
     toast("El tema ha cambiado, pero no se ha podido guardar la preferencia.");
   }
+};
+$("#profile-link").onclick = (event) => {
+  event.preventDefault();
+  confirmAction(
+    "Abrir perfil de GitHub",
+    `¿Permites abrir ${PROFILE_URL} en el navegador predeterminado?`,
+    () => {
+      try {
+        if (window.__TAURI__?.core?.invoke) {
+          Promise.resolve(
+            window.__TAURI__.core.invoke("open_github_profile"),
+          ).catch((error) => toast("No se pudo abrir el perfil: " + error));
+        } else {
+          window.open(PROFILE_URL, "_blank", "noopener,noreferrer");
+        }
+      } catch (error) {
+        toast("No se pudo abrir el perfil: " + error);
+      }
+    },
+    "",
+    "Abrir enlace",
+  );
 };
 const category = (id) => state.categories.find((c) => c.id === id);
 const source = (e) =>
