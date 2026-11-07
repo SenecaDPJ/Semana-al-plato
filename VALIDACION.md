@@ -1,4 +1,4 @@
-# Validación de Semana al Plato 2.1.0
+# Registro de validación de Semana al Plato
 
 ## Registro heredado de v1.0.1
 
@@ -44,6 +44,16 @@
 
 ## Preparación de v2.1.0
 
-- La bandera del idioma activo, el orden de los botones de selección múltiple y los avisos de movimiento no válido están preparados en esta rama.
+- La rama de prueba añade las banderas del idioma activo (España/Reino Unido), reordena las acciones de selección múltiple y refuerza los avisos de movimiento no válido. La corrección final fuerza explícitamente la visibilidad de la bandera correspondiente.
 - `npm run build`: correcto localmente. La compilación local de Tauri no pudo ejecutarse porque Cargo no está instalado.
-- La [PR #6](https://github.com/SenecaDPJ/Semana-al-plato/pull/6) ejecuta las pruebas y compila el instalador NSIS x64 de prueba en Windows. No se ha publicado una release 2.1.0.
+- El flujo de Windows de la [PR #6](https://github.com/SenecaDPJ/semana-al-plato/pull/6) terminó correctamente en el [run 42422715713](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42422715713): 30 pruebas correctas, 0 fallidas y compilación NSIS x64.
+- La compilación se entregó solo como artefacto de prueba (ID `13594795072`; ZIP de 1.972.572 bytes; SHA-256 `f9c481cb7cff5294069e59acf0d20a6b6de89b2718e15ddc39fc9437a0472160`). La rama v2.1.0 no se publicó como release.
+- La compilación automatizada no demuestra por sí sola la comprobación visual de cada pantalla del instalador ni sustituye a una prueba manual de esta revisión concreta en Windows.
+
+## Validación de v2.2.0
+
+- v2.2.0 conserva las funciones de v2.1.0 y deja registradas en ambos README las banderas de España y Reino Unido, el icono de la aplicación/instalador/desinstalador, la paleta de categorías, los controles de tema, clonación, movimiento, selección múltiple y los avisos de SmartScreen para el instalador sin firma reconocida.
+- `npm test`: 30 pruebas correctas y 0 fallidas; incluye la paleta de contraste, idioma y banderas, temas, clonación, movimiento, selección múltiple, copias y permiso del enlace externo.
+- `npm run build`: correcto; generó `dist/index.html`, excluido de Git. `git diff --check`: correcto.
+- La compilación NSIS x64 de Windows para esta versión se registrará cuando termine el flujo de la PR #6; después se ejecutarán las mismas pruebas al publicar la release privada v2.2.0.
+- La revisión visual del instalador en Windows queda pendiente; un resultado automatizado correcto no equivale a una comprobación visual ni a una prueba en otro equipo.
