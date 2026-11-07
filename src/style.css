@@ -335,6 +335,7 @@ h2 {
   overflow: auto;
 }
 #calendar {
+  position: relative;
   display: grid;
   grid-template-columns: 94px repeat(7, minmax(122px, 1fr));
   min-width: 950px;
@@ -392,6 +393,26 @@ h2 {
   border-bottom: 1px solid var(--line);
   position: relative;
 }
+.cell.drop-target {
+  background: #e6f1dc;
+  box-shadow: inset 0 0 0 2px #668b43;
+}
+.cell.drop-invalid {
+  background: #f9e9e8;
+  box-shadow: inset 0 0 0 2px #b86b67;
+}
+.calendar-selecting {
+  user-select: none;
+  cursor: crosshair;
+}
+.selection-marquee {
+  position: absolute;
+  z-index: 6;
+  border: 1px solid #2465bd;
+  border-radius: 4px;
+  background: #4f8fe52b;
+  pointer-events: none;
+}
 .cell.current {
   background: #fbfcf8;
 }
@@ -439,6 +460,65 @@ h2 {
   font-size: 13px;
   font-weight: 650;
   overflow-wrap: anywhere;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+}
+.entry.is-selected {
+  outline: 3px solid #2465bd;
+  outline-offset: 1px;
+}
+.entry.lasso-candidate {
+  outline: 2px dashed #2465bd;
+  outline-offset: 1px;
+}
+.entry.is-dragging {
+  cursor: grabbing;
+  opacity: 0.38;
+}
+.entry-menu-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 8px;
+}
+.entry-menu-meta .badge {
+  margin-top: 0;
+}
+.clone-destinations {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+.clone-destination {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.clone-destination > input[type="radio"] {
+  width: auto;
+  margin: 3px 0 0;
+}
+.clone-destination > span {
+  display: grid;
+  gap: 5px;
+}
+.clone-destination small {
+  color: var(--muted);
+  line-height: 1.5;
+}
+.clone-destination select,
+.clone-destination input[type="date"] {
+  margin-top: 4px;
+}
+.clone-destination input:disabled,
+.clone-destination select:disabled {
+  opacity: 0.55;
 }
 .entry small {
   display: block;
@@ -465,14 +545,17 @@ h2 {
   color: #899078;
   font-size: 10px;
 }
-.signature a {
+.signature-link {
   color: #657027;
   border: 1px solid #a5a94e;
   border-radius: 999px;
   padding: 4px 11px;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 400;
   text-decoration: none;
 }
-.signature a:hover {
+.signature-link:hover {
   background: #f0f4df;
 }
 .sr-only {
@@ -896,6 +979,22 @@ html[data-theme="dark"] .cell.choosing {
 html[data-theme="dark"] .cell.choosing:hover {
   background: #365d46;
 }
+html[data-theme="dark"] .cell.drop-target {
+  background: #2b4839;
+  box-shadow: inset 0 0 0 2px #97c77b;
+}
+html[data-theme="dark"] .cell.drop-invalid {
+  background: #563b3b;
+  box-shadow: inset 0 0 0 2px #db8984;
+}
+html[data-theme="dark"] .entry.is-selected,
+html[data-theme="dark"] .entry.lasso-candidate {
+  outline-color: #83b8ff;
+}
+html[data-theme="dark"] .selection-marquee {
+  border-color: #83b8ff;
+  background: #83b8ff30;
+}
 html[data-theme="dark"] button:where(:not(.primary, .action-food, .action-category, .action-recipe, .entry, .swatch, .cell-add)),
 html[data-theme="dark"] summary,
 html[data-theme="dark"] input,
@@ -931,12 +1030,12 @@ html[data-theme="dark"] .day-head.today .weekday {
   color: #b9d8b9;
 }
 html[data-theme="dark"] .version-pill,
-html[data-theme="dark"] .signature a {
+html[data-theme="dark"] .signature-link {
   background: #2a392d;
   color: #dfebbd;
   border-color: #819b62;
 }
-html[data-theme="dark"] .signature a:hover {
+html[data-theme="dark"] .signature-link:hover {
   background: #3a4d38;
 }
 html[data-theme="dark"] #placement {

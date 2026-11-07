@@ -343,6 +343,71 @@ export function removeReferences(state, id, kind) {
     if (!state.plan[key].length) delete state.plan[key];
   }
 }
+export function clonePlanEntries(state, selected, targetDate, makeId = uid) {
+  parseDate(targetDate);
+  if (!Array.isArray(selected) || !selected.length)
+    throw Error("Selecciona al menos un elemento para clonar.");
+  const seen = new Set();
+  const copies = selected.map(({ key, id }) => {
+    const token = `${key}|${id}`;
+    if (seen.has(token)) throw Error("La selección contiene elementos repetidos.");
+    seen.add(token);
+    const [, slot] = key.split("|");
+    if (!SLOTS.includes(slot)) throw Error("El momento del día no es válido.");
+    const original = state.plan[key]?.find((entry) => entry.id === id);
+    if (!original) throw Error("Un elemento seleccionado ya no está en el calendario.");
+    return { key: `${targetDate}|${slot}`, entry: original };
+  });
+  const additions = new Map();
+  for (const { key } of copies)
+    additions.set(key, (additions.get(key) || 0) + 1);
+  for (const [key, count] of additions)
+    if ((state.plan[key]?.length || 0) + count > 100)
+      throw Error("Una casilla ha alcanzado el límite de 100 elementos.");
+  for (const { key, entry } of copies)
+    (state.plan[key] ||= []).push({ ...entry, id: makeId() });
+  return copies.length;
+}
+export function movePlanEntry(state, sourceKey, id, targetKey, targetIndex) {
+  const source = state.plan[sourceKey];
+  const sourceIndex = source?.findIndex((entry) => entry.id === id) ?? -1;
+  if (sourceIndex < 0) throw Error("El elemento ya no está en el calendario.");
+  if (sourceKey.split("|")[1] !== targetKey.split("|")[1])
+    throw Error("Los elementos solo se pueden mover dentro de la misma fila.");
+  const target = state.plan[targetKey] || [];
+  if (sourceKey !== targetKey && target.length >= 100)
+    throw Error("Esta casilla ha alcanzado el límite de 100 elementos.");
+  if (!Number.isInteger(targetIndex))
+    throw Error("La posición de destino no es válida.");
+  const [entry] = source.splice(sourceIndex, 1);
+  const destination = sourceKey === targetKey ? source : target;
+  const index = Math.max(0, Math.min(targetIndex, destination.length));
+  destination.splice(index, 0, entry);
+  if (sourceKey !== targetKey) {
+    state.plan[targetKey] = destination;
+    if (!source.length) delete state.plan[sourceKey];
+  }
+  return sourceKey !== targetKey || sourceIndex !== index;
+}
+export function removePlanEntries(state, selected) {
+  const grouped = new Map();
+  for (const { key, id } of selected) {
+    if (!grouped.has(key)) grouped.set(key, new Set());
+    grouped.get(key).add(id);
+  }
+  let removed = 0;
+  for (const [key, ids] of grouped) {
+    const entries = state.plan[key];
+    if (!entries) continue;
+    state.plan[key] = entries.filter((entry) => {
+      if (!ids.has(entry.id)) return true;
+      removed++;
+      return false;
+    });
+    if (!state.plan[key].length) delete state.plan[key];
+  }
+  return removed;
+}
 export function contrast(a, b) {
   const lum = (h) => {
     const v = h

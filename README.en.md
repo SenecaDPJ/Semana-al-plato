@@ -4,7 +4,7 @@
 
 [Español](README.md) · **English**
 
-[Download for Windows 11 · x64 · v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v1.0.2/Semana.al.Plato_1.0.2_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Download for Windows 11 · x64 · v1.0.3](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v1.0.3/Semana.al.Plato_1.0.3_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
 ![Semana al Plato reference screenshot from version 1.0.1](docs/semana-al-plato-1.0.1.jpg)
 
@@ -30,7 +30,7 @@ It works locally, without an account or a meal-planning service. Your menu stays
 
 ## Download and install
 
-1. Download **Semana.al.Plato_1.0.2_x64-setup.exe** using the link above or the [v1.0.2 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.2).
+1. Download **Semana.al.Plato_1.0.3_x64-setup.exe** using the link above or the [v1.0.3 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.3).
 2. Run the installer and follow its instructions.
 3. Open **Semana al Plato** and start planning.
 
@@ -88,6 +88,13 @@ Click the **☾ / ☀** button in the header to switch between light and dark th
 Click an entry in the calendar and choose **Eliminar de esta casilla** (remove from this slot). It remains available for other days.
 
 Deleting it from its catalogue or the recipe collection also removes its calendar appearances. The confirmation reports the affected appearances.
+
+### 8. Clone, move and select multiple entries
+
+- Click a calendar entry and choose **Clonar** (clone) to copy it to another day in the same week or to a date in another week. Its breakfast, lunch or dinner row is preserved.
+- Press and hold an entry, then drag it to reorder it within its row or move it to another day in that row.
+- To work with multiple entries, drag from an empty area of the calendar. Choose **Clonar TODOS** (clone all) or **Eliminar TODOS** (delete all). Cloning asks for a destination day; deleting requires two confirmations.
+- The **github.com/SenecaDPJ** link asks for confirmation before opening the profile in the default browser.
 
 ## Starter content
 

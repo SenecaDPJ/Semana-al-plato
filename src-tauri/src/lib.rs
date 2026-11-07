@@ -2,7 +2,7 @@
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
-        .invoke_handler(tauri::generate_handler![export_backup])
+        .invoke_handler(tauri::generate_handler![export_backup, open_github_profile])
         .setup(|app| {
             #[cfg(target_os = "windows")]
             place_main_window(app)?;
@@ -27,6 +27,36 @@ async fn export_backup(app: tauri::AppHandle, json: String) -> Result<bool, Stri
     let path = selected.into_path().map_err(|e| e.to_string())?;
     std::fs::write(path, json).map_err(|e| e.to_string())?;
     Ok(true)
+}
+
+#[tauri::command]
+fn open_github_profile() -> Result<(), String> {
+    #[cfg(target_os = "windows")]
+    {
+        use windows_sys::Win32::UI::Shell::ShellExecuteW;
+        use windows_sys::Win32::UI::WindowsAndMessaging::SW_SHOWNORMAL;
+
+        let verb: Vec<u16> = "open\0".encode_utf16().collect();
+        let url: Vec<u16> = "https://github.com/SenecaDPJ\0".encode_utf16().collect();
+        let result = unsafe {
+            ShellExecuteW(
+                std::ptr::null_mut(),
+                verb.as_ptr(),
+                url.as_ptr(),
+                std::ptr::null(),
+                std::ptr::null(),
+                SW_SHOWNORMAL,
+            )
+        };
+        if (result as isize) <= 32 {
+            return Err("Windows no pudo abrir el perfil de GitHub.".into());
+        }
+        Ok(())
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        Err("Abrir el perfil de GitHub solo está disponible en Windows.".into())
+    }
 }
 
 #[cfg(target_os = "windows")]

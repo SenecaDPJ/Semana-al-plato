@@ -12,6 +12,9 @@ import {
   FILL_COLORS,
   contrast,
   removeReferences,
+  clonePlanEntries,
+  movePlanEntry,
+  removePlanEntries,
 } from "../src/domain.js";
 test("30 alimentos, 30 comidas, 10 por cada categoría, 3 recetas", () => {
   const s = validate(seed());
@@ -89,6 +92,78 @@ test("borrado elimina referencias, conserva otros elementos", () => {
   ];
   removeReferences(s, "meal-0-0", "meal");
   assert.equal(s.plan["2026-11-04|Cena"].length, 1);
+  validate(s);
+});
+test("clonar conserva originales, tipo y referencia con identificadores nuevos", () => {
+  const s = seed();
+  s.plan["2026-11-02|Desayuno"] = [
+    { id: "planned-meal", refId: "meal-0-0", kind: "meal" },
+    { id: "planned-food", refId: "food-0-0", kind: "food" },
+  ];
+  assert.equal(
+    clonePlanEntries(
+      s,
+      [
+        { key: "2026-11-02|Desayuno", id: "planned-meal" },
+        { key: "2026-11-02|Desayuno", id: "planned-food" },
+      ],
+      "2026-11-04",
+      () => "clone-" + (s.plan["2026-11-04|Desayuno"]?.length || 0),
+    ),
+    2,
+  );
+  assert.deepEqual(s.plan["2026-11-02|Desayuno"].map((x) => x.id), [
+    "planned-meal",
+    "planned-food",
+  ]);
+  assert.deepEqual(s.plan["2026-11-04|Desayuno"], [
+    { id: "clone-0", refId: "meal-0-0", kind: "meal" },
+    { id: "clone-1", refId: "food-0-0", kind: "food" },
+  ]);
+  assert.throws(() =>
+    clonePlanEntries(s, [{ key: "2026-11-02|Desayuno", id: "missing" }], "2026-11-04"),
+  );
+  validate(s);
+});
+test("arrastrar reordena y mueve elementos entre fechas sin perder referencias", () => {
+  const s = seed();
+  s.plan["2026-11-02|Comida"] = [
+    { id: "a", refId: "meal-0-0", kind: "meal" },
+    { id: "b", refId: "food-0-0", kind: "food" },
+    { id: "c", refId: "meal-0-1", kind: "meal" },
+  ];
+  const beforeInvalidMove = structuredClone(s.plan);
+  assert.throws(
+    () => movePlanEntry(s, "2026-11-02|Comida", "b", "2026-11-02|Cena", 0),
+    /misma fila/,
+  );
+  assert.deepEqual(s.plan, beforeInvalidMove);
+  assert.equal(movePlanEntry(s, "2026-11-02|Comida", "c", "2026-11-02|Comida", 0), true);
+  assert.deepEqual(s.plan["2026-11-02|Comida"].map((x) => x.id), ["c", "a", "b"]);
+  assert.equal(movePlanEntry(s, "2026-11-02|Comida", "b", "2026-11-03|Comida", 0), true);
+  assert.deepEqual(s.plan["2026-11-02|Comida"].map((x) => x.id), ["c", "a"]);
+  assert.deepEqual(s.plan["2026-11-03|Comida"].map((x) => x.id), ["b"]);
+  validate(s);
+});
+test("eliminación múltiple quita solo las apariciones seleccionadas", () => {
+  const s = seed();
+  s.plan["2026-11-02|Cena"] = [
+    { id: "a", refId: "meal-0-0", kind: "meal" },
+    { id: "b", refId: "food-0-0", kind: "food" },
+  ];
+  s.plan["2026-11-03|Cena"] = [
+    { id: "c", refId: "meal-0-1", kind: "meal" },
+  ];
+  assert.equal(
+    removePlanEntries(s, [
+      { key: "2026-11-02|Cena", id: "a" },
+      { key: "2026-11-03|Cena", id: "c" },
+    ]),
+    2,
+  );
+  assert.deepEqual(s.plan, {
+    "2026-11-02|Cena": [{ id: "b", refId: "food-0-0", kind: "food" }],
+  });
   validate(s);
 });
 test('importación rechaza identificadores con marcado HTML',()=>{const s=seed();s.items[0].id='x" onfocus="alert(1)';assert.throws(()=>validate(s));});

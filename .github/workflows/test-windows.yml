@@ -1,0 +1,43 @@
+name: Descargar instalador de prueba
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Pruebas y NSIS x64
+    runs-on: windows-latest
+    steps:
+      - name: Obtener el código
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar Rust estable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas
+        run: npm test
+
+      - name: Compilar instalador de prueba
+        run: npm run tauri -- build
+
+      - name: Publicar instalador como artefacto descargable
+        uses: actions/upload-artifact@v4
+        with:
+          name: semana-al-plato-prueba-${{ github.sha }}
+          path: src-tauri/target/release/bundle/nsis/*-setup.exe
+          if-no-files-found: error
+          retention-days: 14
