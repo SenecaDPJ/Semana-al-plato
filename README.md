@@ -87,6 +87,14 @@ Pulsa el elemento colocado en el calendario y elige **Eliminar de esta casilla**
 
 Si lo eliminas desde el catálogo o el recetario, también se quitarán sus apariciones del calendario. La confirmación avisa de las apariciones afectadas.
 
+### 8. Clona, mueve y selecciona varios elementos (rama de prueba)
+
+- Pulsa un elemento y elige **Clonar** para copiarlo a otro día de la misma semana o a una fecha de otra semana. Se conserva su desayuno, comida o cena.
+- Mantén pulsado un elemento y arrástralo para cambiar su orden dentro de la misma fila o moverlo a otro día de esa fila.
+- Para operar con varios elementos, arrastra desde un espacio vacío del calendario. En la selección puedes elegir **Clonar TODOS** o **Eliminar TODOS**. El clonado pide el día de destino y el borrado requiere dos confirmaciones.
+
+Esta funcionalidad está en una rama de prueba y todavía no forma parte de una nueva versión publicada.
+
 ## Contenido inicial
 
 La primera ejecución incluye **30 alimentos y 30 comidas**: diez de cada tipo para cada categoría inicial. Son ejemplos editables, no un menú obligatorio.

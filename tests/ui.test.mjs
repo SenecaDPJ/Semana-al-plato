@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { JSDOM } from "jsdom";
+import { seed } from "../src/domain.js";
 const html = await readFile(
   new URL("../dist/index.html", import.meta.url),
   "utf8",
@@ -159,6 +160,125 @@ test("cancelar la confirmación de una casilla no deja selección pendiente", ()
   click('[data-select="meal-0-0"]');
   assert.equal($("#confirm").open, false);
   assert.equal($("#placement").hidden, false);
+  dom.window.close();
+});
+test("clonar un elemento desde su menú a otra fecha de la semana", () => {
+  const state = seed();
+  state.plan["2026-11-02|Desayuno"] = [
+    { id: "planned-meal", refId: "meal-0-0", kind: "meal" },
+  ];
+  const { dom, w, $, click, data } = boot(JSON.stringify(state));
+  $("#week").value = "2026-11-02";
+  $("#week").dispatchEvent(new w.Event("change", { bubbles: true }));
+  click('[data-entry="planned-meal"]');
+  assert.ok($("#clone-entry"));
+  click("#clone-entry");
+  assert.match($("#confirm").textContent, /Otro día de esta semana/);
+  $("#clone-week-date").value = "2026-11-04";
+  click("#accept-clone");
+  assert.equal(data().plan["2026-11-02|Desayuno"][0].id, "planned-meal");
+  const [copy] = data().plan["2026-11-04|Desayuno"];
+  assert.equal(copy.refId, "meal-0-0");
+  assert.equal(copy.kind, "meal");
+  assert.notEqual(copy.id, "planned-meal");
+  click('[data-entry="planned-meal"]');
+  click("#clone-entry");
+  click("#clone-other-week");
+  $("#clone-other-date").value = "2026-11-12";
+  click("#accept-clone");
+  assert.equal($("#week").value, "2026-11-09");
+  assert.equal(data().plan["2026-11-12|Desayuno"].length, 1);
+  dom.window.close();
+});
+test("arrastrar reordena una fila y mueve elementos a otro día de la misma fila", () => {
+  const state = seed();
+  state.plan["2026-11-02|Comida"] = [
+    { id: "first", refId: "meal-0-0", kind: "meal" },
+    { id: "second", refId: "food-0-0", kind: "food" },
+  ];
+  const { dom, w, $, data } = boot(JSON.stringify(state));
+  $("#week").value = "2026-11-02";
+  $("#week").dispatchEvent(new w.Event("change", { bubbles: true }));
+  const pointer = (target, type, x, y) =>
+    target.dispatchEvent(new w.MouseEvent(type, {
+      bubbles: true,
+      cancelable: true,
+      button: 0,
+      clientX: x,
+      clientY: y,
+    }));
+  const first = $('[data-entry="first"]');
+  const second = $('[data-entry="second"]');
+  first.getBoundingClientRect = () => ({ left: 10, right: 110, top: 20, bottom: 60, height: 40 });
+  second.getBoundingClientRect = () => ({ left: 10, right: 110, top: 70, bottom: 110, height: 40 });
+  const row = $('[data-cell="2026-11-02|Comida"]');
+  w.document.elementFromPoint = () => row;
+  pointer(second, "pointerdown", 40, 90);
+  pointer(w.document, "pointermove", 40, 10);
+  pointer(w.document, "pointerup", 40, 10);
+  assert.deepEqual(data().plan["2026-11-02|Comida"].map((entry) => entry.id), ["second", "first"]);
+
+  const moved = $('[data-entry="second"]');
+  const target = $('[data-cell="2026-11-03|Comida"]');
+  w.document.elementFromPoint = () => target;
+  pointer(moved, "pointerdown", 40, 30);
+  pointer(w.document, "pointermove", 180, 100);
+  pointer(w.document, "pointerup", 180, 100);
+  assert.deepEqual(data().plan["2026-11-02|Comida"].map((entry) => entry.id), ["first"]);
+  assert.deepEqual(data().plan["2026-11-03|Comida"].map((entry) => entry.id), ["second"]);
+  dom.window.close();
+});
+test("selección múltiple permite clonar y exige dos confirmaciones para borrar", () => {
+  const state = seed();
+  state.plan["2026-11-02|Desayuno"] = [
+    { id: "selected-a", refId: "meal-0-0", kind: "meal" },
+  ];
+  state.plan["2026-11-03|Comida"] = [
+    { id: "selected-b", refId: "food-0-0", kind: "food" },
+  ];
+  const { dom, w, $, click, data } = boot(JSON.stringify(state));
+  $("#week").value = "2026-11-02";
+  $("#week").dispatchEvent(new w.Event("change", { bubbles: true }));
+  const setBounds = () => {
+    $('[data-entry="selected-a"]').getBoundingClientRect = () => ({ left: 30, right: 100, top: 30, bottom: 70, height: 40 });
+    $('[data-entry="selected-b"]').getBoundingClientRect = () => ({ left: 150, right: 220, top: 90, bottom: 130, height: 40 });
+  };
+  const lasso = () => {
+    setBounds();
+    const blankCell = $('[data-cell="2026-11-02|Desayuno"]');
+    const pointer = (target, type, x, y) =>
+      target.dispatchEvent(new w.MouseEvent(type, {
+        bubbles: true,
+        cancelable: true,
+        button: 0,
+        clientX: x,
+        clientY: y,
+      }));
+    pointer(blankCell, "pointerdown", 10, 10);
+    pointer(w.document, "pointermove", 240, 150);
+    pointer(w.document, "pointerup", 240, 150);
+  };
+
+  lasso();
+  assert.equal($("#confirm").open, true);
+  assert.match($("#confirm").textContent, /2 elementos seleccionados/);
+  click("#clone-selected");
+  $("#clone-week-date").value = "2026-11-05";
+  click("#accept-clone");
+  assert.equal(data().plan["2026-11-05|Desayuno"].length, 1);
+  assert.equal(data().plan["2026-11-05|Comida"].length, 1);
+  assert.notEqual(data().plan["2026-11-05|Desayuno"][0].id, "selected-a");
+  assert.equal($("#confirm").open, false);
+
+  lasso();
+  click("#delete-selected");
+  click("#accept-confirm");
+  assert.match($("#confirm h2").textContent, /Confirmación final/);
+  assert.equal(data().plan["2026-11-02|Desayuno"].length, 1);
+  click("#accept-confirm");
+  assert.equal(data().plan["2026-11-02|Desayuno"], undefined);
+  assert.equal(data().plan["2026-11-03|Comida"], undefined);
+  assert.equal(data().plan["2026-11-05|Desayuno"].length, 1);
   dom.window.close();
 });
 test("CRUD alimentos y rechazo de duplicados", () => {

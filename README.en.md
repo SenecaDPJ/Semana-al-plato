@@ -89,6 +89,14 @@ Click an entry in the calendar and choose **Eliminar de esta casilla** (remove f
 
 Deleting it from its catalogue or the recipe collection also removes its calendar appearances. The confirmation reports the affected appearances.
 
+### 8. Clone, move and select multiple entries (test branch)
+
+- Click a calendar entry and choose **Clonar** (clone) to copy it to another day in the same week or to a date in another week. Its breakfast, lunch or dinner row is preserved.
+- Press and hold an entry, then drag it to reorder it within its row or move it to another day in that row.
+- To work with multiple entries, drag from an empty area of the calendar. Choose **Clonar TODOS** (clone all) or **Eliminar TODOS** (delete all). Cloning asks for a destination day; deleting requires two confirmations.
+
+This functionality is on a test branch and is not part of a newly published version yet.
+
 ## Starter content
 
 The first run includes **30 food items and 30 dishes**: ten of each type for each original category. These are editable examples, not a mandatory meal plan.

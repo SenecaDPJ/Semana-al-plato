@@ -12,6 +12,9 @@ import {
   applyDefaultCategoryColors,
   validate,
   removeReferences,
+  clonePlanEntries,
+  movePlanEntry,
+  removePlanEntries,
   seed,
 } from "./domain.js";
 import { load, save, download } from "./storage.js";
@@ -40,7 +43,11 @@ let week = monday(new Date()),
   pending = null,
   targetCell = null,
   kind = "meal",
-  returnFocus = null;
+  returnFocus = null,
+  selectedEntries = [],
+  pointerGesture = null,
+  clearSelectionOnConfirmClose = false,
+  suppressCalendarClick = false;
 const THEME_KEY = "calendario-comidas.theme";
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
@@ -120,8 +127,11 @@ function render() {
         html += `<div class="empty"><button aria-label="Añadir a ${slot} del ${dateKey(day)}" data-add="${key}">+</button></div>`;
       for (const e of entries) {
         const x = source(e),
-          c = category(x.categoryId);
-        html += `<button class="entry" data-text="${c.text}" data-fill="${c.fill}" data-entry="${e.id}" data-key="${key}">${esc(x.name)}<small>${e.kind === "recipe" ? "▤ Receta" : e.kind === "food" ? "Alimento" : "Plato"} · ${esc(c.name)}</small></button>`;
+          c = category(x.categoryId),
+          selected = selectedEntries.some(
+            (item) => item.key === key && item.id === e.id,
+          );
+        html += `<button class="entry${selected ? " is-selected" : ""}" aria-pressed="${selected}" draggable="false" data-text="${c.text}" data-fill="${c.fill}" data-entry="${e.id}" data-key="${key}">${esc(x.name)}<small>${e.kind === "recipe" ? "▤ Receta" : e.kind === "food" ? "Alimento" : "Plato"} · ${esc(c.name)}</small></button>`;
       }
       if (entries.length)
         html +=
@@ -164,15 +174,20 @@ function choose(x, k) {
 }
 function confirmAction(title, message, accept, action, label = "Confirmar") {
   const d = $("#confirm");
-  returnFocus = document.activeElement;
+  if (!d.open) returnFocus = document.activeElement;
   d.innerHTML = `<h2>${esc(title)}</h2><p>${esc(message)}</p><div class="actions"><button id="cancel-confirm">Cancelar</button><button id="accept-confirm" class="${action === "delete" ? "danger" : "primary"}">${esc(label)}</button></div>`;
-  d.showModal();
+  if (!d.open) d.showModal();
   $("#cancel-confirm").onclick = () => d.close();
   $("#accept-confirm").onclick = () => {
     if (accept() !== false) d.close();
   };
 }
 $("#confirm").addEventListener("close", () => {
+  if (clearSelectionOnConfirmClose) {
+    clearSelectionOnConfirmClose = false;
+    selectedEntries = [];
+    render();
+  }
   if (returnFocus?.isConnected) returnFocus.focus();
 });
 function place(key, fromCell = false) {
@@ -214,6 +229,11 @@ function place(key, fromCell = false) {
     );
 }
 $("#calendar").onclick = (e) => {
+  if (suppressCalendarClick) {
+    suppressCalendarClick = false;
+    e.preventDefault();
+    return;
+  }
   const cell = e.target.closest("[data-cell]");
   if (!cell) return;
   if (pending) {
@@ -241,9 +261,13 @@ function entryMenu(key, id) {
   const e = state.plan[key].find((x) => x.id === id),
     x = source(e),
     d = $("#editor");
-  d.innerHTML = `<div class="panel-head"><h2>${esc(x.name)}</h2><button class="icon" data-close aria-label="Cerrar">×</button></div><p class="help">${esc(key.replace("|", " · "))}</p>${badge(x.categoryId)}<div class="actions">${e.kind === "recipe" ? '<button id="open-entry-recipe">Abrir receta</button>' : ""}<button class="danger" id="remove-entry">Eliminar de esta casilla</button></div>`;
+  d.innerHTML = `<div class="panel-head"><h2>${esc(x.name)}</h2><button class="icon" data-close aria-label="Cerrar">×</button></div><p class="help">${esc(key.replace("|", " · "))}</p><div class="entry-menu-meta">${badge(x.categoryId)}<button id="clone-entry" class="small" aria-label="Clonar ${esc(x.name)}">Clonar</button></div><div class="actions">${e.kind === "recipe" ? '<button id="open-entry-recipe">Abrir receta</button>' : ""}<button class="danger" id="remove-entry">Eliminar de esta casilla</button></div>`;
   d.showModal();
   d.querySelector("[data-close]").onclick = () => d.close();
+  $("#clone-entry").onclick = () => {
+    d.close();
+    openCloneDialog([{ key, id }]);
+  };
   if (e.kind === "recipe")
     $("#open-entry-recipe").onclick = () => {
       d.close();
@@ -264,6 +288,265 @@ function entryMenu(key, id) {
       "delete",
       "Eliminar",
     );
+}
+function openCloneDialog(entries, bulk = false) {
+  if (!entries.length) return;
+  const d = $("#confirm"),
+    weekDates = daysOfWeek(week).map(dateKey),
+    sourceDates = new Set(entries.map(({ key }) => key.split("|")[0])),
+    destinations = weekDates.filter((date) => !sourceDates.has(date)),
+    nextWeek = new Date(week);
+  nextWeek.setDate(nextWeek.getDate() + 7);
+  if (!d.open) returnFocus = document.activeElement;
+  if (bulk) clearSelectionOnConfirmClose = true;
+  const weekOptions = destinations
+    .map((date) => {
+      const day = parseDate(date);
+      return `<option value="${date}">${esc(fmt(day, { weekday: "long", day: "numeric", month: "long" }))}</option>`;
+    })
+    .join("");
+  const countLabel = entries.length === 1 ? "elemento" : "elementos";
+  d.innerHTML = `<h2>Clonar ${entries.length} ${countLabel}</h2><p>Elige el día de destino. Se conservará el momento del día de cada elemento.</p><div class="clone-destinations"><label class="clone-destination"><input id="clone-this-week" name="clone-destination" type="radio" value="week" ${destinations.length ? "checked" : "disabled"}><span><strong>Otro día de esta semana</strong><small>Los elementos seleccionados se copiarán al día elegido.</small><select id="clone-week-date" aria-label="Día de esta semana" ${destinations.length ? "" : "disabled"}>${weekOptions || '<option value="">No queda otro día disponible</option>'}</select></span></label><label class="clone-destination"><input id="clone-other-week" name="clone-destination" type="radio" value="other-week" ${destinations.length ? "" : "checked"}><span><strong>Otro día de otra semana</strong><small>Elige una fecha fuera de la semana visible.</small><input id="clone-other-date" type="date" value="${dateKey(nextWeek)}" disabled></span></label></div><p id="clone-error" class="error" role="alert"></p><div class="actions"><button type="button" id="cancel-clone">Cancelar</button><button type="button" id="accept-clone" class="primary">Clonar</button></div>`;
+  if (!d.open) d.showModal();
+  const syncMode = () => {
+    const useWeek = $("#clone-this-week").checked;
+    $("#clone-week-date").disabled = !useWeek || !destinations.length;
+    $("#clone-other-date").disabled = useWeek;
+  };
+  d.querySelectorAll('[name="clone-destination"]').forEach((input) =>
+    input.addEventListener("change", syncMode),
+  );
+  $("#cancel-clone").onclick = () => d.close();
+  $("#accept-clone").onclick = () => {
+    const error = $("#clone-error");
+    let targetDate;
+    if ($("#clone-this-week").checked) {
+      targetDate = $("#clone-week-date").value;
+      if (!targetDate || !destinations.includes(targetDate)) {
+        error.textContent = "Selecciona otro día de esta semana.";
+        return;
+      }
+    } else {
+      targetDate = $("#clone-other-date").value;
+      try {
+        const chosenWeek = dateKey(monday(parseDate(targetDate)));
+        if (chosenWeek === dateKey(week)) {
+          error.textContent = "La fecha debe pertenecer a otra semana.";
+          return;
+        }
+      } catch {
+        error.textContent = "Selecciona una fecha válida.";
+        return;
+      }
+    }
+    if (!commit((s) => clonePlanEntries(s, entries, targetDate))) return;
+    const targetWeek = monday(parseDate(targetDate));
+    const movedWeek = dateKey(targetWeek) !== dateKey(week);
+    if (movedWeek) {
+      week = targetWeek;
+      render();
+    }
+    d.close();
+    toast(`${entries.length} ${countLabel}${entries.length === 1 ? " clonado" : " clonados"}.`);
+  };
+}
+function confirmDeleteSelected() {
+  const count = selectedEntries.length;
+  confirmAction(
+    "Aviso 1 de 2",
+    `Vas a quitar ${count} ${count === 1 ? "elemento" : "elementos"} seleccionado${count === 1 ? "" : "s"} del calendario. Seguirán disponibles en sus catálogos. ¿Quieres continuar?`,
+    () => {
+      confirmAction(
+        "Confirmación final",
+        `Se eliminarán todos los ${count} elementos seleccionados del plan. Esta acción no se puede deshacer desde el calendario.`,
+        () => {
+          const ok = commit((s) => {
+            if (!removePlanEntries(s, selectedEntries))
+              throw Error("Los elementos seleccionados ya no están en el calendario.");
+          });
+          if (ok) toast(`${count} ${count === 1 ? "elemento eliminado" : "elementos eliminados"}.`);
+          return ok;
+        },
+        "delete",
+        "Eliminar TODOS",
+      );
+      return false;
+    },
+    "delete",
+    "Continuar",
+  );
+}
+function showBulkActions() {
+  const d = $("#confirm"),
+    count = selectedEntries.length,
+    countLabel = count === 1 ? "elemento" : "elementos";
+  if (!d.open) returnFocus = document.activeElement;
+  clearSelectionOnConfirmClose = true;
+  d.innerHTML = `<h2>${count} ${countLabel} seleccionados</h2><p>Puedes clonar la selección en otro día o quitarla del calendario.</p><div class="actions"><button type="button" id="cancel-bulk-selection">Cancelar</button><button type="button" class="danger" id="delete-selected">Eliminar TODOS</button><button type="button" class="primary" id="clone-selected">Clonar TODOS</button></div>`;
+  if (!d.open) d.showModal();
+  $("#cancel-bulk-selection").onclick = () => d.close();
+  $("#clone-selected").onclick = () => openCloneDialog(selectedEntries, true);
+  $("#delete-selected").onclick = confirmDeleteSelected;
+}
+function updateMarquee(gesture, clientX, clientY) {
+  const calendar = $("#calendar"),
+    bounds = calendar.getBoundingClientRect(),
+    left = Math.min(gesture.startX, clientX),
+    right = Math.max(gesture.startX, clientX),
+    top = Math.min(gesture.startY, clientY),
+    bottom = Math.max(gesture.startY, clientY);
+  gesture.box.style.left = `${left - bounds.left}px`;
+  gesture.box.style.top = `${top - bounds.top}px`;
+  gesture.box.style.width = `${right - left}px`;
+  gesture.box.style.height = `${bottom - top}px`;
+  gesture.bounds = { left, right, top, bottom };
+  gesture.matches = [...calendar.querySelectorAll(".entry")]
+    .filter((entry) => {
+      const rect = entry.getBoundingClientRect();
+      return rect.left < right && rect.right > left && rect.top < bottom && rect.bottom > top;
+    })
+    .map((entry) => ({ key: entry.dataset.key, id: entry.dataset.entry }));
+  calendar.querySelectorAll(".entry").forEach((entry) => {
+    const matched = gesture.matches.some(
+      (item) => item.key === entry.dataset.key && item.id === entry.dataset.entry,
+    );
+    entry.classList.toggle("lasso-candidate", matched);
+  });
+}
+function clearGestureVisuals(gesture) {
+  gesture?.box?.remove();
+  const calendar = $("#calendar");
+  calendar.classList.remove("calendar-selecting");
+  calendar.querySelectorAll(".entry.lasso-candidate, .entry.is-dragging, .cell.drop-target, .cell.drop-invalid").forEach((node) => {
+    node.classList.remove("lasso-candidate", "is-dragging", "drop-target", "drop-invalid");
+  });
+}
+function pointerCellAt(event) {
+  const hit = document.elementFromPoint?.(event.clientX, event.clientY);
+  return hit?.closest?.(".cell") || event.target?.closest?.(".cell") || null;
+}
+function insertionIndex(cell, clientY, draggedId) {
+  const entries = [...cell.querySelectorAll(".entry")].filter(
+    (entry) => entry.dataset.entry !== draggedId,
+  );
+  const index = entries.findIndex((entry) => {
+    const rect = entry.getBoundingClientRect();
+    return clientY < rect.top + rect.height / 2;
+  });
+  return index < 0 ? entries.length : index;
+}
+document.addEventListener("pointerdown", (event) => {
+  if ((event.button ?? 0) !== 0 || pending || $("#confirm").open) return;
+  const calendar = $("#calendar"),
+    entry = event.target.closest?.(".entry");
+  if (entry && calendar.contains(entry)) {
+    pointerGesture = {
+      type: "entry",
+      pointerId: event.pointerId ?? 1,
+      startX: event.clientX,
+      startY: event.clientY,
+      element: entry,
+      key: entry.dataset.key,
+      id: entry.dataset.entry,
+      started: false,
+    };
+    return;
+  }
+  const cell = event.target.closest?.(".cell");
+  if (
+    cell &&
+    calendar.contains(cell) &&
+    !event.target.closest("button, a, input, select, summary, .entry")
+  ) {
+    const box = document.createElement("div");
+    box.className = "selection-marquee";
+    calendar.append(box);
+    pointerGesture = {
+      type: "selection",
+      pointerId: event.pointerId ?? 1,
+      startX: event.clientX,
+      startY: event.clientY,
+      box,
+      matches: [],
+      bounds: null,
+    };
+    calendar.classList.add("calendar-selecting");
+    event.preventDefault();
+  }
+});
+document.addEventListener("pointermove", (event) => {
+  const gesture = pointerGesture;
+  if (!gesture || gesture.pointerId !== (event.pointerId ?? 1)) return;
+  const deltaX = event.clientX - gesture.startX,
+    deltaY = event.clientY - gesture.startY;
+  if (gesture.type === "selection") {
+    if (Math.hypot(deltaX, deltaY) < 6) return;
+    updateMarquee(gesture, event.clientX, event.clientY);
+    event.preventDefault();
+    return;
+  }
+  if (!gesture.started && Math.hypot(deltaX, deltaY) < 7) return;
+  gesture.started = true;
+  gesture.element.classList.add("is-dragging");
+  const calendar = $("#calendar"),
+    cell = pointerCellAt(event),
+    sourceSlot = gesture.key.split("|")[1];
+  calendar.querySelectorAll(".cell.drop-target, .cell.drop-invalid").forEach((node) =>
+    node.classList.remove("drop-target", "drop-invalid"),
+  );
+  if (cell) {
+    cell.classList.add(cell.dataset.cell.split("|")[1] === sourceSlot ? "drop-target" : "drop-invalid");
+  }
+  event.preventDefault();
+});
+document.addEventListener("pointerup", (event) => {
+  const gesture = pointerGesture;
+  if (!gesture || gesture.pointerId !== (event.pointerId ?? 1)) return;
+  pointerGesture = null;
+  if (gesture.type === "selection") {
+    if (gesture.bounds) updateMarquee(gesture, event.clientX, event.clientY);
+    const matches = gesture.matches;
+    const largeEnough = gesture.bounds &&
+      (gesture.bounds.right - gesture.bounds.left >= 10 || gesture.bounds.bottom - gesture.bounds.top >= 10);
+    clearGestureVisuals(gesture);
+    if (largeEnough && matches.length) {
+      suppressCalendarClick = true;
+      setTimeout(() => (suppressCalendarClick = false), 0);
+      selectCalendarEntries(matches);
+    } else if (largeEnough) {
+      toast("La selección no contiene elementos del calendario.");
+    }
+    return;
+  }
+  if (!gesture.started) return;
+  suppressCalendarClick = true;
+  setTimeout(() => (suppressCalendarClick = false), 0);
+  const cell = pointerCellAt(event),
+    sourceSlot = gesture.key.split("|")[1];
+  const targetKey = cell?.dataset.cell;
+  const targetIndex = cell ? insertionIndex(cell, event.clientY, gesture.id) : -1;
+  const sourceIndex = state.plan[gesture.key]?.findIndex((entry) => entry.id === gesture.id) ?? -1;
+  clearGestureVisuals(gesture);
+  if (!cell || !targetKey) return;
+  if (targetKey.split("|")[1] !== sourceSlot) {
+    toast("Muévelo a otro día dentro de la misma categoría.");
+    return;
+  }
+  if (targetKey === gesture.key && targetIndex === sourceIndex) return;
+  if (commit((s) => movePlanEntry(s, gesture.key, gesture.id, targetKey, targetIndex)))
+    toast("Elemento movido en el calendario.");
+});
+document.addEventListener("pointercancel", () => {
+  if (pointerGesture) clearGestureVisuals(pointerGesture);
+  pointerGesture = null;
+});
+function selectCalendarEntries(entries) {
+  selectedEntries = entries;
+  render();
+  showBulkActions();
+}
+function clearCalendarSelection() {
+  selectedEntries = [];
 }
 function categoryOptions(id) {
   return state.categories
@@ -637,6 +920,7 @@ $("#recipes").onclick = () => {
 };
 function navigate(offset) {
   targetCell = null;
+  clearCalendarSelection();
   week.setDate(week.getDate() + offset);
   render();
 }
@@ -644,6 +928,7 @@ $("#prev").onclick = () => navigate(-7);
 $("#next").onclick = () => navigate(7);
 $("#today").onclick = () => {
   targetCell = null;
+  clearCalendarSelection();
   week = monday(new Date());
   render();
 };
@@ -654,6 +939,7 @@ $(".brand").onclick = (e) => {
 $("#week").onchange = (e) => {
   if (e.target.value) {
     try {
+      clearCalendarSelection();
       week = monday(parseDate(e.target.value));
       render();
     } catch {
@@ -714,6 +1000,7 @@ document.addEventListener("keydown", (e) => {
     $("#catalog").hidden = true;
     targetCell = null;
     pending = null;
+    clearCalendarSelection();
     render();
   }
 });

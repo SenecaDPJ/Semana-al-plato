@@ -21,3 +21,9 @@
 - Instalar el paquete y revisar visualmente el icono del instalador y desinstalador, además de las etiquetas en los temas claro y oscuro.
 - Probar exportar y restaurar una copia, conservando los datos, y revisar el calendario con contenido abundante.
 - La compilación automatizada no demuestra por sí sola la comprobación visual del instalador ni el funcionamiento manual en otro PC.
+
+## Rama de prueba: clonado, arrastre y selección múltiple
+
+- `npm test`: 24 pruebas correctas. Las pruebas nuevas comprueban el clonado individual dentro y fuera de la semana visible, el reordenado y movimiento entre días de la misma fila, el clonado de varios elementos y las dos confirmaciones de borrado.
+- `git diff --check`: correcto.
+- No se ha generado ni comprobado visualmente un instalador. Esta rama no cambia la versión ni publica una release.
