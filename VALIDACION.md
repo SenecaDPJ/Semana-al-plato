@@ -45,4 +45,5 @@
 ## Preparación de v2.1.0
 
 - La bandera del idioma activo, el orden de los botones de selección múltiple y los avisos de movimiento no válido están preparados en esta rama.
-- Las pruebas automatizadas y la compilación del instalador de Windows están pendientes. No se ha generado un instalador 2.1.0.
+- `npm run build`: correcto localmente. La compilación local de Tauri no pudo ejecutarse porque Cargo no está instalado.
+- La [PR #6](https://github.com/SenecaDPJ/Semana-al-plato/pull/6) ejecuta las pruebas y compila el instalador NSIS x64 de prueba en Windows. No se ha publicado una release 2.1.0.
