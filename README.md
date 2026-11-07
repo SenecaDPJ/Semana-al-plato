@@ -4,7 +4,7 @@
 
 **Español** · [English](README.en.md)
 
-[Descargar para Windows 11 · x64 · v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v1.0.2/Semana_al_Plato_1.0.2_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Descargar para Windows 11 · x64 · v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v1.0.2/Semana.al.Plato_1.0.2_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
 ![Vista de referencia de Semana al Plato, captura de la versión 1.0.1](docs/semana-al-plato-1.0.1.jpg)
 
@@ -30,7 +30,7 @@ Trabaja localmente, sin crear una cuenta ni conectarse a un servicio de planific
 
 ## Descargar e instalar
 
-1. Descarga **Semana_al_Plato_1.0.2_x64-setup.exe** desde el enlace superior o desde [la release v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.2).
+1. Descarga **Semana.al.Plato_1.0.2_x64-setup.exe** desde el enlace superior o desde [la release v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.2).
 2. Ejecuta el instalador y sigue sus indicaciones.
 3. Abre **Semana al Plato** para empezar a planificar.
 
