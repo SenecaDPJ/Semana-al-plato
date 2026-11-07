@@ -4,9 +4,9 @@
 
 **Español** · [English](README.en.md)
 
-[Descargar para Windows 11 · x64 · v1.0.1](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v1.0.1/Semana_al_Plato_1.0.1_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Descargar para Windows 11 · x64 · v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v1.0.2/Semana_al_Plato_1.0.2_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
-![Vista de Semana al Plato 1.0.1](docs/semana-al-plato-1.0.1.jpg)
+![Vista de referencia de Semana al Plato, captura de la versión 1.0.1](docs/semana-al-plato-1.0.1.jpg)
 
 ## Qué puedes hacer
 
@@ -21,7 +21,7 @@ Trabaja localmente, sin crear una cuenta ni conectarse a un servicio de planific
 | Selector de semana, flechas y «Hoy» | Preparar semanas futuras, consultar anteriores y volver a la actual. |
 | Varios elementos por casilla | Combinar platos, bebidas, alimentos y recetas sin sustituir lo que ya has añadido. |
 | Catálogos editables | Crear, buscar, filtrar por categoría, editar y eliminar comidas y alimentos. |
-| Categorías con colores | Identificar los elementos con siete colores de texto y siete rellenos: 49 combinaciones predefinidas. |
+| Categorías con colores | Identificar los elementos con 14 colores de texto y 14 rellenos: 196 combinaciones predefinidas de alto contraste. |
 | Recetario integrado | Guardar ingredientes, preparación, minutos y raciones, y añadir recetas al calendario. |
 | Paneles de recetas no modales | Consultar una receta mientras sigues utilizando el calendario; mover los paneles desde su cabecera. |
 | Tema claro y oscuro | Cambiar el aspecto con el botón de luna/sol y conservar la elección al volver a abrir. |
@@ -30,7 +30,7 @@ Trabaja localmente, sin crear una cuenta ni conectarse a un servicio de planific
 
 ## Descargar e instalar
 
-1. Descarga **Semana_al_Plato_1.0.1_x64-setup.exe** desde el enlace superior o desde [la release v1.0.1](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.1).
+1. Descarga **Semana_al_Plato_1.0.2_x64-setup.exe** desde el enlace superior o desde [la release v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.2).
 2. Ejecuta el instalador y sigue sus indicaciones.
 3. Abre **Semana al Plato** para empezar a planificar.
 

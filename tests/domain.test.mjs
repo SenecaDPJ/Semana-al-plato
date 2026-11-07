@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   seed,
   validate,
+  applyDefaultCategoryColors,
   monday,
   dateKey,
   daysOfWeek,
@@ -43,10 +44,31 @@ test("duplicados sin tildes, espacios ni mayúsculas", () => {
     assertName([{ id: "1", name: "Café" }], "cafe", "1"),
   );
 });
-test("49 combinaciones cumplen contraste WCAG AA para texto normal", () => {
+test("196 combinaciones cumplen contraste WCAG AA para texto normal", () => {
   for (const a of TEXT_COLORS)
     for (const b of FILL_COLORS)
       assert.ok(contrast(a, b) >= 4.5, `${a} ${b}: ${contrast(a, b)}`);
+});
+test("una copia anterior conserva sus datos y adopta los colores default nuevos", () => {
+  const previous = seed();
+  previous.categories[0].text = "#182c25";
+  previous.categories[0].fill = "#edf4df";
+  previous.categories[1].text = "#243b53";
+  previous.categories[1].fill = "#e2f2ed";
+  previous.categories[2].text = "#49245b";
+  previous.categories[2].fill = "#e4eefc";
+  const validated = validate(previous);
+  const updated = applyDefaultCategoryColors(validated);
+  assert.deepEqual(
+    updated.categories.map(({ text, fill }) => [text, fill]),
+    [["#59400A", "#FFE08A"], ["#14532D", "#9AE6B4"], ["#1E3A8A", "#A8D8FF"]],
+  );
+  assert.deepEqual(updated.items, previous.items);
+  assert.deepEqual(updated.recipes, previous.recipes);
+  assert.deepEqual(updated.plan, previous.plan);
+  const invalid = seed();
+  invalid.categories[0].fill = "#e2f2ed";
+  assert.throws(() => validate(invalid));
 });
 test("importación protege categorías fijas, fechas y referencias", () => {
   let s = seed();

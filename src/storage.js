@@ -1,8 +1,8 @@
-import { seed, validate } from "./domain.js";
+import { applyDefaultCategoryColors, seed, validate } from "./domain.js";
 const KEY = "calendario-comidas.v1";
 export function load() {
   const raw = localStorage.getItem(KEY);
-  return raw ? validate(JSON.parse(raw)) : seed();
+  return raw ? applyDefaultCategoryColors(validate(JSON.parse(raw))) : seed();
 }
 export function save(state) {
   validate(state);
