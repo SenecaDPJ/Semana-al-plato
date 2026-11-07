@@ -4,7 +4,7 @@
 
 [Español](README.md) · **English**
 
-[Download for Windows 11 · x64 · v2.0.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.0.0/Semana.al.Plato_2.0.0_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Download for Windows 11 · x64 · v2.1.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.1.0/Semana.al.Plato_2.1.0_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
 <img width="1397" height="1013" alt="Semana al Plato screenshot from 7 November 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
 
@@ -27,9 +27,10 @@ It works locally, without an account or a meal-planning service. Your menu stays
 | Built-in recipe collection | Stores ingredients, instructions, minutes and servings, and schedules recipes. |
 | Non-modal recipe panels | Keeps the calendar usable while viewing a recipe; panels can be moved by their headers. |
 | Light and dark themes | Switches appearance with the moon/sun button and remembers the choice. |
-| Spanish and English | Translates the interface, calendar, categories and starter examples; remembers your choice. Spanish is selected on first launch. |
+| Spanish and English | Translates the interface, calendar, categories and starter examples; shows the active language flag and remembers your choice. Spanish is selected on first launch. |
 | Individual and group cloning | Copies entries to another day in the current week or to a date in another week, preserving each meal slot. |
 | Drag and reorder | Moves entries between days in the same row and changes their order within a slot. |
+| Invalid move feedback | Marks an invalid target with a prohibition symbol and a prominent warning in both themes. |
 | Multi-selection | Drag from an empty calendar area to select entries, then clone the group or delete it after two confirmations. |
 | Confirmed profile link | Opens the GitHub profile only after you confirm. |
 | Local saving and JSON backups | Retains your plans and lets you export or restore them. |
@@ -37,7 +38,7 @@ It works locally, without an account or a meal-planning service. Your menu stays
 
 ## Download and install
 
-1. Download **Semana.al.Plato_2.0.0_x64-setup.exe** using the link above or the [v2.0.0 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.0.0).
+1. Download **Semana.al.Plato_2.1.0_x64-setup.exe** using the link above or the [v2.1.0 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.1.0).
 2. Run the installer and follow its instructions.
 3. Open **Semana al Plato** and start planning.
 
@@ -92,7 +93,7 @@ Click the **☾ / ☀** button in the header to switch between light and dark th
 
 ### 7. Change the language
 
-The application starts in **Español**. Select **Idioma → English** in the top bar to translate the controls, calendar, original categories and starter examples; select it again to return to **Español**. The preference is saved on this device. Names you enter yourself stay as written.
+The application starts in **Español 🇪🇸**. The text and flag identify the active language; select **Idioma → English 🇬🇧** to switch it. The interface, calendar, original categories and starter examples are translated. The preference is saved on this device. Names you enter yourself stay as written.
 
 ### 8. Remove an entry without deleting it from the catalogue
 
@@ -104,6 +105,7 @@ Deleting it from its catalogue or the recipe collection also removes its calenda
 
 - Click a calendar entry and choose **Clone** to copy it to another day in the same week or to a date in another week. Its breakfast, lunch or dinner row is preserved.
 - Press and hold an entry, then drag it to reorder it within its row or move it to another day in that row.
+- If you try to drop it into a different row, the cell shows a prohibition symbol and a larger red warning.
 - To work with multiple entries, drag from an empty area of the calendar. Choose **Clone ALL** or **Delete ALL**. Cloning asks for a destination day; deleting requires two confirmations.
 - The **github.com/SenecaDPJ** link asks for confirmation before opening the profile in the default browser.
 

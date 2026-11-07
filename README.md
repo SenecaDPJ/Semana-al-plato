@@ -4,7 +4,7 @@
 
 **Español** · [English](README.en.md)
 
-[Descargar para Windows 11 · x64 · v2.0.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.0.0/Semana.al.Plato_2.0.0_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Descargar para Windows 11 · x64 · v2.1.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.1.0/Semana.al.Plato_2.1.0_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
 <img width="1397" height="1013" alt="Captura de Semana al Plato del 7 de noviembre de 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
 
@@ -27,9 +27,10 @@ Trabaja localmente, sin crear una cuenta ni conectarse a un servicio de planific
 | Recetario integrado | Guardar ingredientes, preparación, minutos y raciones, y añadir recetas al calendario. |
 | Paneles de recetas no modales | Consultar una receta mientras sigues utilizando el calendario; mover los paneles desde su cabecera. |
 | Tema claro y oscuro | Cambiar el aspecto con el botón de luna/sol y conservar la elección al volver a abrir. |
-| Selector español e inglés | Cambiar el idioma de la interfaz, calendario, categorías y ejemplos; conserva la elección al volver a abrir. Español es el idioma inicial. |
+| Selector español e inglés | Cambiar el idioma de la interfaz, calendario, categorías y ejemplos; muestra la bandera del idioma activo y conserva la elección. Español es el idioma inicial. |
 | Clonado individual y múltiple | Copiar elementos a otro día de la semana visible o a una fecha de otra semana, manteniendo su momento del día. |
 | Arrastrar y reordenar | Mover elementos entre días de la misma fila y cambiar su orden dentro de una casilla. |
+| Aviso de movimiento no válido | Resaltar la casilla incorrecta con un símbolo de prohibido y mostrar un aviso destacado en ambos temas. |
 | Selección múltiple | Seleccionar con un arrastre desde un espacio vacío y clonar el grupo o eliminarlo con dos confirmaciones. |
 | Abrir perfil con permiso | La firma abre el perfil de GitHub únicamente después de confirmar. |
 | Guardado local y copias JSON | Mantener tu planificación y exportarla o restaurarla cuando lo necesites. |
@@ -37,7 +38,7 @@ Trabaja localmente, sin crear una cuenta ni conectarse a un servicio de planific
 
 ## Descargar e instalar
 
-1. Descarga **Semana.al.Plato_2.0.0_x64-setup.exe** desde el enlace superior o desde [la release v2.0.0](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.0.0).
+1. Descarga **Semana.al.Plato_2.1.0_x64-setup.exe** desde el enlace superior o desde [la release v2.1.0](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.1.0).
 2. Ejecuta el instalador y sigue sus indicaciones.
 3. Abre **Semana al Plato** para empezar a planificar.
 
@@ -90,7 +91,7 @@ Pulsa el botón **☾ / ☀** de la cabecera para alternar entre claro y oscuro.
 
 ### 7. Cambia el idioma
 
-La aplicación se abre en **Español**. Pulsa **Idioma → English** en la franja superior para traducir los controles, el calendario, las categorías iniciales y los ejemplos; vuelve a pulsar para regresar a **Español**. La preferencia se guarda en este dispositivo. Los nombres que añadas tú se mantienen tal como los escribiste.
+La aplicación se abre en **Español 🇪🇸**. El texto y la bandera identifican el idioma activo; pulsa **Idioma → English 🇬🇧** para cambiarlo. La interfaz, el calendario, las categorías iniciales y los ejemplos se traducen. La preferencia se guarda en este dispositivo. Los nombres que añadas tú se mantienen tal como los escribiste.
 
 ### 8. Quita un elemento sin borrarlo del catálogo
 
@@ -102,6 +103,7 @@ Si lo eliminas desde el catálogo o el recetario, también se quitarán sus apar
 
 - Pulsa un elemento y elige **Clonar** para copiarlo a otro día de la misma semana o a una fecha de otra semana. Se conserva su desayuno, comida o cena.
 - Mantén pulsado un elemento y arrástralo para cambiar su orden dentro de la misma fila o moverlo a otro día de esa fila.
+- Si intentas soltarlo en otra categoría, la casilla muestra el símbolo de prohibido y aparece un aviso rojo de mayor tamaño.
 - Para operar con varios elementos, arrastra desde un espacio vacío del calendario. En la selección puedes elegir **Clonar TODOS** o **Eliminar TODOS**. El clonado pide el día de destino y el borrado requiere dos confirmaciones.
 - El enlace a **github.com/SenecaDPJ** pide confirmación antes de abrir el perfil en el navegador predeterminado.
 

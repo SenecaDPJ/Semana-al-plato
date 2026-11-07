@@ -41,9 +41,9 @@ jobs:
           releaseBody: |
             Calendario semanal de comidas para Windows 11.
 
-            La versión 2.0.0 añade selector de idioma español/inglés, traduce la interfaz y los ejemplos iniciales, y actualiza la apariencia de los controles de tema e idioma.
+            La versión 2.1.0 muestra la bandera del idioma activo, reorganiza las acciones de selección múltiple y refuerza la señal visual cuando se intenta mover un elemento a otra categoría.
 
-            También incluye clonado individual y múltiple, reordenado y movimiento por arrastre, y borrado con doble confirmación.
+            También conserva el selector español/inglés, la interfaz traducida, el clonado individual y múltiple, y el movimiento por arrastre dentro de cada categoría.
 
             El enlace al perfil de GitHub pide confirmación antes de abrirse en el navegador predeterminado.
           releaseDraft: false

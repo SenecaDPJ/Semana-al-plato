@@ -99,9 +99,9 @@ function displayCategoryName(categoryItem) {
 function applyLanguage(next) {
   language = next === "en" ? "en" : "es";
   document.documentElement.lang = language;
-  const label = $("#language-label"),
-    button = $("#language-toggle");
-  label.textContent = language === "en" ? "Language" : "Idioma";
+  const button = $("#language-toggle");
+  $("#language-name").textContent = language === "en" ? "Language" : "Idioma";
+  $("#language-flag").textContent = language === "en" ? "🇬🇧" : "🇪🇸";
   button.textContent = language === "en" ? "English" : "Español";
   button.dataset.language = language;
   const switchLabel = language === "en" ? "Change language to Español" : "Cambiar idioma a English";
@@ -188,11 +188,13 @@ const badge = (id) => {
   const name = displayCategoryName(c);
   return `<span class="badge" style="color:${c.text};background:${c.fill}"${c.locked ? "" : ' data-user-content="true"'}>${esc(name)}</span>`;
 };
-function toast(msg) {
-  $("#toast").textContent = translateText(msg, language);
-  $("#toast").hidden = false;
+function toast(msg, variant = "") {
+  const node = $("#toast");
+  node.textContent = translateText(msg, language);
+  node.classList.toggle("toast-invalid-drop", variant === "invalid-drop");
+  node.hidden = false;
   clearTimeout(toast.timer);
-  toast.timer = setTimeout(() => ($("#toast").hidden = true), 4500);
+  toast.timer = setTimeout(() => (node.hidden = true), 4500);
 }
 function commit(fn) {
   if (storageError) {
@@ -503,7 +505,7 @@ function showBulkActions() {
     countLabel = count === 1 ? "elemento seleccionado" : "elementos seleccionados";
   if (!d.open) returnFocus = document.activeElement;
   clearSelectionOnConfirmClose = true;
-  d.innerHTML = `<h2>${count} ${countLabel}</h2><p>Puedes clonar la selección en otro día o quitarla del calendario.</p><div class="actions"><button type="button" id="cancel-bulk-selection">Cancelar</button><button type="button" class="danger" id="delete-selected">Eliminar TODOS</button><button type="button" class="primary" id="clone-selected">Clonar TODOS</button></div>`;
+  d.innerHTML = `<h2>${count} ${countLabel}</h2><p>Puedes clonar la selección en otro día o quitarla del calendario.</p><div class="actions bulk-selection-actions"><button type="button" class="primary" id="clone-selected">Clonar TODOS</button><button type="button" class="danger" id="delete-selected">Eliminar TODOS</button><button type="button" id="cancel-bulk-selection">Cancelar</button></div>`;
   localizeTree(d);
   if (!d.open) d.showModal();
   $("#cancel-bulk-selection").onclick = () => d.close();
@@ -651,7 +653,7 @@ document.addEventListener("pointerup", (event) => {
   clearGestureVisuals(gesture);
   if (!cell || !targetKey) return;
   if (targetKey.split("|")[1] !== sourceSlot) {
-    toast("Muévelo a otro día dentro de la misma categoría.");
+    toast("Muévelo a otro día dentro de la misma categoría.", "invalid-drop");
     return;
   }
   if (targetKey === gesture.key && targetIndex === sourceIndex) return;

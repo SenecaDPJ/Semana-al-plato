@@ -1,4 +1,4 @@
-# Validación de Semana al Plato 2.0.0
+# Validación de Semana al Plato 2.1.0
 
 ## Registro heredado de v1.0.1
 
@@ -41,3 +41,8 @@
 - La release privada [v2.0.0](https://github.com/SenecaDPJ/Semana-al-plato/releases/tag/v2.0.0) contiene `Semana.al.Plato_2.0.0_x64-setup.exe` (1.988.945 bytes; SHA-256 `34cf2cb9ab2fe783536f662f589a86a576fc2d7130a3047578f43e4fc82d1928`).
 - Se confirmó que el repositorio continúa siendo privado.
 - No se ha hecho una comprobación visual del instalador ni una prueba manual en Windows.
+
+## Preparación de v2.1.0
+
+- La bandera del idioma activo, el orden de los botones de selección múltiple y los avisos de movimiento no válido están preparados en esta rama.
+- Las pruebas automatizadas y la compilación del instalador de Windows están pendientes. No se ha generado un instalador 2.1.0.
