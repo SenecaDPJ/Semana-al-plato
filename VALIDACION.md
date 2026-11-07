@@ -55,7 +55,8 @@
 - v2.2.0 conserva las funciones de v2.1.0 y deja registradas en ambos README las banderas de España y Reino Unido, el icono de la aplicación/instalador/desinstalador, la paleta de categorías, los controles de tema, clonación, movimiento, selección múltiple y los avisos de SmartScreen para el instalador sin firma reconocida.
 - `npm test`: 30 pruebas correctas y 0 fallidas; incluye la paleta de contraste, idioma y banderas, temas, clonación, movimiento, selección múltiple, copias y permiso del enlace externo.
 - `npm run build`: correcto; generó `dist/index.html`, excluido de Git. `git diff --check`: correcto.
-- El flujo de Windows de la [PR #6](https://github.com/SenecaDPJ/semana-al-plato/pull/6) terminó correctamente en el [run 42424168586](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42424168586): 30 pruebas correctas, 0 fallidas y compilación NSIS x64.
-- La compilación de prueba se subió como artefacto (ID `13595047537`; ZIP de 1.973.021 bytes; SHA-256 `437bd854c9ec8706e90c04bac3c03d83c44a7a413904c8b584bfe1f261b20d82`). Se conserva 14 días.
-- El flujo de publicación de la release privada v2.2.0 volverá a ejecutar las pruebas y compilará el instalador de producción; sus datos se añadirán tras completarse.
+- El flujo final de Windows de la [PR #6](https://github.com/SenecaDPJ/semana-al-plato/pull/6) terminó correctamente en el [run 42424907500](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42424907500): 30 pruebas correctas, 0 fallidas y compilación NSIS x64.
+- El instalador de prueba quedó como artefacto (ID `13594654641`; ZIP de 1.973.055 bytes; SHA-256 `7dec3dc6797d3ab6e02b6cef40b9dee7b2f3f25933a17d6913ea270279b65854`). Se conserva 14 días.
+- Tras fusionar la PR #6, el flujo de publicación [42425539797](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42425539797) volvió a pasar 30 pruebas y publicó el instalador NSIS x64 de producción.
+- La release privada [v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0) contiene `Semana.al.Plato_2.2.0_x64-setup.exe` (1.987.741 bytes; SHA-256 `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717`). El repositorio continúa privado.
 - La revisión visual del instalador en Windows queda pendiente; un resultado automatizado correcto no equivale a una comprobación visual ni a una prueba en otro equipo.

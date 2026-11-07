@@ -55,7 +55,8 @@
 - v2.2.0 retains v2.1.0 features. Both README files now document the Spain and UK flags, application/installer/uninstaller icon, category palette, theme controls, cloning, moving, multi-selection, and the SmartScreen warning for an installer without a recognised signature.
 - `npm test`: 30 passing tests and 0 failures, including palette contrast, language and flags, themes, cloning, movement, multi-selection, backups and external-link permission.
 - `npm run build`: successful; generated `dist/index.html`, which is excluded from Git. `git diff --check`: successful.
-- The Windows workflow for [PR #6](https://github.com/SenecaDPJ/semana-al-plato/pull/6) completed successfully in [run 42424168586](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42424168586): 30 passing tests, 0 failures and an NSIS x64 build.
-- The test build was uploaded as an artifact (ID `13595047537`; ZIP size 1,973,021 bytes; SHA-256 `437bd854c9ec8706e90c04bac3c03d83c44a7a413904c8b584bfe1f261b20d82`). It is retained for 14 days.
-- The private v2.2.0 release workflow will run the tests again and build the production installer; its details will be added when it completes.
+- The final Windows workflow for [PR #6](https://github.com/SenecaDPJ/semana-al-plato/pull/6) completed successfully in [run 42424907500](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42424907500): 30 passing tests, 0 failures and an NSIS x64 build.
+- The test installer was uploaded as an artifact (ID `13594654641`; ZIP size 1,973,055 bytes; SHA-256 `7dec3dc6797d3ab6e02b6cef40b9dee7b2f3f25933a17d6913ea270279b65854`). It is retained for 14 days.
+- After PR #6 was merged, release workflow [42425539797](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42425539797) passed 30 tests again and published the production NSIS x64 installer.
+- The private [v2.2.0 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0) contains `Semana.al.Plato_2.2.0_x64-setup.exe` (1,987,741 bytes; SHA-256 `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717`). The repository remains private.
 - Visual review of the installer on Windows is pending; successful automation is not a visual check or a test on another computer.
