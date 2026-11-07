@@ -1,4 +1,4 @@
-# Validación de Semana al Plato 1.0.3
+# Validación de Semana al Plato 2.0.0
 
 ## Registro heredado de v1.0.1
 
@@ -31,3 +31,11 @@
 - La release privada [v1.0.3](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.3) está publicada. Contiene `Semana.al.Plato_1.0.3_x64-setup.exe` (1.981.890 bytes; SHA-256 `183334182d63a0ceb74cb184c6f627efb1ea4fd6bc131b54c830c2227a1cbb5b`).
 - Las pruebas automatizadas verifican que cancelar no abre el enlace y que aceptar invoca la apertura nativa. No se ha comprobado manualmente el navegador desde la aplicación instalada.
 - La información de GitHub confirma que el repositorio continúa siendo privado.
+
+## Comprobaciones de v2.0.0
+
+- `npm test`: 30 pruebas correctas. Se comprueban el selector de idioma y su persistencia, las traducciones de calendario, categorías, ejemplos, recetas y diálogos, y que la preferencia no modifica los datos guardados.
+- `npm run build`: correcto; genera `dist/index.html`, excluido de Git.
+- `git diff --check`: correcto.
+- La compilación local de Tauri no pudo ejecutarse porque `cargo` no está instalado en este entorno. La compilación del instalador Windows queda pendiente del flujo de GitHub Actions; no se considera validada hasta que termine correctamente.
+- No se ha hecho una comprobación visual del instalador ni una prueba manual en Windows.

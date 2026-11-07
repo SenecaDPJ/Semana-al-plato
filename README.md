@@ -4,7 +4,7 @@
 
 **Español** · [English](README.en.md)
 
-[Descargar para Windows 11 · x64 · v1.0.3](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v1.0.3/Semana.al.Plato_1.0.3_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Descargar para Windows 11 · x64 · v2.0.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.0.0/Semana.al.Plato_2.0.0_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
 ![Vista de referencia de Semana al Plato, captura de la versión 1.0.1](docs/semana-al-plato-1.0.1.jpg)
 
@@ -25,12 +25,17 @@ Trabaja localmente, sin crear una cuenta ni conectarse a un servicio de planific
 | Recetario integrado | Guardar ingredientes, preparación, minutos y raciones, y añadir recetas al calendario. |
 | Paneles de recetas no modales | Consultar una receta mientras sigues utilizando el calendario; mover los paneles desde su cabecera. |
 | Tema claro y oscuro | Cambiar el aspecto con el botón de luna/sol y conservar la elección al volver a abrir. |
+| Selector español e inglés | Cambiar el idioma de la interfaz, calendario, categorías y ejemplos; conserva la elección al volver a abrir. Español es el idioma inicial. |
+| Clonado individual y múltiple | Copiar elementos a otro día de la semana visible o a una fecha de otra semana, manteniendo su momento del día. |
+| Arrastrar y reordenar | Mover elementos entre días de la misma fila y cambiar su orden dentro de una casilla. |
+| Selección múltiple | Seleccionar con un arrastre desde un espacio vacío y clonar el grupo o eliminarlo con dos confirmaciones. |
+| Abrir perfil con permiso | La firma abre el perfil de GitHub únicamente después de confirmar. |
 | Guardado local y copias JSON | Mantener tu planificación y exportarla o restaurarla cuando lo necesites. |
 | Confirmación de cambios | Revisar dónde añades un elemento y confirmar las eliminaciones. |
 
 ## Descargar e instalar
 
-1. Descarga **Semana.al.Plato_1.0.3_x64-setup.exe** desde el enlace superior o desde [la release v1.0.3](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.3).
+1. Descarga **Semana.al.Plato_2.0.0_x64-setup.exe** desde el enlace superior o desde [la release v2.0.0](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.0.0).
 2. Ejecuta el instalador y sigue sus indicaciones.
 3. Abre **Semana al Plato** para empezar a planificar.
 
@@ -79,15 +84,19 @@ Con **Crear nueva receta** puedes guardar nombre, categoría, minutos, raciones,
 
 ### 6. Cambia el tema
 
-Pulsa el botón **☾ / ☀** de la cabecera para alternar entre claro y oscuro. La preferencia se guarda localmente. Es una elección manual; no hay selector de seguimiento automático del tema del sistema.
+Pulsa el botón **☾ / ☀** de la cabecera para alternar entre claro y oscuro. En el tema claro, el botón negro muestra una luna blanca; en el tema oscuro, el botón blanco muestra un sol amarillo. La preferencia se guarda localmente. Es una elección manual; no hay selector de seguimiento automático del tema del sistema.
 
-### 7. Quita un elemento sin borrarlo del catálogo
+### 7. Cambia el idioma
+
+La aplicación se abre en **Español**. Pulsa **Idioma → English** en la franja superior para traducir los controles, el calendario, las categorías iniciales y los ejemplos; vuelve a pulsar para regresar a **Español**. La preferencia se guarda en este dispositivo. Los nombres que añadas tú se mantienen tal como los escribiste.
+
+### 8. Quita un elemento sin borrarlo del catálogo
 
 Pulsa el elemento colocado en el calendario y elige **Eliminar de esta casilla**. Seguirá disponible para otros días.
 
 Si lo eliminas desde el catálogo o el recetario, también se quitarán sus apariciones del calendario. La confirmación avisa de las apariciones afectadas.
 
-### 8. Clona, mueve y selecciona varios elementos
+### 9. Clona, mueve y selecciona varios elementos
 
 - Pulsa un elemento y elige **Clonar** para copiarlo a otro día de la misma semana o a una fecha de otra semana. Se conserva su desayuno, comida o cena.
 - Mantén pulsado un elemento y arrástralo para cambiar su orden dentro de la misma fila o moverlo a otro día de esa fila.
@@ -112,7 +121,7 @@ Los cambios confirmados se guardan automáticamente en el almacenamiento local d
 
 - **Exportar:** entra en **Mis datos → Exportar copia**. En la aplicación Windows se abre un diálogo para elegir dónde guardar `Semana_al_Plato_copia.json`. En la versión HTML se inicia una descarga del navegador.
 - **Restaurar:** entra en **Mis datos → Restaurar copia**, selecciona un JSON compatible y confirma. El archivo se valida antes de aplicar el cambio.
-- **Contenido de la copia:** calendario, alimentos, comidas, recetas y categorías. La preferencia de tema se guarda por separado y **no está incluida**.
+- **Contenido de la copia:** calendario, alimentos, comidas, recetas y categorías. Las preferencias de tema e idioma se guardan por separado y **no están incluidas**.
 - **Sustitución, no mezcla:** restaurar reemplaza los datos actuales. Exporta primero si quieres conservarlos. Se admiten archivos de hasta 5 MB.
 - **Cambio de dispositivo o navegador:** utiliza exportar/restaurar. La versión HTML y la aplicación instalada no comparten automáticamente sus datos.
 
@@ -174,7 +183,8 @@ El instalador se genera en `src-tauri/target/release/bundle/nsis/`. `npm run bui
 | --- | --- |
 | `src/domain.js` | Fechas locales, datos iniciales, reglas y validación |
 | `src/storage.js` | Persistencia y exportación de copias |
-| `src/app.js` | Calendario, catálogos, recetas y tema |
+| `src/app.js` | Calendario, catálogos, recetas, idioma y tema |
+| `src/i18n.js` | Traducciones de la interfaz y del contenido inicial |
 | `src/style.css` | Diseño, adaptación del tamaño y temas |
 | `scripts/` | Construcción y servidor de desarrollo |
 | `tests/` | Pruebas de lógica e interacción simulada |
@@ -183,7 +193,7 @@ El instalador se genera en `src-tauri/target/release/bundle/nsis/`. `npm run bui
 
 ## Alcance actual
 
-La interfaz de la aplicación está en **español**. Esta documentación está disponible completa en español e inglés; eso no implica que la aplicación tenga un selector de idioma.
+La interfaz se abre en **español** y puede cambiarse a inglés desde el selector de idioma. Los textos introducidos por el usuario se conservan en el idioma en que se escribieron.
 
 No incluye generación automática de menús, cálculo nutricional, lista de la compra automática ni sincronización en la nube. Las pruebas simuladas tampoco sustituyen a las comprobaciones reales de instalación, ventanas y guardado en Windows.
 

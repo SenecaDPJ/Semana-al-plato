@@ -41,8 +41,10 @@ jobs:
           releaseBody: |
             Calendario semanal de comidas para Windows 11.
 
-            Incluye clonado de elementos, reordenado y movimiento por arrastre, selección múltiple y borrado con doble confirmación.
+            La versión 2.0.0 añade selector de idioma español/inglés, traduce la interfaz y los ejemplos iniciales, y actualiza la apariencia de los controles de tema e idioma.
 
-            El enlace al perfil de GitHub ahora pide confirmación y se abre en el navegador predeterminado.
+            También incluye clonado individual y múltiple, reordenado y movimiento por arrastre, y borrado con doble confirmación.
+
+            El enlace al perfil de GitHub pide confirmación antes de abrirse en el navegador predeterminado.
           releaseDraft: false
           prerelease: false

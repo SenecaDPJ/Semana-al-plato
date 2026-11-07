@@ -1,6 +1,6 @@
 [package]
 name = "semana-al-plato"
-version = "1.0.3"
+version = "2.0.0"
 description = "Calendario interactivo de comidas, alimentos y recetas para Windows 11"
 authors = ["David De Prado"]
 edition = "2021"
