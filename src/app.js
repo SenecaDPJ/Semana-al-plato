@@ -9,6 +9,7 @@ import {
   daysOfWeek,
   normalize,
   assertName,
+  applyDefaultCategoryColors,
   validate,
   removeReferences,
   seed,
@@ -447,7 +448,7 @@ function editCategory(c) {
   let textColor = c?.text || TEXT_COLORS[0],
     fillColor = c?.fill || FILL_COLORS[0];
   const d = $("#editor");
-  d.innerHTML = `<div class="panel-head"><h2>${c ? "Editar categoría" : "Añadir Categoría"}</h2><button class="icon" data-close aria-label="Cerrar">×</button></div><form id="category-form"><label class="field">Nombre de la categoría<input name="name" required maxlength="100" value="${esc(c?.name || "")}"></label><h3>Color del texto</h3><div class="swatches" id="text-colors"></div><h3>Color de relleno</h3><div class="swatches" id="fill-colors"></div><div class="preview-badge">Así se verá tu categoría</div><p class="help">49 combinaciones de alto contraste.</p><p class="error" role="alert"></p><div class="actions"><button type="button" data-close>Cancelar</button><button type="submit" class="primary">Guardar</button></div></form>`;
+  d.innerHTML = `<div class="panel-head"><h2>${c ? "Editar categoría" : "Añadir Categoría"}</h2><button class="icon" data-close aria-label="Cerrar">×</button></div><form id="category-form"><label class="field">Nombre de la categoría<input name="name" required maxlength="100" value="${esc(c?.name || "")}"></label><h3>Color del texto</h3><div class="swatches" id="text-colors"></div><h3>Color de relleno</h3><div class="swatches" id="fill-colors"></div><div class="preview-badge">Así se verá tu categoría</div><p class="help">196 combinaciones de alto contraste.</p><p class="error" role="alert"></p><div class="actions"><button type="button" data-close>Cancelar</button><button type="submit" class="primary">Guardar</button></div></form>`;
   const palettes = () => {
     for (const [selector, colors, value] of [
       ["#text-colors", TEXT_COLORS, textColor],
@@ -680,7 +681,7 @@ $("#file").onchange = async (e) => {
   try {
     if (file.size > 5_000_000)
       throw Error("La copia supera el límite de 5 MB.");
-    const next = validate(JSON.parse(await file.text()));
+    const next = applyDefaultCategoryColors(validate(JSON.parse(await file.text())));
     confirmAction(
       "Restaurar copia",
       `Se sustituirán todos los datos locales por esta copia: ${next.items.length} alimentos y comidas, ${next.recipes.length} recetas y ${Object.keys(next.plan).length} casillas. Exporta tus datos actuales antes si quieres conservarlos.`,

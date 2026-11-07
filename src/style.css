@@ -123,7 +123,7 @@ header {
   height: 64px;
   border-bottom: 1px solid var(--line);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   padding: 0 5vw;
   background: #fafbf6;
@@ -166,7 +166,7 @@ header {
   display: flex;
   align-items: center;
   justify-self: end;
-  gap: 14px;
+  gap: 12px;
 }
 #theme-toggle {
   width: 38px;
@@ -237,9 +237,10 @@ main {
   padding: 12px 5vw 22px;
 }
 .intro {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
+  gap: 24px;
   margin-bottom: 10px;
 }
 .eyebrow {
@@ -260,20 +261,6 @@ h1 {
   font-size: 14px;
   color: var(--muted);
   margin: 0;
-}
-.intro-mark {
-  font-size: 40px;
-  transform: rotate(-15deg);
-  color: #93a76e;
-  text-align: center;
-  margin-right: 25px;
-}
-.intro-mark span {
-  display: block;
-  transform: rotate(15deg);
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: #788566;
 }
 .toolbar {
   display: flex;
@@ -448,16 +435,16 @@ h2 {
   border-radius: 8px;
   margin-bottom: 6px;
   padding: 10px 8px;
-  line-height: 1.4;
-  font-size: 12px;
-  font-weight: 600;
+  line-height: 1.45;
+  font-size: 13px;
+  font-weight: 650;
   overflow-wrap: anywhere;
 }
 .entry small {
   display: block;
-  font-size: 9px;
-  font-weight: 400;
-  opacity: 0.8;
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 1;
   margin-top: 5px;
 }
 .cell-add {
@@ -471,8 +458,8 @@ h2 {
 .signature {
   display: flex;
   align-items: center;
-  justify-content: center;
-  justify-self: center;
+  justify-content: flex-end;
+  justify-self: end;
   gap: 12px;
   white-space: nowrap;
   color: #899078;
@@ -584,9 +571,9 @@ h2 {
 .badge {
   display: inline-block;
   border-radius: 5px;
-  padding: 3px 7px;
-  font-size: 10px;
-  font-weight: 500;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 650;
   margin-top: 4px;
 }
 .catalog-row .row-tools {
@@ -747,10 +734,6 @@ h3 {
     padding-top: 8px;
     padding-bottom: 8px;
   }
-  .signature {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
   main {
     padding: 30px 24px;
   }
@@ -772,13 +755,22 @@ h3 {
     right: 28px;
     bottom: 85px;
   }
-  .intro-mark {
-    display: none;
+}
+@media (max-width: 900px) {
+  .intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .header-right {
+    justify-self: start;
+    flex-wrap: wrap;
   }
 }
 @media (max-width: 650px) {
   header {
-    padding: 0 20px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 8px 20px;
     min-height: 80px;
   }
   .brand {
@@ -791,6 +783,11 @@ h3 {
   }
   .brand small {
     display: none;
+  }
+  .signature {
+    justify-self: start;
+    justify-content: flex-start;
+    gap: 8px;
   }
   .header-right {
     gap: 8px;
@@ -807,6 +804,7 @@ h3 {
   }
   .intro {
     padding: 0 8px;
+    grid-template-columns: minmax(0, 1fr);
   }
   .intro h1 {
     font-size: 33px;

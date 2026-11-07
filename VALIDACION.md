@@ -1,25 +1,22 @@
-# Validación de Semana al Plato 1.0.1
+# Validación de Semana al Plato 1.0.2
 
-## Discrepancia entre la release y el registro manual
+## Registro heredado de v1.0.1
 
-- **Release v1.0.1 publicada el 5 de noviembre de 2026:** su cuerpo afirma que la exportación y la restauración de copias se comprobaron en la aplicación instalada.
-- **Este registro, sección «Comprobación manual pendiente»:** mantiene pendientes la exportación desde la app instalada y la restauración de la copia, junto con las comprobaciones indicadas allí.
-- **Estado:** las fuentes discrepan y el material disponible en esta revisión documental no permite reconciliarlas. Se conservan ambas afirmaciones con su procedencia; esta sección no marca la comprobación como superada. La discrepancia requiere reconciliar el registro con evidencia concreta antes de cambiar su estado.
+- La release v1.0.1, publicada el 5 de noviembre de 2026, afirmó que la exportación y restauración se comprobaron en la aplicación instalada. El registro manual de esa versión dejó ambas comprobaciones pendientes.
+- La discrepancia histórica se conserva sin resolver: la evidencia disponible no permite confirmar cuál de las dos afirmaciones es correcta.
+- En v1.0.1 constan 17 pruebas correctas y una compilación NSIS x64 en Windows 11. Su instalador, excluido de Git, tuvo SHA-256 `E12A9BEF6E6A0F3F1BC67AE5228D685D907FB4FD9B1E9BF948CFB9E5178FAEE2`.
 
-Esta revisión documental no ejecutó pruebas ni compilaciones de la aplicación y no aporta evidencia para resolver la discrepancia.
+## Comprobaciones de v1.0.2
 
-## Comprobado en esta revisión
+- `npm ci`: dependencias del lockfile instaladas; auditoría con cero vulnerabilidades notificadas.
+- `npm test`: 18 pruebas correctas, incluidas las 196 combinaciones de contraste y la actualización de los colores por defecto al cargar copias antiguas sin alterar el resto de los datos.
+- `npm run build`: correcto; generó `dist/index.html`, excluido de Git.
+- El cálculo de contraste de la paleta da un mínimo de 4,97:1. La prueba automatizada comprueba el umbral AA de 4,5:1 para las 196 combinaciones.
+- El flujo `.github/workflows/release-windows.yml` ejecuta pruebas y compilación NSIS x64 en Windows al subir una etiqueta `v*`; crea la release privada solo si los pasos anteriores terminan correctamente.
 
-- `npm test`: 17 pruebas correctas. La nueva prueba simula la exportación nativa, su cancelación y un error de escritura. Las pruebas se ejecutan en un DOM simulado.
-- `npm run tauri -- build`: compilación correcta de la aplicación nativa y del instalador NSIS x64 en Windows 11. Copia local: `Instalador/Semana_al_Plato_1.0.1_x64-setup.exe` (SHA-256 `E12A9BEF6E6A0F3F1BC67AE5228D685D907FB4FD9B1E9BF948CFB9E5178FAEE2`). No se incluye en Git.
-- Se sustituyó la descarga mediante un enlace `blob:` por un diálogo nativo de guardado en la aplicación Tauri. El HTML autónomo conserva la descarga de navegador. El usuario recibe un mensaje de éxito o error; cancelar el diálogo no informa falsamente de una copia guardada.
+## Comprobación de la release pendiente
 
-## Comprobación manual pendiente
-
-- Instalar 1.0.1 y exportar una copia desde «Mis datos»: elegir ubicación, confirmar que el JSON existe y contiene los datos actuales.
-- Restaurar ese JSON y comprobar el calendario tras cerrar y reabrir; probar también cancelar el diálogo de guardado.
-- Revisar el nombre e icono en la ventana, barra de tareas, menú Inicio, instalador y desinstalador.
-- Probar el calendario con contenido abundante y comprobar el desplazamiento hasta el final.
-- Revisar los temas claro y oscuro, el contraste de las categorías y los paneles de recetas no modales.
-
-La compilación del instalador no demuestra el funcionamiento visual o del diálogo nativo. No se ha probado en otro PC.
+- Confirmar que el flujo de GitHub Actions termina correctamente y adjunta `Semana_al_Plato_1.0.2_x64-setup.exe` a la release privada v1.0.2.
+- Instalar el paquete y revisar el icono del instalador y desinstalador, además de las etiquetas en los temas claro y oscuro.
+- Probar exportar y restaurar una copia, conservando los datos, y revisar el calendario con contenido abundante.
+- La compilación automatizada no demuestra por sí sola la comprobación visual del instalador ni el funcionamiento manual en otro PC.

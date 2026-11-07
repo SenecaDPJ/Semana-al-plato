@@ -1,0 +1,46 @@
+name: Publicar instalador de Windows
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Pruebas y NSIS x64
+    runs-on: windows-latest
+    steps:
+      - name: Obtener el código
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar Rust estable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas
+        run: npm test
+
+      - name: Compilar y publicar el instalador
+        uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: v__VERSION__
+          releaseName: Semana al Plato v__VERSION__
+          releaseBody: |
+            Calendario semanal de comidas para Windows 11.
+
+            Esta versión mejora la distribución de los controles, el contraste de las etiquetas y el icono del instalador.
+          releaseDraft: false
+          prerelease: false

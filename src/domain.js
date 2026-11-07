@@ -1,4 +1,11 @@
 export const TEXT_COLORS = [
+  "#59400A",
+  "#14532D",
+  "#1E3A8A",
+  "#4C1D95",
+  "#881337",
+  "#7C2D12",
+  "#0F4C5C",
   "#182c25",
   "#243b53",
   "#49245b",
@@ -8,6 +15,13 @@ export const TEXT_COLORS = [
   "#383447",
 ];
 export const FILL_COLORS = [
+  "#FFE08A",
+  "#9AE6B4",
+  "#A8D8FF",
+  "#CDB4F6",
+  "#F9B7C3",
+  "#FFC799",
+  "#A9E3DB",
   "#edf4df",
   "#e2f2ed",
   "#e4eefc",
@@ -189,6 +203,23 @@ export function seed() {
   ];
   return { version: 1, categories, items, recipes, plan: {} };
 }
+const legacyDefaultColors = {
+  breakfast: ["#182c25", "#edf4df"],
+  lunch: ["#243b53", "#e2f2ed"],
+  dinner: ["#49245b", "#e4eefc"],
+};
+export function applyDefaultCategoryColors(s) {
+  const defaults = new Map(seed().categories.map((c) => [c.id, c]));
+  return {
+    ...s,
+    categories: s.categories.map((c) => {
+      const base = defaults.get(c.id);
+      return c.locked && base
+        ? { ...c, text: base.text, fill: base.fill }
+        : c;
+    }),
+  };
+}
 export function validate(s) {
   const fail = () => {
     throw Error("La copia no tiene un formato compatible.");
@@ -236,7 +267,16 @@ export function validate(s) {
       fail();
   for (const b of base) {
     const c = s.categories.find((c) => c.id === b.id);
-    if (!c || Object.keys(b).some((k) => c[k] !== b[k])) fail();
+    const legacy = legacyDefaultColors[b.id];
+    const currentColors = c?.text === b.text && c?.fill === b.fill;
+    const legacyColors = c?.text === legacy[0] && c?.fill === legacy[1];
+    if (
+      !c ||
+      c.name !== b.name ||
+      c.locked !== b.locked ||
+      (!currentColors && !legacyColors)
+    )
+      fail();
   }
   const cat = (id) => s.categories.some((c) => c.id === id);
   for (const x of s.items)
