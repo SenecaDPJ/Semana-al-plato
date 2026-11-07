@@ -101,8 +101,14 @@ function applyLanguage(next) {
   document.documentElement.lang = language;
   const button = $("#language-toggle");
   $("#language-name").textContent = language === "en" ? "Language" : "Idioma";
-  $("#language-flag-es").hidden = language !== "es";
-  $("#language-flag-en").hidden = language !== "en";
+  const isEnglish = language === "en";
+  const spanishFlag = $("#language-flag-es");
+  const englishFlag = $("#language-flag-en");
+  // Set both states explicitly so only the flag for the active language is shown.
+  spanishFlag.hidden = isEnglish;
+  spanishFlag.style.display = isEnglish ? "none" : "block";
+  englishFlag.hidden = !isEnglish;
+  englishFlag.style.display = isEnglish ? "block" : "none";
   button.textContent = language === "en" ? "English" : "Español";
   button.dataset.language = language;
   const switchLabel = language === "en" ? "Change language to Español" : "Cambiar idioma a English";
