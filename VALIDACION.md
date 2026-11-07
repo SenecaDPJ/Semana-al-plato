@@ -12,11 +12,12 @@
 - `npm test`: 18 pruebas correctas, incluidas las 196 combinaciones de contraste y la actualización de los colores por defecto al cargar copias antiguas sin alterar el resto de los datos.
 - `npm run build`: correcto; generó `dist/index.html`, excluido de Git.
 - El cálculo de contraste de la paleta da un mínimo de 4,97:1. La prueba automatizada comprueba el umbral AA de 4,5:1 para las 196 combinaciones.
-- El flujo `.github/workflows/release-windows.yml` ejecuta pruebas y compilación NSIS x64 en Windows al subir una etiqueta `v*`; crea la release privada solo si los pasos anteriores terminan correctamente.
+- El flujo [Publicar instalador de Windows](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42386548479) terminó correctamente en Windows: pruebas y compilación NSIS x64.
+- La release privada [v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.2) está publicada. Contiene `Semana.al.Plato_1.0.2_x64-setup.exe` (1.970.092 bytes; SHA-256 `36f4afecac82dd0ab65bf0c7027330e129fdfdc6767f3a8fdb6e1484cbcb5426`).
+- Se comprobó que el repositorio continúa siendo privado.
 
-## Comprobación de la release pendiente
+## Comprobación manual pendiente
 
-- Confirmar que el flujo de GitHub Actions termina correctamente y adjunta `Semana_al_Plato_1.0.2_x64-setup.exe` a la release privada v1.0.2.
-- Instalar el paquete y revisar el icono del instalador y desinstalador, además de las etiquetas en los temas claro y oscuro.
+- Instalar el paquete y revisar visualmente el icono del instalador y desinstalador, además de las etiquetas en los temas claro y oscuro.
 - Probar exportar y restaurar una copia, conservando los datos, y revisar el calendario con contenido abundante.
 - La compilación automatizada no demuestra por sí sola la comprobación visual del instalador ni el funcionamiento manual en otro PC.

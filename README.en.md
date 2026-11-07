@@ -4,7 +4,7 @@
 
 [Español](README.md) · **English**
 
-[Download for Windows 11 · x64 · v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v1.0.2/Semana_al_Plato_1.0.2_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Download for Windows 11 · x64 · v1.0.2](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v1.0.2/Semana.al.Plato_1.0.2_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
 ![Semana al Plato reference screenshot from version 1.0.1](docs/semana-al-plato-1.0.1.jpg)
 
@@ -30,7 +30,7 @@ It works locally, without an account or a meal-planning service. Your menu stays
 
 ## Download and install
 
-1. Download **Semana_al_Plato_1.0.2_x64-setup.exe** using the link above or the [v1.0.2 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.2).
+1. Download **Semana.al.Plato_1.0.2_x64-setup.exe** using the link above or the [v1.0.2 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.2).
 2. Run the installer and follow its instructions.
 3. Open **Semana al Plato** and start planning.
 
