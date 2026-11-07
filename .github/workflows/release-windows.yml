@@ -41,10 +41,18 @@ jobs:
           releaseBody: |
             Calendario semanal de comidas para Windows 11.
 
-            La versión 2.0.0 añade selector de idioma español/inglés, traduce la interfaz y los ejemplos iniciales, y actualiza la apariencia de los controles de tema e idioma.
+            La versión 2.2.0 reúne el selector bilingüe con la bandera correspondiente (España/Reino Unido), los temas claro y oscuro, colores de categoría legibles y un icono propio para Windows.
 
-            También incluye clonado individual y múltiple, reordenado y movimiento por arrastre, y borrado con doble confirmación.
+            Incluye clonado individual y múltiple, reordenado y movimiento por arrastre dentro de cada categoría, selección de varios elementos y avisos destacados para destinos no válidos.
 
             El enlace al perfil de GitHub pide confirmación antes de abrirse en el navegador predeterminado.
+
+            ---
+
+            Semana al Plato 2.2.0 brings together the Spanish/English selector with the matching Spain/UK flag, light and dark themes, readable category colours, and a custom Windows icon.
+
+            It includes individual and group cloning, reordering and drag-and-drop within each category, multi-selection, and prominent feedback for invalid drop targets.
+
+            The GitHub profile link asks for confirmation before opening in the default browser.
           releaseDraft: false
           prerelease: false

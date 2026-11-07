@@ -4,7 +4,7 @@
 
 **Español** · [English](README.en.md)
 
-[Descargar para Windows 11 · x64 · v2.0.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.0.0/Semana.al.Plato_2.0.0_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Descargar para Windows 11 · x64 · v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.2.0/Semana.al.Plato_2.2.0_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
 <img width="1397" height="1013" alt="Captura de Semana al Plato del 7 de noviembre de 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
 
@@ -23,27 +23,31 @@ Trabaja localmente, sin crear una cuenta ni conectarse a un servicio de planific
 | Selector de semana, flechas y «Hoy» | Preparar semanas futuras, consultar anteriores y volver a la actual. |
 | Varios elementos por casilla | Combinar platos, bebidas, alimentos y recetas sin sustituir lo que ya has añadido. |
 | Catálogos editables | Crear, buscar, filtrar por categoría, editar y eliminar comidas y alimentos. |
-| Categorías con colores | Identificar los elementos con 14 colores de texto y 14 rellenos: 196 combinaciones predefinidas de alto contraste. |
+| Categorías con colores | Colores por defecto más diferenciados y una paleta de 14 colores de texto por 14 rellenos: 196 combinaciones con contraste legible. |
+| Icono de aplicación | Mostrar el icono de Semana al Plato en la aplicación, el instalador y el desinstalador de Windows. |
 | Recetario integrado | Guardar ingredientes, preparación, minutos y raciones, y añadir recetas al calendario. |
 | Paneles de recetas no modales | Consultar una receta mientras sigues utilizando el calendario; mover los paneles desde su cabecera. |
 | Tema claro y oscuro | Cambiar el aspecto con el botón de luna/sol y conservar la elección al volver a abrir. |
-| Selector español e inglés | Cambiar el idioma de la interfaz, calendario, categorías y ejemplos; conserva la elección al volver a abrir. Español es el idioma inicial. |
+| Selector español e inglés | Cambiar la interfaz, el calendario, las categorías iniciales y los ejemplos. Muestra la bandera española en Español y la del Reino Unido en English. El rótulo es rojo y el botón verde lima o azul según el idioma. Recuerda la elección; Español es el idioma inicial. |
 | Clonado individual y múltiple | Copiar elementos a otro día de la semana visible o a una fecha de otra semana, manteniendo su momento del día. |
 | Arrastrar y reordenar | Mover elementos entre días de la misma fila y cambiar su orden dentro de una casilla. |
-| Selección múltiple | Seleccionar con un arrastre desde un espacio vacío y clonar el grupo o eliminarlo con dos confirmaciones. |
+| Aviso de movimiento no válido | Resaltar la casilla incorrecta con un símbolo de prohibido y mostrar un aviso destacado en ambos temas. |
+| Selección múltiple | Seleccionar con un arrastre desde un espacio vacío y elegir **Clonar TODOS**, **Eliminar TODOS** o cancelar. El borrado pide dos confirmaciones. |
 | Abrir perfil con permiso | La firma abre el perfil de GitHub únicamente después de confirmar. |
 | Guardado local y copias JSON | Mantener tu planificación y exportarla o restaurarla cuando lo necesites. |
 | Confirmación de cambios | Revisar dónde añades un elemento y confirmar las eliminaciones. |
 
 ## Descargar e instalar
 
-1. Descarga **Semana.al.Plato_2.0.0_x64-setup.exe** desde el enlace superior o desde [la release v2.0.0](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.0.0).
+1. Descarga **Semana.al.Plato_2.2.0_x64-setup.exe** desde el enlace superior o desde [la release v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0).
 2. Ejecuta el instalador y sigue sus indicaciones.
 3. Abre **Semana al Plato** para empezar a planificar.
 
 El instalador disponible está dirigido a **Windows 11 de 64 bits**. Para utilizarlo no necesitas instalar Node.js, Rust ni las herramientas de programación. La aplicación utiliza Microsoft Edge WebView2 como motor de interfaz en Windows.
 
-**Estado del proyecto:** el autor es, por ahora, la única persona que ha instalado la aplicación. No se presenta como una versión validada por una comunidad de usuarios ni probada en otros equipos. La compilación y las comprobaciones registradas se detallan en [VALIDACION.md](VALIDACION.md).
+Como el instalador no está firmado con un certificado de editor reconocido, Microsoft Defender SmartScreen puede mostrar el aviso «Windows protegió su PC» o «Editor desconocido». Es un aviso de reputación de Windows. La aplicación no cambia los ajustes de seguridad ni ejecuta comandos para evitarlo. Descarga el instalador únicamente desde la release oficial del repositorio y continúa solo si confías en su origen.
+
+**Estado del proyecto:** el autor es, por ahora, la única persona que ha instalado la aplicación. No se presenta como una versión validada por una comunidad de usuarios ni probada en otros equipos. La compilación y las comprobaciones registradas se detallan en el [registro de validación en español](VALIDACION.md) y en [English](VALIDACION.en.md).
 
 ## Primeros pasos
 
@@ -90,7 +94,7 @@ Pulsa el botón **☾ / ☀** de la cabecera para alternar entre claro y oscuro.
 
 ### 7. Cambia el idioma
 
-La aplicación se abre en **Español**. Pulsa **Idioma → English** en la franja superior para traducir los controles, el calendario, las categorías iniciales y los ejemplos; vuelve a pulsar para regresar a **Español**. La preferencia se guarda en este dispositivo. Los nombres que añadas tú se mantienen tal como los escribiste.
+La aplicación se abre en **Español** y muestra la bandera española junto al nombre del idioma. Pulsa **Idioma → English** para cambiarlo; se muestra la bandera del Reino Unido. La interfaz, el calendario, las categorías iniciales y los ejemplos se traducen. La preferencia se guarda en este dispositivo. Los nombres que añadas tú se mantienen tal como los escribiste.
 
 ### 8. Quita un elemento sin borrarlo del catálogo
 
@@ -102,6 +106,7 @@ Si lo eliminas desde el catálogo o el recetario, también se quitarán sus apar
 
 - Pulsa un elemento y elige **Clonar** para copiarlo a otro día de la misma semana o a una fecha de otra semana. Se conserva su desayuno, comida o cena.
 - Mantén pulsado un elemento y arrástralo para cambiar su orden dentro de la misma fila o moverlo a otro día de esa fila.
+- Si intentas soltarlo en otra categoría, la casilla muestra un símbolo grande de prohibido y aparece un aviso rojo destacado: oscuro en el tema claro y claro en el tema oscuro.
 - Para operar con varios elementos, arrastra desde un espacio vacío del calendario. En la selección puedes elegir **Clonar TODOS** o **Eliminar TODOS**. El clonado pide el día de destino y el borrado requiere dos confirmaciones.
 - El enlace a **github.com/SenecaDPJ** pide confirmación antes de abrir el perfil en el navegador predeterminado.
 
