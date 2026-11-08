@@ -1,6 +1,6 @@
 # Preparación para Microsoft Store (MSIX)
 
-**Estado:** preparado, pendiente de pruebas en Windows y de los valores exactos de identidad de Partner Center. Este trabajo no publica una release, no modifica la visibilidad de GitHub y no envía el producto a certificación.
+**Estado:** preparado, pendiente de pruebas Windows; los valores de identidad proporcionados por el usuario ya están configurados en el workflow. Este trabajo no publica una release, no modifica la visibilidad de GitHub y no envía el producto a certificación.
 
 ## Punto de partida comprobado
 
@@ -35,7 +35,7 @@ La posibilidad de guardar preferencias y datos bajo el identificador Tauri hered
 
 Se incluye un manifiesto parametrizable y `build-msix.ps1`. El script:
 
-1. exige los tres campos exactos de Partner Center y no acepta identidades de ejemplo;
+1. exige los tres campos exactos de Partner Center y rechaza valores de ejemplo;
 2. comprueba que `package.json`, `tauri.conf.json` y `Cargo.toml` tengan la misma versión;
 3. guarda registros de `npm ci`, `npm test`, compilación Tauri y `MakeAppx`, además de las versiones de Node.js, npm, Rust, Cargo, Tauri CLI y MakeAppx;
 4. compila directamente el ejecutable anfitrión en Windows x64, sin generar otro instalador NSIS/MSI, genera iconos de MSIX/Store a partir del SVG original y empaqueta `SemanaAlPlato.exe` y las DLL de salida;
@@ -52,18 +52,18 @@ El parámetro opcional `-MaxVersionTested` permite fijar el build Windows que se
 
 Requisitos: Node.js 22, Rust estable con MSVC, Visual Studio C++ Build Tools, Windows SDK con `MakeAppx.exe` y dependencias descargables. La generación se puede repetir desde la rama y no ejecuta el EXE. El flujo usa `windows-latest` y Rust `stable`; registra las versiones concretas en cada artefacto, pero no garantiza builds bit a bit idénticos entre ejecuciones.
 
-🔴 EJECUCIÓN⚙️🚨 — Compila, ejecuta las pruebas automatizadas y crea los paquetes en `artifacts/msstore/`. Puede descargar dependencias de desarrollo y deja registros locales. Sustituye cada texto de ejemplo por el dato copiado literalmente de Partner Center.
+🔴 EJECUCIÓN⚙️🚨 — Compila, ejecuta las pruebas automatizadas y crea los paquetes en `artifacts/msstore/`. Puede descargar dependencias de desarrollo y deja registros locales. Los valores que facilitaste ya aparecen en el workflow; para una ejecución local puedes usar estos datos o copiar cualquier cambio posterior de Partner Center.
 
 ```powershell
 .\docs\microsoft-store\build-msix.ps1 `
-  -PackageIdentityName "REEMPLAZAR_CON_IDENTITY_NAME_DE_PARTNER_CENTER" `
-  -PackageIdentityPublisher "REEMPLAZAR_CON_PUBLISHER_DE_PARTNER_CENTER" `
-  -PublisherDisplayName "REEMPLAZAR_CON_NOMBRE_VISIBLE_DEL_EDITOR"
+  -PackageIdentityName "SenecaDPJ.Semanaalplato" `
+  -PackageIdentityPublisher "CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9" `
+  -PublisherDisplayName "SenecaDPJ"
 ```
 
 El script se detiene si falta Node/Rust/SDK, si las versiones discrepan o si ya existe la carpeta de salida; no sobreescribe paquetes anteriores. No crea ni solicita certificados o claves privadas. La `.msixupload` contiene el paquete MSIX y no símbolos de depuración; Partner Center puede aceptar el `.msix` directamente, aunque Microsoft recomienda el formato de subida para Store.
 
-También hay un workflow manual `Build Microsoft Store MSIX (manual)`. GitHub solo permite ejecutarlo cuando el archivo del workflow ya está en la rama predeterminada; entonces se puede elegir esta rama como referencia e introducir la identidad exacta. Conserva el `.msix`, `.msixupload`, icono y registros como artefacto de Actions durante 14 días. No publica una release ni envía el producto a certificación; tampoco sustituye las pruebas funcionales o WACK. Mientras el workflow no esté en la rama predeterminada, usa el script local en Windows.
+El workflow `Build Microsoft Store MSIX (manual)` también se ejecuta al subir cambios a esta rama y conserva el `.msix`, `.msixupload`, icono y registros como artefacto de Actions durante 14 días. Los valores de identidad predeterminados son los que facilitó el usuario. La ejecución manual desde GitHub requiere que el workflow esté en la rama predeterminada; después se puede elegir esta rama como referencia. El workflow no publica una release ni envía el producto a certificación y no sustituye pruebas funcionales o WACK.
 
 ## Pruebas Windows que faltan
 
@@ -98,15 +98,15 @@ Ejecutar en una VM Windows 11 x64 limpia y desechable, con usuario estándar. No
 - Se genera el icono cuadrado 300×300 para el listing con franja de marca, además de los logotipos de paquete 44×44, 50×50 y 150×150. El icono y los logotipos salen del SVG del producto.
 - Las capturas que aparecen en README son referencias reales, pero aún no se han entregado como archivos PNG locales de Store ni revisado en el paquete final. Store pide al menos una captura de escritorio; se recomienda aportar varias capturas reales de la versión MSIX final y no imágenes simuladas.
 
-## Datos exactos pendientes de Partner Center
+## Identidad recibida de Partner Center
 
-No se han inventado ni reservado valores. Antes de generar el paquete final hacen falta, copiados de **Product identity** en Partner Center:
+El usuario proporcionó estos valores, que se usan como predeterminados para generar el paquete:
 
-1. `Package/Identity/Name` exacto de la aplicación reservada.
-2. `Package/Identity/Publisher` exacto asignado a la cuenta.
-3. `PublisherDisplayName` exacto que debe mostrar la ficha/manifiesto.
+- `Package/Identity/Name`: `SenecaDPJ.Semanaalplato`
+- `Package/Identity/Publisher`: `CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9`
+- `PublisherDisplayName`: `SenecaDPJ`
 
-No envíes contraseñas, PFX, tokens ni documentos personales. Además, en Partner Center tendrás que decidir o completar el nombre reservado, categoría, precio/mercados, clasificación por edades, licencia/condiciones, contacto que exija el tipo de cuenta, URL pública de privacidad, capturas, y notas de certificación. No se ha creado un envío ni un borrador de producto.
+Antes de publicar, verifica que siguen coincidiendo con **Product identity**. En Partner Center tendrás que decidir o completar el nombre reservado, categoría, precio/mercados, clasificación por edades, licencia/condiciones, contacto que exija el tipo de cuenta, URL pública de privacidad, capturas y notas de certificación. No se ha creado un envío ni un borrador de producto.
 
 ## Referencias oficiales consultadas
 

@@ -1,6 +1,6 @@
 # Microsoft Store preparation (MSIX)
 
-**Status:** prepared, pending Windows tests and the exact Partner Center identity values. This work does not publish a release, change GitHub visibility, or submit the product for certification.
+**Status:** prepared, pending Windows tests; the identity values supplied by the user are configured in the workflow. This work does not publish a release, change GitHub visibility, or submit the product for certification.
 
 ## Verified starting point
 
@@ -35,7 +35,7 @@ Keeping the inherited Tauri identifier and browser-storage keys reduces migratio
 
 A parameterized manifest and `build-msix.ps1` are included. The script:
 
-1. requires the three exact Partner Center fields and rejects example identities;
+1. requires the three exact Partner Center fields and rejects example values;
 2. checks that `package.json`, `tauri.conf.json` and `Cargo.toml` use the same version;
 3. saves logs from `npm ci`, `npm test`, the Tauri build and `MakeAppx`, plus Node.js, npm, Rust, Cargo, Tauri CLI and MakeAppx versions;
 4. directly builds the host executable on Windows x64 without creating another NSIS/MSI installer, generates MSIX/Store icons from the original SVG and packages `SemanaAlPlato.exe` plus adjacent build DLLs;
@@ -52,18 +52,18 @@ The optional `-MaxVersionTested` parameter lets you set the Windows build that w
 
 Requirements: Node.js 22, stable Rust with MSVC, Visual Studio C++ Build Tools, Windows SDK with `MakeAppx.exe` and downloadable development dependencies. The build can be repeated from the branch and does not execute the EXE. The workflow uses `windows-latest` and Rust `stable`; it records the actual versions in each artifact but does not promise bit-for-bit identical builds across runs.
 
-🔴 EJECUCIÓN⚙️🚨 — Builds the app, runs automated tests and creates packages under `artifacts/msstore/`. It may download development dependencies and saves local logs. Replace each example string with the value copied exactly from Partner Center.
+🔴 EJECUCIÓN⚙️🚨 — Builds the app, runs automated tests and creates packages under `artifacts/msstore/`. It may download development dependencies and saves local logs. The values you supplied are already set in the workflow; for a local build, use these values or copy any later changes from Partner Center.
 
 ```powershell
 .\docs\microsoft-store\build-msix.ps1 `
-  -PackageIdentityName "REPLACE_WITH_PARTNER_CENTER_IDENTITY_NAME" `
-  -PackageIdentityPublisher "REPLACE_WITH_PARTNER_CENTER_PUBLISHER" `
-  -PublisherDisplayName "REPLACE_WITH_VISIBLE_PUBLISHER_NAME"
+  -PackageIdentityName "SenecaDPJ.Semanaalplato" `
+  -PackageIdentityPublisher "CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9" `
+  -PublisherDisplayName "SenecaDPJ"
 ```
 
 The script stops if Node/Rust/SDK is missing, versions disagree, or the output folder already exists; it does not overwrite prior packages. It does not create or request certificates or private keys. The `.msixupload` contains the MSIX package and no debug symbols; Partner Center can accept `.msix` directly, though Microsoft recommends the Store upload format.
 
-A manual `Build Microsoft Store MSIX (manual)` workflow is also included. GitHub only lets you dispatch it after the workflow file is present on the default branch; then you can choose this branch as the ref and enter the exact identity. It keeps the `.msix`, `.msixupload`, icon and logs as an Actions artifact for 14 days. It does not publish a release or submit the product for certification, and it does not replace functional testing or WACK. Until the workflow is on the default branch, use the local Windows script.
+The `Build Microsoft Store MSIX (manual)` workflow also runs when changes are pushed to this branch and keeps the `.msix`, `.msixupload`, icon and logs as an Actions artifact for 14 days. Its identity defaults are the values supplied by the user. Manual dispatch from GitHub requires the workflow to be on the default branch; after that, this branch can be selected as the ref. The workflow does not publish a release or submit the product for certification, and it does not replace functional testing or WACK.
 
 ## Windows tests still required
 
@@ -98,15 +98,15 @@ Run on a disposable clean Windows 11 x64 VM with a standard user. Do not install
 - A square 300×300 Store tile with branding bar is generated, along with 44×44, 50×50 and 150×150 package logos. These are derived from the product SVG.
 - Screenshots shown in the README are authentic references, but have not been supplied here as local PNG files for Store or reviewed in the final package. Store needs at least one desktop screenshot; several real captures of the final MSIX build are recommended. Do not use simulated screenshots.
 
-## Exact Partner Center values still needed
+## Partner Center identity received
 
-No values have been invented or reserved. Before generating the final package, copy these from Partner Center **Product identity**:
+The user supplied these values, which are set as the package build defaults:
 
-1. Exact `Package/Identity/Name` for the reserved app.
-2. Exact `Package/Identity/Publisher` assigned to the account.
-3. Exact `PublisherDisplayName` to show in the listing/manifest.
+- `Package/Identity/Name`: `SenecaDPJ.Semanaalplato`
+- `Package/Identity/Publisher`: `CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9`
+- `PublisherDisplayName`: `SenecaDPJ`
 
-Do not send passwords, PFX files, tokens or identity documents. In Partner Center you will also need to choose/complete the reserved product name, category, price/markets, age rating, licence/terms, contact required by the account type, public privacy-policy URL, screenshots and certification notes. No submission or product draft has been created.
+Before publication, verify that these still match **Product identity**. In Partner Center you will also need to choose/complete the reserved product name, category, price/markets, age rating, licence/terms, contact required by the account type, public privacy-policy URL, screenshots and certification notes. No submission or product draft has been created.
 
 ## Official references consulted
 

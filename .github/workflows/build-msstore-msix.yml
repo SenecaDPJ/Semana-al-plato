@@ -1,19 +1,25 @@
 name: Build Microsoft Store MSIX (manual)
 
 on:
+  push:
+    branches:
+      - msstore/v2.2.0-msix-prep
   workflow_dispatch:
     inputs:
       package_identity_name:
         description: Exact Package/Identity/Name from Partner Center
         required: true
+        default: SenecaDPJ.Semanaalplato
         type: string
       package_identity_publisher:
         description: Exact Package/Identity/Publisher from Partner Center
         required: true
+        default: CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9
         type: string
       publisher_display_name:
         description: Exact visible publisher name for the listing/manifest
         required: true
+        default: SenecaDPJ
         type: string
       max_version_tested:
         description: Windows build actually tested; use 10.0.22000.0 only as the provisional baseline
@@ -46,10 +52,10 @@ jobs:
       - name: Build MSIX and Store upload archive
         shell: pwsh
         env:
-          STORE_PACKAGE_IDENTITY_NAME: ${{ inputs.package_identity_name }}
-          STORE_PACKAGE_IDENTITY_PUBLISHER: ${{ inputs.package_identity_publisher }}
-          STORE_PUBLISHER_DISPLAY_NAME: ${{ inputs.publisher_display_name }}
-          STORE_MAX_VERSION_TESTED: ${{ inputs.max_version_tested }}
+          STORE_PACKAGE_IDENTITY_NAME: ${{ inputs.package_identity_name || 'SenecaDPJ.Semanaalplato' }}
+          STORE_PACKAGE_IDENTITY_PUBLISHER: ${{ inputs.package_identity_publisher || 'CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9' }}
+          STORE_PUBLISHER_DISPLAY_NAME: ${{ inputs.publisher_display_name || 'SenecaDPJ' }}
+          STORE_MAX_VERSION_TESTED: ${{ inputs.max_version_tested || '10.0.22000.0' }}
         run: |
           .\docs\microsoft-store\build-msix.ps1 `
             -PackageIdentityName "$env:STORE_PACKAGE_IDENTITY_NAME" `

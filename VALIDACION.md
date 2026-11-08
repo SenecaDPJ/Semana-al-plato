@@ -63,7 +63,7 @@
 
 ## Preparación de Microsoft Store (rama `msstore/v2.2.0-msix-prep`)
 
-**Estado:** preparado, pendiente de pruebas en Windows. No está listo para subir a Partner Center: falta generar el `.msixupload`, faltan los tres valores exactos de identidad de Partner Center y no se ha ejecutado WACK ni la instalación de prueba.
+**Estado:** preparado, pendiente de pruebas en Windows. No está listo para subir a Partner Center: falta generar el `.msixupload` y no se ha ejecutado WACK ni la instalación de prueba. La identidad exacta fue proporcionada y está configurada en el workflow de esta rama.
 
 - Punto de partida: tag `v2.2.0` en `39423451edeccc7640ed1826582426333cf17d48`; ejecución de Windows `42425539797` coincide con ese SHA y terminó `success`. La release privada publica `Semana.al.Plato_2.2.0_x64-setup.exe`, 1.987.741 bytes. SHA-256 informado por la API de GitHub: `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717` (no recalculado localmente; el binario no se descargó ni ejecutó).
 - Revisión del binario: versión inferida de tag/nombre 2.2.0; metadatos PE y Authenticode **NO EJECUTADOS** porque no hay archivo local. El flujo de release no configura certificado Authenticode. La captura de SmartScreen de v2.1.0 no se usa como prueba de firma de v2.2.0.
@@ -75,7 +75,8 @@
 - Compilación Tauri y empaquetado MSIX: **NO EJECUTADOS**. Entorno observado: Windows `10.0.26300.0`, AMD64, Node `v22.21.0`, npm `10.9.4`, Tauri CLI `2.12.4`; Rust/Cargo y MakeAppx/Windows SDK no están disponibles. La identidad de Partner Center tampoco se ha proporcionado.
 - Instalación en usuario estándar, primer arranque, guardado/reapertura, actualización NSIS/MSIX, desinstalación/datos residuales, Defender/SmartScreen y Windows App Certification Kit: **NO EJECUTADOS**.
 - Textos de ficha y borrador de privacidad en español e inglés preparados en `docs/microsoft-store/`. Las capturas auténticas enlazadas en README no están como PNG de Store; las capturas finales deben tomarse de una compilación MSIX verificada.
-- Workflow manual de Actions para empaquetar MSIX añadido a la rama, no ejecutado; GitHub solo permite despacharlo tras incluir el workflow en la rama predeterminada y luego elegir esta rama como referencia. Conserva artefactos temporales en Actions, no crea release ni envío de Partner Center.
+- Workflow de Actions para empaquetar MSIX añadido a la rama; el siguiente push lo ejecutará en un runner Windows y guardará el paquete como artefacto temporal, sin crear release ni envío de Partner Center. El despacho manual solo estará disponible tras incluir el workflow en la rama predeterminada.
+- Identidad exacta proporcionada: `SenecaDPJ.Semanaalplato`, `CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9`, `SenecaDPJ`; debe verificarse de nuevo contra Product identity antes del envío final.
 - Licencias Cargo transitivas: revisión **INCOMPLETA** por falta de Cargo; no se declara autorización de terceros hasta completar ese inventario. Búsqueda de patrones de secretos en el código del producto: sin coincidencias.
 - Visibilidad de GitHub: **PASADO**, la API sigue informando el repositorio privado. No se publicó release, no se creó envío de Partner Center ni se cambió la visibilidad.
 
