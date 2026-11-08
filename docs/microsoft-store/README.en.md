@@ -42,7 +42,9 @@ A parameterized manifest and `build-msix.ps1` are included. The script:
 5. creates an unsigned `.msix` and a `.msixupload` ZIP containing that MSIX, without an `.appxsym` file;
 6. calculates SHA-256 for both artifacts and records them in `BUILD-METADATA.txt`.
 
-Expected names for this version: `Semana-al-Plato_2.2.0.0_x64.msix` and `Semana-al-Plato_2.2.0.0_x64.msixupload`. The fourth Store version component is zero. The package is not locally signed: Microsoft signs MSIX packages after certification. The script does not install or execute the application.
+The candidate package was built on the GitHub Actions Windows runner in run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), from commit `257e0411fd09dae1d9cbdc67077a7c496b0fed2e`. Names: `Semana-al-Plato_2.2.0.0_x64.msix` and `Semana-al-Plato_2.2.0.0_x64.msixupload`. MSIX SHA-256: `f360916080a77dda1010d5366fd5bf693033304f558be5c623f666191820996b`; `.msixupload` SHA-256: `605ad2b5c3d690947f64c927545aed647f0afea12227ce5aef8d6b59413671c8`. The Store package version is `2.2.0.0`, architecture x64. The workflow passed all 30 tests and `MakeAppx` reported `Package creation succeeded`.
+
+The private Actions ZIP artifact ([download](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980/artifacts/13599156206)) includes the `.msix`, `.msixupload`, icon, logs and `BUILD-METADATA.txt` with exact tool versions. It is 5,576,398 bytes, SHA-256 `c31c66a381c7af5e70b7cf1d7ad34841b1a7820de95b2e02979ca9e2ed7c9651`, and expires on 22 November 2026. The MSIX is not locally signed: Microsoft signs MSIX packages after certification. The script does not install or execute the application; this artifact is a test candidate, not evidence of WACK or installation.
 
 The manifest declares `runFullTrust` because this desktop app needs a medium-integrity desktop process. It declares no `unvirtualizedResources` or other capabilities. `MaxVersionTested` is initially set to the Windows 11 minimum in the manifest and must be updated after testing the final build on the target Windows machine.
 
@@ -63,7 +65,7 @@ Requirements: Node.js 22, stable Rust with MSVC, Visual Studio C++ Build Tools, 
 
 The script stops if Node/Rust/SDK is missing, versions disagree, or the output folder already exists; it does not overwrite prior packages. It does not create or request certificates or private keys. The `.msixupload` contains the MSIX package and no debug symbols; Partner Center can accept `.msix` directly, though Microsoft recommends the Store upload format.
 
-The `Build Microsoft Store MSIX (manual)` workflow also runs when changes are pushed to this branch and keeps the `.msix`, `.msixupload`, icon and logs as an Actions artifact for 14 days. Its identity defaults are the values supplied by the user. Manual dispatch from GitHub requires the workflow to be on the default branch; after that, this branch can be selected as the ref. The workflow does not publish a release or submit the product for certification, and it does not replace functional testing or WACK.
+The `Build Microsoft Store MSIX (manual)` workflow creates an artifact when changes affecting app code or MSIX build files are pushed to this branch; retention is 14 days. Its identity defaults are the values supplied by the user. Manual dispatch from GitHub requires the workflow to be on the default branch; after that, this branch can be selected as the ref. The workflow does not publish a release or submit the product for certification, and it does not replace functional testing or WACK.
 
 ## Windows tests still required
 
@@ -71,9 +73,9 @@ Run on a disposable clean Windows 11 x64 VM with a standard user. Do not install
 
 | Check | Current status | Evidence still needed |
 | --- | --- | --- |
-| `npm test` on this branch | **Passed**, 30/30 | Output and exit code 0 from this review. |
-| Clean Tauri x64 build | Not run here | Rust/Cargo are not installed; prior CI build is v2.2.0, not this MSIX branch. |
-| `.msix` / `.msixupload` packaging | Not run here | Windows SDK `MakeAppx.exe` and exact identity are missing. |
+| `npm test` on this branch | **Passed**, 30/30 | Windows run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), exit code 0. |
+| Clean Tauri x64 build | **Passed** | Windows runner, commit `257e0411fd09dae1d9cbdc67077a7c496b0fed2e`; logs are in the Actions artifact. |
+| `.msix` / `.msixupload` packaging | **Passed as unsigned candidate** | Run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), `Package creation succeeded`; hashes and filenames above. This is not an install or certification test. |
 | Install and first launch as standard user | Not run | Clean Windows 11; app opens without elevation. |
 | Main functions | Not run | Calendar, create/edit, recipes, languages/themes, cloning, drag, selection, consented link and backup. |
 | Save/close/reopen | Not run | Same data before and after restart. |

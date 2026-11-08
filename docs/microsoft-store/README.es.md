@@ -42,7 +42,9 @@ Se incluye un manifiesto parametrizable y `build-msix.ps1`. El script:
 5. genera un `.msix` sin firma y un `.msixupload` ZIP que contiene ese MSIX, sin `.appxsym`;
 6. calcula SHA-256 de ambos artefactos y los registra en `BUILD-METADATA.txt`.
 
-El nombre esperado para esta versión será `Semana-al-Plato_2.2.0.0_x64.msix` y `Semana-al-Plato_2.2.0.0_x64.msixupload`. El cuarto componente de la versión de Store queda en cero. El paquete no se firma localmente: Microsoft firma los paquetes MSIX tras aprobar la certificación. El script no instala ni ejecuta el programa.
+El paquete candidato se generó en el runner Windows de GitHub Actions, run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), desde el commit `257e0411fd09dae1d9cbdc67077a7c496b0fed2e`. Nombres: `Semana-al-Plato_2.2.0.0_x64.msix` y `Semana-al-Plato_2.2.0.0_x64.msixupload`. SHA-256 MSIX: `f360916080a77dda1010d5366fd5bf693033304f558be5c623f666191820996b`; SHA-256 `.msixupload`: `605ad2b5c3d690947f64c927545aed647f0afea12227ce5aef8d6b59413671c8`. El paquete Store tiene versión `2.2.0.0` y arquitectura x64. El workflow pasó las 30 pruebas y `MakeAppx` informó `Package creation succeeded`.
+
+El artefacto ZIP privado de Actions ([descargar](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980/artifacts/13599156206)) incluye el `.msix`, `.msixupload`, icono, registros y `BUILD-METADATA.txt` con versiones exactas de herramientas. Pesa 5.576.398 bytes, SHA-256 `c31c66a381c7af5e70b7cf1d7ad34841b1a7820de95b2e02979ca9e2ed7c9651` y caduca el 22 de noviembre de 2026. El MSIX no se firma localmente: Microsoft firma paquetes MSIX tras aprobar la certificación. El script no instala ni ejecuta el programa; el artefacto es candidato para pruebas, no resultado de WACK o instalación.
 
 La plantilla marca `runFullTrust` porque esta aplicación de escritorio necesita proceso de confianza media. No incluye `unvirtualizedResources` ni otras capacidades. `MaxVersionTested` queda inicialmente igual al mínimo Windows 11 del manifiesto y debe actualizarse tras probar la versión final en la máquina Windows de destino.
 
@@ -63,7 +65,7 @@ Requisitos: Node.js 22, Rust estable con MSVC, Visual Studio C++ Build Tools, Wi
 
 El script se detiene si falta Node/Rust/SDK, si las versiones discrepan o si ya existe la carpeta de salida; no sobreescribe paquetes anteriores. No crea ni solicita certificados o claves privadas. La `.msixupload` contiene el paquete MSIX y no símbolos de depuración; Partner Center puede aceptar el `.msix` directamente, aunque Microsoft recomienda el formato de subida para Store.
 
-El workflow `Build Microsoft Store MSIX (manual)` también se ejecuta al subir cambios a esta rama y conserva el `.msix`, `.msixupload`, icono y registros como artefacto de Actions durante 14 días. Los valores de identidad predeterminados son los que facilitó el usuario. La ejecución manual desde GitHub requiere que el workflow esté en la rama predeterminada; después se puede elegir esta rama como referencia. El workflow no publica una release ni envía el producto a certificación y no sustituye pruebas funcionales o WACK.
+El workflow `Build Microsoft Store MSIX (manual)` genera un artefacto al subir cambios que afecten al código, script o manifiesto de empaquetado de esta rama; la retención es de 14 días. Los valores de identidad predeterminados son los que facilitó el usuario. La ejecución manual desde GitHub requiere que el workflow esté en la rama predeterminada; después se puede elegir esta rama como referencia. El workflow no publica una release ni envía el producto a certificación y no sustituye pruebas funcionales o WACK.
 
 ## Pruebas Windows que faltan
 
@@ -71,9 +73,9 @@ Ejecutar en una VM Windows 11 x64 limpia y desechable, con usuario estándar. No
 
 | Comprobación | Estado actual | Evidencia pendiente |
 | --- | --- | --- |
-| `npm test` sobre la rama | **Pasado**, 30/30 | Salida y código de salida 0 obtenidos en esta revisión. |
-| Compilación Tauri x64 limpia | No ejecutada aquí | Rust/Cargo no están instalados; la compilación CI anterior es de v2.2.0, no de esta rama MSIX. |
-| Empaquetado `.msix` / `.msixupload` | No ejecutado aquí | Falta SDK `MakeAppx.exe` y falta identidad exacta. |
+| `npm test` sobre la rama | **Pasado**, 30/30 | Run de Windows [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), código de salida 0. |
+| Compilación Tauri x64 limpia | **Pasada** | Runner Windows, commit `257e0411fd09dae1d9cbdc67077a7c496b0fed2e`; el registro está en el artefacto de Actions. |
+| Empaquetado `.msix` / `.msixupload` | **Pasado como candidato sin firmar** | Run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), `Package creation succeeded`; hashes y nombres indicados arriba. No equivale a una prueba de instalación o certificación. |
 | Instalación/primer arranque como usuario estándar | No ejecutado | Windows 11 limpio, app abre y no requiere elevación. |
 | Funciones principales | No ejecutado | Calendario, alta/edición, recetas, idioma/temas, clonado, arrastre, selección, enlace con permiso y copia. |
 | Guardar/cerrar/reabrir | No ejecutado | Mismos datos antes/después del reinicio. |

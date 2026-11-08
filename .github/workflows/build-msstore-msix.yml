@@ -4,6 +4,16 @@ on:
   push:
     branches:
       - msstore/v2.2.0-msix-prep
+    paths:
+      - 'src-tauri/**'
+      - 'src/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'docs/microsoft-store/build-msix.ps1'
+      - 'docs/microsoft-store/Package.appxmanifest.template.xml'
+      - 'docs/microsoft-store/assets/**'
   workflow_dispatch:
     inputs:
       package_identity_name:
