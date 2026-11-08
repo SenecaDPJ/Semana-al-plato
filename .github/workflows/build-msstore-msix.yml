@@ -1,0 +1,66 @@
+name: Build Microsoft Store MSIX (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_identity_name:
+        description: Exact Package/Identity/Name from Partner Center
+        required: true
+        type: string
+      package_identity_publisher:
+        description: Exact Package/Identity/Publisher from Partner Center
+        required: true
+        type: string
+      publisher_display_name:
+        description: Exact visible publisher name for the listing/manifest
+        required: true
+        type: string
+      max_version_tested:
+        description: Windows build actually tested; use 10.0.22000.0 only as the provisional baseline
+        required: true
+        default: 10.0.22000.0
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Test and package unsigned x64 MSIX
+    runs-on: windows-latest
+    steps:
+      - name: Check out selected branch
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Build MSIX and Store upload archive
+        shell: pwsh
+        env:
+          STORE_PACKAGE_IDENTITY_NAME: ${{ inputs.package_identity_name }}
+          STORE_PACKAGE_IDENTITY_PUBLISHER: ${{ inputs.package_identity_publisher }}
+          STORE_PUBLISHER_DISPLAY_NAME: ${{ inputs.publisher_display_name }}
+          STORE_MAX_VERSION_TESTED: ${{ inputs.max_version_tested }}
+        run: |
+          .\docs\microsoft-store\build-msix.ps1 `
+            -PackageIdentityName "$env:STORE_PACKAGE_IDENTITY_NAME" `
+            -PackageIdentityPublisher "$env:STORE_PACKAGE_IDENTITY_PUBLISHER" `
+            -PublisherDisplayName "$env:STORE_PUBLISHER_DISPLAY_NAME" `
+            -MaxVersionTested "$env:STORE_MAX_VERSION_TESTED"
+
+      - name: Preserve unsigned package, listing icon and logs for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: msstore-msix-2.2.0-${{ github.sha }}
+          path: artifacts/msstore/**
+          if-no-files-found: error
+          retention-days: 14

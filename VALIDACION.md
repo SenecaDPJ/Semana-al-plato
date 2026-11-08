@@ -60,3 +60,23 @@
 - Tras fusionar la PR #6, el flujo de publicación [42425539797](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42425539797) volvió a pasar 30 pruebas y publicó el instalador NSIS x64 de producción.
 - La release privada [v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0) contiene `Semana.al.Plato_2.2.0_x64-setup.exe` (1.987.741 bytes; SHA-256 `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717`). El repositorio continúa privado.
 - La revisión visual del instalador en Windows queda pendiente; un resultado automatizado correcto no equivale a una comprobación visual ni a una prueba en otro equipo.
+
+## Preparación de Microsoft Store (rama `msstore/v2.2.0-msix-prep`)
+
+**Estado:** preparado, pendiente de pruebas en Windows. No está listo para subir a Partner Center: falta generar el `.msixupload`, faltan los tres valores exactos de identidad de Partner Center y no se ha ejecutado WACK ni la instalación de prueba.
+
+- Punto de partida: tag `v2.2.0` en `39423451edeccc7640ed1826582426333cf17d48`; ejecución de Windows `42425539797` coincide con ese SHA y terminó `success`. La release privada publica `Semana.al.Plato_2.2.0_x64-setup.exe`, 1.987.741 bytes. SHA-256 informado por la API de GitHub: `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717` (no recalculado localmente; el binario no se descargó ni ejecutó).
+- Revisión del binario: versión inferida de tag/nombre 2.2.0; metadatos PE y Authenticode **NO EJECUTADOS** porque no hay archivo local. El flujo de release no configura certificado Authenticode. La captura de SmartScreen de v2.1.0 no se usa como prueba de firma de v2.2.0.
+- Revisión de código: Tauri 2/Rust, interfaz HTML/CSS/JS; salida actual NSIS x64, no portable. Configuración predeterminada de Tauri descarga el bootstrapper de WebView2 si falta el runtime. No se encontraron escritura junto al ejecutable, autoactualizador, servicios, drivers, elevación ni telemetría. Los datos quedan en el almacenamiento local de WebView2/localStorage; la migración NSIS→MSIX y limpieza al desinstalar requieren prueba.
+- `npm test`: **PASADO**, 30/30 pruebas, 0 fallidas, en esta rama tras añadir los archivos de preparación.
+- `git diff --check`: **PASADO**.
+- Parser PowerShell del script MSIX: **PASADO**; parseo XML del manifiesto: **PASADO**.
+- Generación con Tauri CLI de iconos de paquete 44×44, 50×50 y 150×150, y mosaico Store 300×300 desde SVG: **PASADO**. Se inspeccionó visualmente el mosaico y la franja de marca; no es una captura de la aplicación.
+- Compilación Tauri y empaquetado MSIX: **NO EJECUTADOS**. Entorno observado: Windows `10.0.26300.0`, AMD64, Node `v22.21.0`, npm `10.9.4`, Tauri CLI `2.12.4`; Rust/Cargo y MakeAppx/Windows SDK no están disponibles. La identidad de Partner Center tampoco se ha proporcionado.
+- Instalación en usuario estándar, primer arranque, guardado/reapertura, actualización NSIS/MSIX, desinstalación/datos residuales, Defender/SmartScreen y Windows App Certification Kit: **NO EJECUTADOS**.
+- Textos de ficha y borrador de privacidad en español e inglés preparados en `docs/microsoft-store/`. Las capturas auténticas enlazadas en README no están como PNG de Store; las capturas finales deben tomarse de una compilación MSIX verificada.
+- Workflow manual de Actions para empaquetar MSIX añadido a la rama, no ejecutado; GitHub solo permite despacharlo tras incluir el workflow en la rama predeterminada y luego elegir esta rama como referencia. Conserva artefactos temporales en Actions, no crea release ni envío de Partner Center.
+- Licencias Cargo transitivas: revisión **INCOMPLETA** por falta de Cargo; no se declara autorización de terceros hasta completar ese inventario. Búsqueda de patrones de secretos en el código del producto: sin coincidencias.
+- Visibilidad de GitHub: **PASADO**, la API sigue informando el repositorio privado. No se publicó release, no se creó envío de Partner Center ni se cambió la visibilidad.
+
+Detalle y repetición: [preparación MSIX](docs/microsoft-store/README.es.md). El script genera los paquetes cuando se ejecute en Windows con las herramientas e identidad requeridas.

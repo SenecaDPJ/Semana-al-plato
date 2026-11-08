@@ -209,3 +209,7 @@ No incluye generación automática de menús, cálculo nutricional, lista de la 
 Creado por [David De Prado · SenecaDPJ](https://github.com/SenecaDPJ).
 
 © 2026 David De Prado. Distribuido bajo licencia [MIT](LICENSE).
+
+## Preparación para Microsoft Store
+
+La evaluación de compatibilidad MSIX, el manifiesto parametrizable, el script de construcción, los textos de ficha y el borrador de privacidad están en [docs/microsoft-store](docs/microsoft-store/README.es.md). El paquete aún requiere identidad exacta de Partner Center y pruebas en Windows.

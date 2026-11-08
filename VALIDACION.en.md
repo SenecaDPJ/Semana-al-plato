@@ -60,3 +60,23 @@
 - After PR #6 was merged, release workflow [42425539797](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42425539797) passed 30 tests again and published the production NSIS x64 installer.
 - The private [v2.2.0 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0) contains `Semana.al.Plato_2.2.0_x64-setup.exe` (1,987,741 bytes; SHA-256 `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717`). The repository remains private.
 - Visual review of the installer on Windows is pending; successful automation is not a visual check or a test on another computer.
+
+## Microsoft Store preparation (`msstore/v2.2.0-msix-prep` branch)
+
+**Status:** prepared, pending Windows tests. It is not ready for Partner Center upload: the `.msixupload` has not been generated, exact Partner Center identity values are missing, and neither WACK nor test installation has run.
+
+- Starting point: tag `v2.2.0` at `39423451edeccc7640ed1826582426333cf17d48`; Windows run `42425539797` has the same SHA and completed `success`. The private release publishes `Semana.al.Plato_2.2.0_x64-setup.exe`, 1,987,741 bytes. SHA-256 reported by the GitHub API: `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717` (not recalculated locally; the binary was not downloaded or executed).
+- Binary review: version inferred from the tag/name is 2.2.0; PE metadata and Authenticode **NOT RUN** because no local file is available. The release workflow does not configure an Authenticode certificate. The v2.1.0 SmartScreen screenshot is not used as evidence of v2.2.0 signature state.
+- Source review: Tauri 2/Rust, HTML/CSS/JS interface; current output is NSIS x64, not portable. Tauri's default configuration downloads the WebView2 bootstrapper if the runtime is missing. No writes beside the executable, auto-updater, service, driver, elevation requirement or telemetry were found. Data stays in WebView2 local storage/localStorage; NSIS-to-MSIX migration and uninstall cleanup need testing.
+- `npm test`: **PASS**, 30/30 tests, 0 failures, on this branch after adding the preparation files.
+- `git diff --check`: **PASS**.
+- PowerShell parser for the MSIX script: **PASS**; manifest XML parse: **PASS**.
+- Tauri CLI generated package icons at 44×44, 50×50 and 150×150 plus a 300×300 Store tile from SVG: **PASS**. The tile and branding bar were visually reviewed; this is not an app screenshot.
+- Tauri build and MSIX packaging: **NOT RUN**. Observed environment: Windows `10.0.26300.0`, AMD64, Node `v22.21.0`, npm `10.9.4`, Tauri CLI `2.12.4`; Rust/Cargo and MakeAppx/Windows SDK are unavailable. Partner Center identity is also missing.
+- Standard-user install, first launch, save/reopen, NSIS/MSIX update, uninstall/residual data, Defender/SmartScreen and Windows App Certification Kit: **NOT RUN**.
+- Store listing copy and privacy drafts in Spanish and English are prepared under `docs/microsoft-store/`. Authentic screenshots linked in the README are not available here as Store PNG files; final captures must come from a verified MSIX build.
+- Manual Actions workflow for MSIX packaging added to the branch, not run; GitHub only allows dispatch after the workflow is present on the default branch, after which this branch can be selected as the ref. It stores temporary Actions artifacts and does not create a release or Partner Center submission.
+- Transitive Cargo licenses: review **INCOMPLETE** because Cargo is unavailable; third-party clearance is not claimed until the inventory is complete. Search for common secret patterns in product code found no matches.
+- GitHub visibility: **PASS**, the API still reports the repository as private. No release was published, no Partner Center submission was created and visibility was not changed.
+
+Details and repeat steps: [MSIX preparation](docs/microsoft-store/README.en.md). The script generates packages when run on Windows with the required tools and identity.

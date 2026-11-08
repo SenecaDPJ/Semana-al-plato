@@ -211,3 +211,7 @@ There is no automatic menu generation, nutritional analysis, automatic shopping 
 Created by [David De Prado · SenecaDPJ](https://github.com/SenecaDPJ).
 
 © 2026 David De Prado. Distributed under the [MIT licence](LICENSE).
+
+## Microsoft Store preparation
+
+The MSIX compatibility review, parameterized manifest, build script, Store listing copy and privacy draft are in [docs/microsoft-store](docs/microsoft-store/README.en.md). The package still needs the exact Partner Center identity and Windows testing.
