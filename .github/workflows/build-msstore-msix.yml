@@ -14,6 +14,7 @@ on:
       - 'package-lock.json'
       - 'docs/microsoft-store/build-msix.ps1'
       - 'docs/microsoft-store/export-cargo-license-inventory.ps1'
+      - 'docs/microsoft-store/sign-msix-for-local-testing.ps1'
       - 'docs/microsoft-store/Package.appxmanifest.template.xml'
       - 'docs/microsoft-store/assets/**'
   workflow_dispatch:
@@ -74,6 +75,12 @@ jobs:
             -PackageIdentityPublisher "$env:STORE_PACKAGE_IDENTITY_PUBLISHER" `
             -PublisherDisplayName "$env:STORE_PUBLISHER_DISPLAY_NAME" `
             -MaxVersionTested "$env:STORE_MAX_VERSION_TESTED"
+
+      - name: Create a separate test-signed MSIX for the isolated VM
+        shell: pwsh
+        env:
+          STORE_PACKAGE_IDENTITY_PUBLISHER: ${{ inputs.package_identity_publisher || 'CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9' }}
+        run: .\docs\microsoft-store\sign-msix-for-local-testing.ps1 -ArtifactsDirectory 'artifacts\msstore\2.2.0.0-x64' -ExpectedPublisher "$env:STORE_PACKAGE_IDENTITY_PUBLISHER"
 
       - name: Export Cargo dependency license inventory
         shell: pwsh
