@@ -1,6 +1,6 @@
 # Preparación para Microsoft Store (MSIX)
 
-**Estado:** preparado, pendiente de pruebas Windows; los valores de identidad proporcionados por el usuario ya están configurados en el workflow. Este trabajo no publica una release, no modifica la visibilidad de GitHub y no envía el producto a certificación.
+**Estado:** paquete candidato 2.2.0.0 preparado y probado parcialmente en una VM Windows 11; siguen pendientes la migración desde NSIS y otros elementos de publicación. La identidad proporcionada está configurada. Este trabajo no publica una release, no modifica la visibilidad de GitHub y no envía el producto a certificación.
 
 ## Punto de partida comprobado
 
@@ -20,7 +20,7 @@
 | --- | --- |
 | Escrituras en la carpeta de instalación | No se encontraron. El paquete puede mantener el ejecutable y los recursos en el área de solo lectura de MSIX. |
 | Rutas absolutas/directorio de trabajo | No hay dependencias de rutas de instalación ni del directorio de trabajo en la app. La compilación integra el frontend en el ejecutable. |
-| Datos y persistencia | El calendario se guarda en `localStorage` con clave heredada `calendario-comidas.v1`; tema e idioma usan claves separadas. Tauri mantiene el perfil WebView2 bajo los datos locales del usuario. Se conservan el identificador Tauri `com.senecadpj.calendariocomidas` y las claves actuales. La continuidad NSIS → MSIX y la conservación/desinstalación deben comprobarse en Windows; exporta una copia antes de probar. |
+| Datos y persistencia | El calendario se guarda en `localStorage` con clave heredada `calendario-comidas.v1`; tema e idioma usan claves separadas. Tauri mantiene el perfil WebView2 bajo los datos locales del usuario. Se conservan el identificador Tauri `com.senecadpj.calendariocomidas` y las claves actuales. La prueba NSIS → MSIX sigue pendiente; exporta una copia antes de probarla. En una prueba de desinstalación, Windows eliminó el directorio de datos local asociado al paquete. |
 | Archivos | La exportación abre el diálogo nativo y escribe JSON solo en la ruta elegida por la persona. La restauración valida los datos antes de guardarlos. No hay acceso genérico al sistema de archivos concedido a la interfaz. |
 | Administrador, servicios, drivers, tareas o registro | No se encontró necesidad de elevación, servicios, controladores, tareas programadas ni registro propio. El instalador NSIS está configurado con el modo de usuario predeterminado. |
 | Red, cuentas y telemetría | No hay `fetch`, analítica, publicidad, cuentas ni sincronización. El perfil GitHub se abre en el navegador predeterminado solo tras confirmación. |
@@ -46,7 +46,7 @@ El paquete candidato se generó en el runner Windows de GitHub Actions, run [424
 
 El artefacto ZIP privado de Actions ([descargar](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980/artifacts/13599156206)) incluye el `.msix`, `.msixupload`, icono, registros y `BUILD-METADATA.txt` con versiones exactas de herramientas. Pesa 5.576.398 bytes, SHA-256 `c31c66a381c7af5e70b7cf1d7ad34841b1a7820de95b2e02979ca9e2ed7c9651` y caduca el 22 de noviembre de 2026. El MSIX no se firma localmente: Microsoft firma paquetes MSIX tras aprobar la certificación. El script no instala ni ejecuta el programa; el artefacto es candidato para pruebas, no resultado de WACK o instalación.
 
-La plantilla marca `runFullTrust` porque esta aplicación de escritorio necesita proceso de confianza media. No incluye `unvirtualizedResources` ni otras capacidades. `MaxVersionTested` queda inicialmente igual al mínimo Windows 11 del manifiesto y debe actualizarse tras probar la versión final en la máquina Windows de destino.
+La plantilla marca `runFullTrust` porque esta aplicación de escritorio necesita proceso de confianza media. No incluye `unvirtualizedResources` ni otras capacidades. El candidato conserva `MaxVersionTested=10.0.22000.0`, valor inicial conservador; las pruebas actuales se ejecutaron en Windows 11 build `10.0.26300.0`. El paquete no se ha reconstruido para cambiar ese campo; si se actualiza antes del envío, hay que generar y verificar de nuevo el artefacto.
 
 El parámetro opcional `-MaxVersionTested` permite fijar el build Windows que se haya probado. Su valor predeterminado (`10.0.22000.0`) es provisional para preparar el manifiesto; no representa una prueba ejecutada y no debe usarse para declarar compatibilidad verificada.
 
@@ -67,25 +67,36 @@ El script se detiene si falta Node/Rust/SDK, si las versiones discrepan o si ya 
 
 El workflow `Build Microsoft Store MSIX (manual)` genera un artefacto al subir cambios que afecten al código, script o manifiesto de empaquetado de esta rama; la retención es de 14 días. Los valores de identidad predeterminados son los que facilitó el usuario. La ejecución manual desde GitHub requiere que el workflow esté en la rama predeterminada; después se puede elegir esta rama como referencia. El workflow no publica una release ni envía el producto a certificación y no sustituye pruebas funcionales o WACK.
 
-## Pruebas Windows que faltan
+## Resultados y pruebas Windows pendientes
 
-Ejecutar en una VM Windows 11 x64 limpia y desechable, con usuario estándar. No instalar ni abrir el EXE de GitHub en el equipo principal. El `.msix` de envío va sin firma y conserva la identidad exacta de Partner Center; Microsoft lo firma tras la certificación. Para una prueba local, crear un certificado de desarrollo cuyo sujeto coincida exactamente con el `Publisher` del manifiesto, firmar una copia de prueba del paquete y confiar ese certificado **solo dentro de la VM**. No añadir el certificado ni su clave privada al repositorio o al artefacto de Store; eliminarlos al acabar. Un paquete de prueba unsigned con el OID especial tiene otra identidad y no comprueba la instalación con la identidad final de Store.
+Las pruebas realizadas usan una VM Windows 11 x64 Enterprise Evaluation y cuentas de prueba; los resultados distinguen las comprobaciones confirmadas por el usuario de los informes de máquina. No instalar ni abrir el EXE de GitHub en el equipo principal. El `.msix` destinado a Store va sin firma y conserva la identidad exacta de Partner Center; Microsoft lo firma tras la certificación. Para pruebas locales se usó una copia firmada con un certificado de desarrollo, confiado solo dentro de la VM. No añadir el certificado ni su clave privada al repositorio o al artefacto de Store; retirar el certificado temporal de la VM al terminar todas las pruebas. Un paquete de prueba unsigned con el OID especial tiene otra identidad y no comprueba la instalación con la identidad final de Store.
 
-| Comprobación | Estado actual | Evidencia pendiente |
+| Comprobación | Estado actual | Evidencia/alcance |
 | --- | --- | --- |
 | `npm test` sobre la rama | **Pasado**, 30/30 | Run de Windows [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), código de salida 0. |
 | Compilación Tauri x64 limpia | **Pasada** | Runner Windows, commit `257e0411fd09dae1d9cbdc67077a7c496b0fed2e`; el registro está en el artefacto de Actions. |
 | Empaquetado `.msix` / `.msixupload` | **Pasado como candidato sin firmar** | Run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), `Package creation succeeded`; hashes y nombres indicados arriba. No equivale a una prueba de instalación o certificación. |
-| Instalación/primer arranque como usuario estándar | No ejecutado | Windows 11 limpio, app abre y no requiere elevación. |
-| Funciones principales | No ejecutado | Calendario, alta/edición, recetas, idioma/temas, clonado, arrastre, selección, enlace con permiso y copia. |
-| Guardar/cerrar/reabrir | No ejecutado | Mismos datos antes/después del reinicio. |
+| Instalación/primer arranque como usuario estándar | **Pasado, confirmado por el usuario** | VM Windows 11 Enterprise Evaluation, build 26300; cuenta `test-semana-standard`; paquete local de prueba 2.2.0.0. |
+| Funciones principales | **Pasado, confirmado por el usuario** | El usuario abrió y cerró la aplicación y probó su funcionamiento en la VM. No se registró un resultado automatizado por función. |
+| Guardar/cerrar/reabrir | **Pasado, confirmado por el usuario** | El usuario confirmó la persistencia tras cerrar y volver a abrir. |
 | Actualización desde NSIS v2.2.0 | No ejecutado | Probar primero copia de seguridad; confirmar coexistencia, migración y conservación antes de retirar NSIS. |
 | Actualización MSIX a MSIX | No ejecutado | Siguiente versión con la misma identidad y versión superior. |
-| Desinstalación y datos residuales | No ejecutado | Verificar qué elimina Windows y qué perfil WebView2 conserva. No prometer borrado total antes de comprobarlo. |
-| Defender y SmartScreen | No ejecutado | Ejecutar solo dentro de VM; no desactivar protecciones ni quitar marca de Internet. |
-| Windows App Certification Kit | No ejecutado | Informe WACK de la versión final; compilación correcta no equivale a certificación. |
+| Desinstalación y datos residuales | **Pasado con alcance limitado** | En la cuenta `test-semana`, Windows retiró el paquete y su directorio local: 288 archivos/67.619.374 bytes antes y directorio ausente después. No prueba el borrado de copias exportadas ni de otros perfiles. |
+| Microsoft Defender | **Pasado en el paquete local de prueba** | Análisis personalizado con protección en tiempo real activa; cero detecciones nuevas. SHA-256 del MSIX firmado para pruebas: `1332C10E50DFF8C017615E00DEB76DBD13901F9A6E88990C337C06589EF73624`. |
+| SmartScreen | **No ejecutado para el paquete MSIX** | El MSIX local usa firma de desarrollo y no representa la reputación de un paquete publicado por Store. No se desactivaron protecciones ni se quitó la marca de Internet. |
+| Windows App Certification Kit (WACK) | **Pasado con un fallo en una prueba opcional** | 24 pruebas: 23 pasaron, 1 opcional falló y 0 obligatorias fallaron; el XML registra `OVERALL_RESULT=PASS`. Véase el detalle siguiente. WACK no equivale a certificación de Store. |
 | Instalador del release y Authenticode | No ejecutado localmente | Descarga estática del EXE, `Get-AuthenticodeSignature`, metadatos PE y SHA-256 calculado localmente. No abrirlo. |
 | Licencias transitivas Rust | Revisión incompleta | Cargo no está instalado; validar manifiestos/licencias de todas las crates y conservar el inventario generado antes de publicar. |
+
+### Resultado WACK del 9 de noviembre de 2026
+
+WACK 10.0.26100.9457 terminó con código de salida 0 en Windows 11 Enterprise Evaluation x64, build 26300.0. El XML de la prueba completa (`PARTIAL_RUN=FALSE`) informa `OVERALL_RESULT=PASS`: 23 de 24 pruebas pasaron, una prueba marcada `OPTIONAL=TRUE` falló y ninguna prueba obligatoria falló. Se ejecutó sobre la versión 2.2.0.0 x64 del paquete local firmado para pruebas, no sobre el `.msixupload` sin firma que se entregaría a Partner Center ni sobre un paquete firmado por Microsoft.
+
+Microsoft documenta que las pruebas opcionales de Desktop Bridge son informativas y no se usan para evaluar la incorporación a Store; también describe **Blocked executables** como una comprobación relacionada con Windows S y recomienda revisar cada referencia. La guía vigente indica que WACK local está obsoleto y es solo una comprobación previa opcional; la certificación oficial ocurre al enviar a Partner Center. Véanse [pruebas Desktop Bridge](https://learn.microsoft.com/en-us/windows/uwp/debug-test-perf/windows-desktop-bridge-app-tests) y [validación de paquetes MSIX](https://learn.microsoft.com/en-us/windows/msix/package/packaging-uwp-apps).
+
+La prueba opcional **Ejecutables bloqueados** detectó referencias binarias a `CreateProcessW`, `ShellExecuteW` y las cadenas `CDb`, `basH`, `cmd`, `CSi`, `cmd.exe` y `\cmd.exe`. La revisión del código fuente confirma que `ShellExecuteW` se usa para abrir el perfil de GitHub solo después del consentimiento. No se encontraron llamadas a `CreateProcessW`, `cmd.exe` ni `std::process::Command` en `src/` o `src-tauri/`; el origen de esas otras referencias binarias no se ha trazado. Se conserva como hallazgo pendiente de evaluación, no se etiqueta como falso positivo.
+
+El XML completo se conserva fuera de Git en esta máquina, en la carpeta local vecina `../Compilacion_W11/LocalTest/wack-report-2.2.0.0-20261109.xml` (SHA-256 `CEA24A9869D3FCC364A05AAB767DF61C1F9D6847A45338A0F4FFC70CD9F1EC9D`). El MSIX local firmado para pruebas tiene SHA-256 `1332C10E50DFF8C017615E00DEB76DBD13901F9A6E88990C337C06589EF73624`; el candidato sin firmar conserva los hashes indicados en la sección de paquete. WACK no certifica la aplicación ni predice por sí solo la decisión de Partner Center.
 
 ## Dependencias, licencias y secretos
 
@@ -96,7 +107,7 @@ Ejecutar en una VM Windows 11 x64 limpia y desechable, con usuario estándar. No
 ## Ficha de Store, privacidad y publicación
 
 - [Textos completos en español](STORE-LISTING.es.md) y [English listing](STORE-LISTING.en.md).
-- [Borrador de privacidad en español](PRIVACIDAD.es.md) y [English privacy draft](PRIVACY.en.md). Necesita una URL pública y revisión final de retención/desinstalación; el repositorio es privado y esos archivos no sirven como enlace público mientras siga así.
+- [Borrador de privacidad en español](PRIVACIDAD.es.md) y [English privacy draft](PRIVACY.en.md). Incluyen el resultado limitado de desinstalación. Antes de enlazarlos en Store faltan contacto público y URL pública, y revisar el alcance de esa prueba; el repositorio privado no sirve como enlace público.
 - Se genera el icono cuadrado 300×300 para el listing con franja de marca, además de los logotipos de paquete 44×44, 50×50 y 150×150. El icono y los logotipos salen del SVG del producto.
 - Las capturas que aparecen en README son referencias reales, pero aún no se han entregado como archivos PNG locales de Store ni revisado en el paquete final. Store pide al menos una captura de escritorio; se recomienda aportar varias capturas reales de la versión MSIX final y no imágenes simuladas.
 

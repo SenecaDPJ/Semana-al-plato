@@ -1,6 +1,6 @@
 # Privacy policy draft — Semana al Plato
 
-**Status:** draft for review before publication. It describes the inspected v2.2.0 code; retention while and after uninstalling the MSIX package still requires a Windows test. Do not publish this draft as the final policy URL until the publisher's public contact is added and that test is complete.
+**Status:** draft for review before publication. It describes the inspected v2.2.0 code and includes one Windows uninstall test using a VM account. Do not publish this draft as the final policy URL until the publisher's public contact is added and the test's scope has been reviewed against the intended policy.
 
 ## Data and storage
 
@@ -24,7 +24,7 @@ The app does not send backups off the device. You control whether to export, whe
 
 Working data remains in the app's local profile until Windows removes it or the user deletes it using Windows tools. The app does not provide a separate “delete all my data” feature.
 
-**Verification pending:** test in a Windows 11 VM whether uninstalling the MSIX package causes Windows to remove Tauri's WebView2 profile or leaves data outside the package. Until that test is complete, this policy does not promise that uninstall removes all data. Export a JSON backup before migrating from NSIS.
+**Test performed:** when the local MSIX test package 2.2.0.0 was uninstalled in a Windows 11 VM, Windows removed the package-specific local directory containing the app profile and data (288 files; 67,619,374 bytes before uninstall). The test used one test account and does not establish what happens with other profiles or versions. JSON files exported to another location and copies a user has shared are not removed when the app is uninstalled. Export a JSON backup before migrating from NSIS, and verify that migration separately.
 
 ## Children and sensitive data
 

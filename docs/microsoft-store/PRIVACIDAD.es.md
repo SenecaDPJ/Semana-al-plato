@@ -1,6 +1,6 @@
 # Borrador de política de privacidad — Semana al Plato
 
-**Estado:** borrador para revisar antes de publicación. Describe el código v2.2.0 inspeccionado; la retención durante y después de desinstalar el paquete MSIX aún requiere una prueba de Windows. No publicar este borrador como URL final sin añadir el contacto público del editor y verificar esa prueba.
+**Estado:** borrador para revisar antes de publicación. Describe el código v2.2.0 inspeccionado e incorpora una prueba de desinstalación en Windows con una cuenta de VM. No publicar este borrador como URL final sin añadir el contacto público del editor y revisar que el alcance de la prueba represente la política que se desea comunicar.
 
 ## Datos y almacenamiento
 
@@ -24,7 +24,7 @@ El programa no envía las copias fuera del dispositivo. Quien use la aplicación
 
 Los datos de trabajo permanecen en el perfil local de la aplicación hasta que el sistema los elimine o la persona los borre mediante las herramientas disponibles en Windows. La aplicación no tiene una función independiente de “borrar todos mis datos”.
 
-**Pendiente de verificación:** comprobar en una VM Windows 11 si al desinstalar la versión MSIX Windows elimina el perfil WebView2 usado por Tauri o conserva datos fuera del paquete. Hasta realizar esa comprobación, no se promete que la desinstalación elimine todos los datos. Antes de migrar desde NSIS, exporta una copia JSON.
+**Prueba realizada:** al desinstalar el paquete MSIX local de prueba 2.2.0.0 en una VM Windows 11, Windows eliminó el directorio local específico del paquete que contenía el perfil y los datos de la aplicación (288 archivos; 67.619.374 bytes antes de desinstalar). La prueba se realizó con una cuenta de prueba y no demuestra qué ocurre con otros perfiles o versiones. Los JSON exportados a otra ubicación y las copias que una persona haya compartido no se eliminan al desinstalar la aplicación. Antes de migrar desde NSIS, exporta una copia JSON y verifica la migración por separado.
 
 ## Menores y datos sensibles
 
