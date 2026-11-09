@@ -69,14 +69,9 @@ try {
 
     Copy-Item -LiteralPath $storePackage.FullName -Destination $testPackagePath
     Export-Certificate -Cert $certificate -FilePath $publicCertificatePath -Force | Out-Null
-    Import-Certificate -FilePath $publicCertificatePath -CertStoreLocation 'Cert:\CurrentUser\TrustedPeople' | Out-Null
-    Import-Certificate -FilePath $publicCertificatePath -CertStoreLocation 'Cert:\CurrentUser\Root' | Out-Null
 
     & $signTool.FullName sign /fd SHA256 /sha1 $certificate.Thumbprint /s My /v $testPackagePath
     if ($LASTEXITCODE -ne 0) { throw "SignTool sign devolvió $LASTEXITCODE." }
-
-    & $signTool.FullName verify /pa /all /v $testPackagePath
-    if ($LASTEXITCODE -ne 0) { throw "SignTool verify devolvió $LASTEXITCODE." }
 
     $testHash = (Get-FileHash -LiteralPath $testPackagePath -Algorithm SHA256).Hash.ToLowerInvariant()
     $info = @"
@@ -89,6 +84,7 @@ Publisher / certificate subject: $ExpectedPublisher
 Certificate thumbprint: $($certificate.Thumbprint)
 Certificate expiry: $($certificate.NotAfter.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'))
 Private key export: disabled; no PFX or private key is included.
+SignTool sign exited successfully; package trust is verified by Add-AppxPackage in the isolated VM.
 Trust this public certificate only in the isolated test VM, then remove it after testing.
 The Store MSIX and .msixupload remain unsigned and unchanged.
 "@
@@ -97,8 +93,6 @@ The Store MSIX and .msixupload remain unsigned and unchanged.
 finally {
     if ($null -ne $certificate) {
         Remove-Item -LiteralPath "Cert:\CurrentUser\My\$($certificate.Thumbprint)" -Force -ErrorAction SilentlyContinue
-        Remove-Item -LiteralPath "Cert:\CurrentUser\TrustedPeople\$($certificate.Thumbprint)" -Force -ErrorAction SilentlyContinue
-        Remove-Item -LiteralPath "Cert:\CurrentUser\Root\$($certificate.Thumbprint)" -Force -ErrorAction SilentlyContinue
     }
 }
 
