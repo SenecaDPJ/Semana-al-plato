@@ -1,6 +1,6 @@
 # Privacy policy — Semana al Plato
 
-**Status:** text prepared for GitHub Pages, based on the inspected v2.2.0 code and one limited Windows uninstall test. The web version must be served from GitHub Pages and the test scope must remain explicit.
+**Status:** published on GitHub Pages at `https://senecadpj.github.io/Semana-al-plato/`. Based on the inspected v2.2.0 code and one limited Windows uninstall test; the scope of that test remains explicit.
 
 ## Data and storage
 

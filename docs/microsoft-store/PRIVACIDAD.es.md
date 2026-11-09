@@ -1,6 +1,6 @@
 # Política de privacidad — Semana al Plato
 
-**Estado:** texto para GitHub Pages, basado en el código v2.2.0 y una prueba limitada de desinstalación en Windows. La versión web debe servirse desde GitHub Pages y el alcance de la prueba debe mantenerse explícito.
+**Estado:** publicada en GitHub Pages en `https://senecadpj.github.io/Semana-al-plato/`. Basada en el código v2.2.0 y una prueba limitada de desinstalación en Windows; el alcance de esa prueba se mantiene explícito.
 
 ## Datos y almacenamiento
 
