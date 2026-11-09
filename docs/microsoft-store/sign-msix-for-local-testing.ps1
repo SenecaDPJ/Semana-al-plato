@@ -70,6 +70,7 @@ try {
     Copy-Item -LiteralPath $storePackage.FullName -Destination $testPackagePath
     Export-Certificate -Cert $certificate -FilePath $publicCertificatePath -Force | Out-Null
     Import-Certificate -FilePath $publicCertificatePath -CertStoreLocation 'Cert:\CurrentUser\TrustedPeople' | Out-Null
+    Import-Certificate -FilePath $publicCertificatePath -CertStoreLocation 'Cert:\CurrentUser\Root' | Out-Null
 
     & $signTool.FullName sign /fd SHA256 /sha1 $certificate.Thumbprint /s My /v $testPackagePath
     if ($LASTEXITCODE -ne 0) { throw "SignTool sign devolvió $LASTEXITCODE." }
@@ -97,6 +98,7 @@ finally {
     if ($null -ne $certificate) {
         Remove-Item -LiteralPath "Cert:\CurrentUser\My\$($certificate.Thumbprint)" -Force -ErrorAction SilentlyContinue
         Remove-Item -LiteralPath "Cert:\CurrentUser\TrustedPeople\$($certificate.Thumbprint)" -Force -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath "Cert:\CurrentUser\Root\$($certificate.Thumbprint)" -Force -ErrorAction SilentlyContinue
     }
 }
 
