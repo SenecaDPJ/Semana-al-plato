@@ -107,7 +107,7 @@ El XML completo se conserva fuera de Git en esta máquina, en la carpeta local v
 ## Ficha de Store, privacidad y publicación
 
 - [Textos completos en español](STORE-LISTING.es.md) y [English listing](STORE-LISTING.en.md).
-- [Política web bilingüe](privacy/index.html) y fuentes [española](PRIVACIDAD.es.md) / [inglesa](PRIVACY.en.md). El contacto propuesto es el formulario público de incidencias de GitHub, con una advertencia para no incluir datos personales. La página se servirá en `https://senecadpj.github.io/Semana-al-plato/` cuando el propietario active GitHub Pages para `gh-pages` en la raíz; aún no se afirma que la URL esté activa.
+- [Política web bilingüe](privacy/index.html) y fuentes [española](PRIVACIDAD.es.md) / [inglesa](PRIVACY.en.md). La rama `gh-pages` ya está publicada y contiene solo `index.html`. El API del repositorio informa `has_pages=true`, pero desde este entorno no se pudo verificar la respuesta web ni leer la configuración de origen. Confirma en Settings → Pages que la fuente sea `gh-pages` y `/ (root)`, y valida `https://senecadpj.github.io/Semana-al-plato/` antes de usarla en Partner Center. El contacto propuesto es el formulario público de incidencias de GitHub; no se deben incluir datos personales.
 - Se genera el icono cuadrado 300×300 para el listing con franja de marca, además de los logotipos de paquete 44×44, 50×50 y 150×150. El icono y los logotipos salen del SVG del producto.
 - Las capturas que aparecen en README son referencias reales, pero aún no se han entregado como archivos PNG locales de Store ni revisado en el paquete final. Store pide al menos una captura de escritorio; se recomienda aportar varias capturas reales de la versión MSIX final y no imágenes simuladas.
 

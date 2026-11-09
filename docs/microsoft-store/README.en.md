@@ -107,7 +107,7 @@ The complete XML is retained outside Git on this workstation in the adjacent loc
 ## Store listing, privacy and publication
 
 - [Complete Spanish listing](STORE-LISTING.es.md) and [English listing](STORE-LISTING.en.md).
-- [Bilingual web policy](privacy/index.html) and the [Spanish](PRIVACIDAD.es.md) / [English](PRIVACY.en.md) source texts. The proposed contact is the public GitHub issue form, with a warning not to include personal data. The page will be served at `https://senecadpj.github.io/Semana-al-plato/` once the owner enables GitHub Pages for the `gh-pages` branch root; the URL is not claimed to be active yet.
+- [Bilingual web policy](privacy/index.html) and the [Spanish](PRIVACIDAD.es.md) / [English](PRIVACY.en.md) source texts. The `gh-pages` branch is published and contains only `index.html`. The repository API now reports `has_pages=true`, but this environment could not verify the live response or read the configured source. Check Settings → Pages for `gh-pages` and `/ (root)`, then verify `https://senecadpj.github.io/Semana-al-plato/` before entering it in Partner Center. The proposed contact is the public GitHub issue form; users should not include personal data.
 - A square 300×300 Store tile with branding bar is generated, along with 44×44, 50×50 and 150×150 package logos. These are derived from the product SVG.
 - Screenshots shown in the README are authentic references, but have not been supplied here as local PNG files for Store or reviewed in the final package. Store needs at least one desktop screenshot; several real captures of the final MSIX build are recommended. Do not use simulated screenshots.
 

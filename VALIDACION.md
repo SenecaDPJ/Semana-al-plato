@@ -92,6 +92,6 @@ Detalle y repetición: [preparación MSIX](docs/microsoft-store/README.es.md). E
 - Parseo del manifiesto XML y de los scripts PowerShell de empaquetado/inventario: **PASADO**. `git diff --check`: **PASADO**.
 - El manifiesto usa `MaxVersionTested=10.0.26300.0`, confirmado en el XML de WACK de la VM; conserva el mínimo técnico `10.0.22000.0`, que no se ha probado. La reconstrucción MSIX/Actions y un nuevo WACK sobre ese paquete siguen pendientes.
 - El workflow ahora genera un inventario de dependencias Cargo y textos de avisos. Debe generarse en Windows y requiere revisión humana de las obligaciones; no equivale a autorización legal.
-- La política de privacidad bilingüe está preparada en `docs/microsoft-store/privacy/index.html`, con el formulario público de incidencias como contacto propuesto. Falta publicar la rama `gh-pages` y activar Pages en el repositorio para confirmar la URL pública.
+- La política de privacidad bilingüe está publicada en la rama aislada `gh-pages` (solo `index.html`). El API del repositorio informa `has_pages=true`, pero no se pudo verificar la respuesta pública desde este entorno. Falta confirmar Settings → Pages (`gh-pages`, raíz) y que el URL carga antes de usarlo en Partner Center.
 - Siguen pendientes la prueba NSIS→MSIX conservando una copia JSON, capturas reales del MSIX final, el nuevo WACK, la revisión legal del inventario y completar campos/decisiones de Partner Center.
 - El propietario cambió la visibilidad del repositorio a público. No se publicó una release nueva ni se envió el producto a certificación.

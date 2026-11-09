@@ -18,12 +18,22 @@ if (-not (Test-Path -LiteralPath $outputRoot -PathType Container)) {
     throw "No existe la carpeta del artefacto MSIX: $outputRoot"
 }
 
-$metadataText = (& cargo metadata --locked --format-version 1 --manifest-path 'src-tauri\Cargo.toml' | Out-String)
+$targetTriple = 'x86_64-pc-windows-msvc'
+$metadataText = (& cargo metadata --locked --format-version 1 --filter-platform $targetTriple --manifest-path 'src-tauri\Cargo.toml' | Out-String)
 if ($LASTEXITCODE -ne 0) {
     throw 'cargo metadata no pudo resolver el lockfile; no se generó el inventario de licencias.'
 }
 $metadata = $metadataText | ConvertFrom-Json
-$externalPackages = @($metadata.packages | Where-Object { -not [string]::IsNullOrWhiteSpace($_.source) } | Sort-Object name, version, source)
+if (-not $metadata.resolve -or -not $metadata.resolve.nodes) {
+    throw 'cargo metadata no devolvió el grafo de dependencias resuelto para el objetivo Windows.'
+}
+$resolvedPackageIds = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+foreach ($node in $metadata.resolve.nodes) {
+    [void]$resolvedPackageIds.Add([string]$node.id)
+}
+$externalPackages = @($metadata.packages | Where-Object {
+    -not [string]::IsNullOrWhiteSpace($_.source) -and $resolvedPackageIds.Contains([string]$_.id)
+} | Sort-Object name, version, source)
 $licenseOutputRoot = Join-Path $outputRoot 'third-party-licenses'
 New-Item -ItemType Directory -Path $licenseOutputRoot -Force | Out-Null
 
@@ -121,7 +131,7 @@ $summaryPath = Join-Path $outputRoot 'CARGO-LICENSE-SUMMARY.json'
 $noticesPath = Join-Path $outputRoot 'THIRD-PARTY-NOTICES.txt'
 $inventory | Export-Csv -LiteralPath $inventoryPath -NoTypeInformation -Encoding utf8
 $noticeHeader = @(
-    'Generated from cargo metadata and license files included with the locked Cargo dependencies.'
+    "Generated from the Cargo dependency graph for target $targetTriple and license files included with the locked dependencies."
     'This inventory is for review; it is not legal clearance or a determination that licenses are compatible.'
     ''
 )
@@ -133,6 +143,7 @@ $summary = [pscustomobject]@{
     ProductVersion = $appVersion
     PackageVersion = $packageVersion
     SourceCommit = $sourceCommit
+    TargetTriple = $targetTriple
     ExternalPackageCount = $externalPackages.Count
     LicenseFilesIncluded = $includedTextCount
     PackagesMissingLicenseExpression = $missingLicenseExpressionCount

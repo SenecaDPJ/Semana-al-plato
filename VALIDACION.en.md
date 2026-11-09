@@ -90,6 +90,6 @@ Details and repeat steps: [MSIX preparation](docs/microsoft-store/README.en.md).
 - Manifest XML and PowerShell packaging/inventory scripts parsed successfully. `git diff --check`: **PASSED**.
 - `MaxVersionTested=10.0.26300.0` is confirmed by the VM's WACK XML; the manifest retains the technical minimum `10.0.22000.0`, which has not been tested. Rebuilding the MSIX in Actions and rerunning WACK on that package remain pending.
 - The workflow now generates a Cargo dependency and notice inventory. It must run on Windows and requires a human review of obligations; it is not legal clearance.
-- The bilingual privacy policy is prepared at `docs/microsoft-store/privacy/index.html`, with the public issue form as the proposed contact. The `gh-pages` branch still needs to be published and Pages enabled in repository settings before the public URL can be confirmed.
+- The bilingual privacy policy is published on the isolated `gh-pages` branch (only `index.html`). The repository API reports `has_pages=true`, but this environment could not verify the public response. Confirm Settings → Pages (`gh-pages`, root) and that the URL loads before entering it in Partner Center.
 - Still pending: NSIS-to-MSIX update with JSON backup preservation, real screenshots from the final MSIX, new WACK, legal review of the inventory, and Partner Center fields/decisions.
 - The owner changed repository visibility to public. No new release was published and the product was not submitted for certification.
