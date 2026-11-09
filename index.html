@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Política de privacidad de Semana al Plato / Privacy policy for Semana al Plato.">
+  <title>Privacidad — Semana al Plato</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18342c;
+      --muted: #53665f;
+      --green: #294f3d;
+      --line: #d9e0d8;
+      --paper: #fffefa;
+      --canvas: #f2f3ed;
+      --link: #145f4b;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--canvas); color: var(--ink); line-height: 1.65; }
+    .wrap { width: min(100% - 32px, 920px); margin: 32px auto; }
+    header { padding: 28px 32px; color: white; background: var(--green); border-radius: 18px 18px 0 0; }
+    .brand { margin: 0 0 4px; font-weight: 750; letter-spacing: .01em; font-size: 1.25rem; }
+    .subtitle { margin: 0; opacity: .88; }
+    nav { display: flex; gap: 10px; padding: 14px 32px; background: #e7eee7; border-bottom: 1px solid var(--line); }
+    nav a { display: inline-block; padding: 7px 13px; border: 1px solid #b8c9be; border-radius: 999px; color: var(--green); font-weight: 650; text-decoration: none; }
+    nav a:hover, nav a:focus-visible { background: white; outline: 2px solid var(--link); outline-offset: 2px; }
+    main { padding: 32px; background: var(--paper); border-radius: 0 0 18px 18px; box-shadow: 0 14px 36px #173a2b12; }
+    article + article { margin-top: 42px; padding-top: 36px; border-top: 2px solid var(--line); }
+    h1 { margin: 0 0 6px; font-size: clamp(1.8rem, 5vw, 2.45rem); line-height: 1.2; }
+    h2 { margin: 28px 0 8px; font-size: 1.2rem; line-height: 1.35; }
+    p { margin: 10px 0; }
+    .meta { color: var(--muted); font-size: .95rem; }
+    a { color: var(--link); text-underline-offset: 3px; }
+    .note { margin: 18px 0; padding: 14px 16px; border-left: 4px solid #94b53f; background: #f4f7e9; }
+    footer { padding: 18px 8px 0; color: var(--muted); text-align: center; font-size: .88rem; }
+    @media (max-width: 600px) {
+      .wrap { width: min(100% - 20px, 920px); margin: 10px auto; }
+      header, main { padding: 22px 20px; }
+      nav { padding-inline: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="brand">Semana al Plato</p>
+      <p class="subtitle">Calendario semanal de comidas · Weekly meal planner</p>
+    </header>
+    <nav aria-label="Idioma / Language">
+      <a href="#es" lang="es">Español</a>
+      <a href="#en" lang="en">English</a>
+    </nav>
+    <main>
+      <article id="es" lang="es" aria-labelledby="title-es">
+        <h1 id="title-es">Política de privacidad</h1>
+        <p class="meta">Versión 2.2.0 · Actualizada el <time datetime="2026-11-09">9 de noviembre de 2026</time></p>
+
+        <h2>Datos y almacenamiento</h2>
+        <p>Semana al Plato guarda en este dispositivo la planificación del calendario, los nombres de comidas y alimentos, las categorías y los datos de las recetas (ingredientes, preparación, tiempos y raciones). El calendario se guarda automáticamente en el almacenamiento local del perfil WebView2 de la aplicación. Las preferencias de tema e idioma se guardan por separado en el mismo dispositivo. No se necesita crear una cuenta.</p>
+        <p>La aplicación no tiene sincronización en la nube, analítica, anuncios ni telemetría. El código de la aplicación no envía menús, recetas ni preferencias a un servidor de Semana al Plato.</p>
+
+        <h2>Conexiones externas</h2>
+        <p>La única conexión iniciada desde la interfaz es abrir <a href="https://github.com/SenecaDPJ">el perfil de GitHub del editor</a> en el navegador predeterminado, después de pedir confirmación. Si aceptas, la navegación y los datos que el navegador comparta se rigen por las políticas de GitHub y del navegador elegido.</p>
+        <p>La aplicación utiliza Microsoft Edge WebView2. Windows y Microsoft mantienen el runtime Evergreen. El paquete de Microsoft Store está dirigido a Windows 11, que incluye WebView2.</p>
+
+        <h2>Copias y control</h2>
+        <p><strong>Mis datos → Exportar copia</strong> crea un archivo JSON en la ubicación que elijas. Puede contener los datos indicados arriba; guárdalo y compártelo con cuidado. <strong>Restaurar copia</strong> valida un JSON seleccionado y sustituye los datos actuales después de confirmarlo. La copia no incluye las preferencias de tema e idioma. La aplicación no envía copias fuera del dispositivo.</p>
+
+        <h2>Conservación y desinstalación</h2>
+        <p>Los datos de trabajo se guardan en el perfil local de la aplicación. En una prueba del paquete MSIX 2.2.0.0 en una VM Windows 11, al desinstalarlo Windows eliminó el directorio local específico del paquete que contenía el perfil y los datos de la aplicación (288 archivos, 67.619.374 bytes antes de la desinstalación). Fue una prueba en una cuenta y no garantiza el mismo resultado en otras cuentas o versiones. Los JSON exportados a otra ubicación y las copias compartidas no se eliminan al desinstalar la aplicación. La aplicación no ofrece una acción independiente para borrar todos los datos.</p>
+
+        <h2>Menores y datos sensibles</h2>
+        <p>La aplicación no solicita ni necesita categorías especiales de datos personales. Los nombres, recetas y fechas que escribas podrían ser información personal. No incluyas datos que no quieras almacenar localmente o compartir en una copia.</p>
+
+        <h2>Contacto y cambios</h2>
+        <p>Para contactar con el editor o comunicar una incidencia, utiliza el <a href="https://github.com/SenecaDPJ/Semana-al-plato/issues/new">formulario público de incidencias de GitHub</a>. Las incidencias son públicas: no incluyas datos personales, información sensible ni copias de tus menús.</p>
+        <p>Esta política se actualizará si cambia la recopilación, el almacenamiento o las conexiones de la aplicación.</p>
+      </article>
+
+      <article id="en" lang="en" aria-labelledby="title-en">
+        <h1 id="title-en">Privacy policy</h1>
+        <p class="meta">Version 2.2.0 · Updated <time datetime="2026-11-09">9 November 2026</time></p>
+
+        <h2>Data and storage</h2>
+        <p>Semana al Plato stores the calendar plan, dish and food names, categories, and recipe details (ingredients, preparation, times and servings) on this device. Calendar data is saved automatically in the app's WebView2 profile storage. Theme and language preferences are stored separately on the same device. No account is required.</p>
+        <p>The app has no cloud sync, analytics, advertising or telemetry. The app code does not send menus, recipes or preferences to a Semana al Plato server.</p>
+
+        <h2>External connections</h2>
+        <p>The only connection initiated by the interface is opening <a href="https://github.com/SenecaDPJ">the publisher's GitHub profile</a> in the default browser, after asking for confirmation. If you accept, browsing and any data shared by the browser are governed by GitHub's and the selected browser's privacy policies.</p>
+        <p>The application uses Microsoft Edge WebView2. Windows and Microsoft service the Evergreen runtime. The Microsoft Store package targets Windows 11, which includes WebView2.</p>
+
+        <h2>Backups and user control</h2>
+        <p><strong>My data → Export backup</strong> creates a JSON file at a location you choose. It may contain the data listed above; store and share it carefully. <strong>Restore backup</strong> validates a JSON file you select and replaces the current data after confirmation. The backup does not include theme or language preferences. The app does not send backups off the device.</p>
+
+        <h2>Retention and uninstall</h2>
+        <p>Working data is stored in the app's local profile. In one test of the 2.2.0.0 MSIX package in a Windows 11 VM, uninstalling the app caused Windows to remove the package-specific local directory containing the app profile and data (288 files, 67,619,374 bytes before uninstall). This was one test account and does not guarantee the same result for other accounts or versions. JSON files exported elsewhere and copies that have been shared are not removed when the app is uninstalled. The app has no separate action to erase all data.</p>
+
+        <h2>Children and sensitive data</h2>
+        <p>The app does not request or require special-category personal data. Names, recipe text and dates you enter could be personal information. Do not enter information that you do not want stored locally or included in a shared backup.</p>
+
+        <h2>Contact and changes</h2>
+        <p>To contact the publisher or report an issue, use the <a href="https://github.com/SenecaDPJ/Semana-al-plato/issues/new">public GitHub issue form</a>. Issues are public; do not include personal data, sensitive information or copies of your menus.</p>
+        <p>This policy will be updated if the app's collection, storage or connection behaviour changes.</p>
+      </article>
+    </main>
+    <footer>Semana al Plato · <a href="https://github.com/SenecaDPJ/Semana-al-plato">GitHub</a></footer>
+  </div>
+</body>
+</html>
