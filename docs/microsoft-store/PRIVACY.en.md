@@ -1,6 +1,6 @@
 # Privacy policy — Semana al Plato
 
-**Status:** published on GitHub Pages at `https://senecadpj.github.io/Semana-al-plato/`. Based on the inspected v2.2.0 code and one limited Windows uninstall test; the scope of that test remains explicit.
+**Status:** source text reviewed for v2.2.0. GitHub Pages still serves the previous version until the owner syncs this content to the `gh-pages` branch. This policy describes local storage and the limits of an uninstall test; it does not guarantee that Windows will remove or retain data on every version or account.
 
 ## Data and storage
 
@@ -24,7 +24,7 @@ The app does not send backups off the device. You control whether to export, whe
 
 Working data remains in the app's local profile until Windows removes it or the user deletes it using Windows tools. The app does not provide a separate “delete all my data” feature.
 
-**Test performed:** when the local MSIX test package 2.2.0.0 was uninstalled in a Windows 11 VM, Windows removed the package-specific local directory containing the app profile and data (288 files; 67,619,374 bytes before uninstall). The test used one test account and does not establish what happens with other profiles or versions. JSON files exported to another location and copies a user has shared are not removed when the app is uninstalled. Export a JSON backup before migrating from NSIS, and verify that migration separately.
+**Tests performed:** in a standard account on a Windows 11 Enterprise LTSC 24H2 VM, uninstalling MSIX 2.2.0.0 left the app's local profile in place: 183 files and 5,205,784 bytes. Comparison with a pre-uninstall copy found the persistent data unchanged; seven volatile WebView2 cache files differed. In a separate uninstall test and account, Windows removed the package directory. These results show that retention may vary by profile and installation context; neither retention nor removal of local data is guaranteed. Export a JSON backup before uninstalling or migrating. JSON files exported elsewhere and copies a user has shared are not removed with the app.
 
 ## Children and sensitive data
 

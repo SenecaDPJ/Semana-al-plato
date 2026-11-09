@@ -11,6 +11,8 @@ param(
 
     [string]$OutputDirectory,
 
+    [string]$MinVersion = '10.0.26100.1742',
+
     [string]$MaxVersionTested = '10.0.26300.0'
 )
 
@@ -66,8 +68,11 @@ if ($LASTEXITCODE -ne 0) { throw 'No se pudo revisar el estado de Git.' }
 if (-not [string]::IsNullOrWhiteSpace($workingChanges)) {
     throw 'Para identificar con claridad el origen del paquete, confirma o aparta los cambios locales antes de compilar.'
 }
-if ($MaxVersionTested -notmatch '^10\.0\.\d+\.\d+$' -or [version]$MaxVersionTested -lt [version]'10.0.22000.0') {
-    throw 'MaxVersionTested debe ser una versión Windows 11 válida (10.0.22000.0 o superior), basada en una prueba real.'
+if ($MinVersion -notmatch '^10\.0\.\d+\.\d+$' -or [version]$MinVersion -lt [version]'10.0.26100.1742') {
+    throw 'MinVersion no puede ser inferior a 10.0.26100.1742: es el sistema mínimo probado en esta revisión.'
+}
+if ($MaxVersionTested -notmatch '^10\.0\.\d+\.\d+$' -or [version]$MaxVersionTested -lt [version]$MinVersion) {
+    throw 'MaxVersionTested debe ser una versión válida igual o posterior a MinVersion, basada en pruebas reales.'
 }
 $packageJson = Get-Content -LiteralPath 'package.json' -Raw | ConvertFrom-Json
 $tauriConfig = Get-Content -LiteralPath 'src-tauri\tauri.conf.json' -Raw | ConvertFrom-Json
@@ -159,6 +164,7 @@ try {
     $identity.SetAttribute('Publisher', $PackageIdentityPublisher)
     $identity.SetAttribute('Version', $packageVersion)
     $targetDeviceFamily = $manifest.SelectSingleNode('/a:Package/a:Dependencies/a:TargetDeviceFamily', $ns)
+    $targetDeviceFamily.SetAttribute('MinVersion', $MinVersion)
     $targetDeviceFamily.SetAttribute('MaxVersionTested', $MaxVersionTested)
     $properties = $manifest.SelectSingleNode('/a:Package/a:Properties', $ns)
     $properties.SelectSingleNode('a:PublisherDisplayName', $ns).InnerText = $PublisherDisplayName
@@ -187,6 +193,7 @@ SHA-256: $uploadHash
 Product version: $appVersion
 Package version: $packageVersion (fourth component reserved as 0)
 Architecture: x64
+MinVersion: $MinVersion
 MaxVersionTested: $MaxVersionTested
 Package identity name: $PackageIdentityName
 Package publisher: $PackageIdentityPublisher

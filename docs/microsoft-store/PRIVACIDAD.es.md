@@ -1,6 +1,6 @@
 # Política de privacidad — Semana al Plato
 
-**Estado:** publicada en GitHub Pages en `https://senecadpj.github.io/Semana-al-plato/`. Basada en el código v2.2.0 y una prueba limitada de desinstalación en Windows; el alcance de esa prueba se mantiene explícito.
+**Estado:** texto fuente revisado para v2.2.0. GitHub Pages sigue sirviendo la versión anterior hasta que el propietario sincronice este contenido con la rama `gh-pages`. La política describe el almacenamiento local y los límites de una prueba de desinstalación; no garantiza que Windows elimine o conserve los datos en todas las versiones o cuentas.
 
 ## Datos y almacenamiento
 
@@ -24,7 +24,7 @@ El programa no envía las copias fuera del dispositivo. Quien use la aplicación
 
 Los datos de trabajo permanecen en el perfil local de la aplicación hasta que el sistema los elimine o la persona los borre mediante las herramientas disponibles en Windows. La aplicación no tiene una función independiente de “borrar todos mis datos”.
 
-**Prueba realizada:** al desinstalar el paquete MSIX local de prueba 2.2.0.0 en una VM Windows 11, Windows eliminó el directorio local específico del paquete que contenía el perfil y los datos de la aplicación (288 archivos; 67.619.374 bytes antes de desinstalar). La prueba se realizó con una cuenta de prueba y no demuestra qué ocurre con otros perfiles o versiones. Los JSON exportados a otra ubicación y las copias que una persona haya compartido no se eliminan al desinstalar la aplicación. Antes de migrar desde NSIS, exporta una copia JSON y verifica la migración por separado.
+**Pruebas realizadas:** en una cuenta estándar de una VM Windows 11 Enterprise LTSC 24H2, al desinstalar el MSIX 2.2.0.0 Windows conservó el perfil local de la aplicación: 183 archivos y 5.205.784 bytes. La comparación con una copia anterior encontró iguales los datos persistentes; siete archivos de caché volátil de WebView2 diferían. En otra prueba de desinstalación y otra cuenta, Windows eliminó el directorio del paquete. Estos resultados muestran que la retención puede variar según el perfil y el contexto de instalación; no se garantiza ni la conservación ni la eliminación de los datos locales. Exporta una copia JSON antes de desinstalar o migrar. Los archivos JSON exportados a otra ubicación y las copias compartidas no se eliminan al desinstalar la aplicación.
 
 ## Menores y datos sensibles
 
