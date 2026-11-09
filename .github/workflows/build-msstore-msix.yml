@@ -5,6 +5,7 @@ on:
     branches:
       - msstore/v2.2.0-msix-prep
     paths:
+      - '.github/workflows/build-msstore-msix.yml'
       - 'src-tauri/**'
       - 'src/**'
       - 'scripts/**'
@@ -12,6 +13,7 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'docs/microsoft-store/build-msix.ps1'
+      - 'docs/microsoft-store/export-cargo-license-inventory.ps1'
       - 'docs/microsoft-store/Package.appxmanifest.template.xml'
       - 'docs/microsoft-store/assets/**'
   workflow_dispatch:
@@ -32,9 +34,9 @@ on:
         default: SenecaDPJ
         type: string
       max_version_tested:
-        description: Windows build actually tested; use 10.0.22000.0 only as the provisional baseline
+        description: Windows build actually tested; current VM is 10.0.26300.0
         required: true
-        default: 10.0.22000.0
+        default: 10.0.26300.0
         type: string
 
 permissions:
@@ -65,13 +67,17 @@ jobs:
           STORE_PACKAGE_IDENTITY_NAME: ${{ inputs.package_identity_name || 'SenecaDPJ.Semanaalplato' }}
           STORE_PACKAGE_IDENTITY_PUBLISHER: ${{ inputs.package_identity_publisher || 'CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9' }}
           STORE_PUBLISHER_DISPLAY_NAME: ${{ inputs.publisher_display_name || 'SenecaDPJ' }}
-          STORE_MAX_VERSION_TESTED: ${{ inputs.max_version_tested || '10.0.22000.0' }}
+          STORE_MAX_VERSION_TESTED: ${{ inputs.max_version_tested || '10.0.26300.0' }}
         run: |
           .\docs\microsoft-store\build-msix.ps1 `
             -PackageIdentityName "$env:STORE_PACKAGE_IDENTITY_NAME" `
             -PackageIdentityPublisher "$env:STORE_PACKAGE_IDENTITY_PUBLISHER" `
             -PublisherDisplayName "$env:STORE_PUBLISHER_DISPLAY_NAME" `
             -MaxVersionTested "$env:STORE_MAX_VERSION_TESTED"
+
+      - name: Export Cargo dependency license inventory
+        shell: pwsh
+        run: .\docs\microsoft-store\export-cargo-license-inventory.ps1
 
       - name: Preserve unsigned package, listing icon and logs for review
         uses: actions/upload-artifact@v4

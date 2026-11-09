@@ -48,4 +48,4 @@ Real PNG captures from the final MSIX build still need to be added. Partner Cent
 
 ## Partner Center decisions still pending
 
-Choose the category and age rating from the account's current options. Confirm the Store name, markets, price, licence terms, support and public privacy URL. None of these decisions is assumed here.
+Choose the category and age rating from the account's current options. Confirm the Store name, markets, price and licence terms. Proposed support URL: public GitHub issue form at `https://github.com/SenecaDPJ/Semana-al-plato/issues/new` (issues are public; users should not include personal data). Planned privacy URL after GitHub Pages is enabled: `https://senecadpj.github.io/Semana-al-plato/`.

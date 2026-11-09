@@ -214,4 +214,4 @@ Created by [David De Prado · SenecaDPJ](https://github.com/SenecaDPJ).
 
 ## Microsoft Store preparation
 
-The MSIX compatibility review, parameterized manifest, build script, Store listing copy and privacy draft are in [docs/microsoft-store](docs/microsoft-store/README.en.md). The package still needs the exact Partner Center identity and Windows testing.
+The MSIX review, manifest and unsigned build are documented in [docs/microsoft-store](docs/microsoft-store/README.en.md). The Partner Center identity is configured and the package has been tested in a Windows 11 VM. The NSIS migration, WACK on the rebuilt package, Rust licence review, public privacy page setup and real screenshots of the final MSIX remain pending. The product has not been submitted for certification.

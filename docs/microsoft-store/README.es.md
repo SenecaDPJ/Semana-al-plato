@@ -1,14 +1,14 @@
 # Preparación para Microsoft Store (MSIX)
 
-**Estado:** paquete candidato 2.2.0.0 preparado y probado parcialmente en una VM Windows 11; siguen pendientes la migración desde NSIS y otros elementos de publicación. La identidad proporcionada está configurada. Este trabajo no publica una release, no modifica la visibilidad de GitHub y no envía el producto a certificación.
+**Estado:** paquete candidato 2.2.0.0 preparado y probado parcialmente en una VM Windows 11. Se está reconstruyendo con `MaxVersionTested=10.0.26300.0`; el nuevo artefacto aún requiere WACK. Siguen pendientes la migración desde NSIS, la revisión legal del inventario Rust y otros elementos de publicación. La identidad proporcionada está configurada. Este trabajo no publica una release ni envía el producto a certificación.
 
 ## Punto de partida comprobado
 
-- Repositorio: `SenecaDPJ/Semana-al-plato`, privado; rama de trabajo `msstore/v2.2.0-msix-prep`.
+- Repositorio: `SenecaDPJ/Semana-al-plato`, público por cambio manual del propietario; rama de trabajo `msstore/v2.2.0-msix-prep`.
 - Código de partida: tag `v2.2.0`, commit `39423451edeccc7640ed1826582426333cf17d48`. El run de publicación de Windows `42425539797` informa ese mismo `head_sha`, terminó correctamente y produjo la release v2.2.0. La revisión local parte del commit de documentación `26f2f110a4cae109157918aae7a5a39694f1c008`, descendiente de ese punto.
 - Tecnología: interfaz HTML/CSS/JavaScript modular; contenedor de escritorio Tauri 2 y Rust 2021; WebView2 para dibujar la interfaz. Node.js sirve y prueba el frontend; no hay dependencias JavaScript de ejecución. Los flujos de Windows usan Node 22 y Rust estable.
 - Tauri CLI bloqueado en el entorno local: 2.12.4. `Cargo.lock` fija Tauri 2.12.5, `tauri-plugin-dialog` 2.8.4 y `windows-sys` 0.61.2 (además de una versión transitiva 0.45.0). La configuración y la release disponible son x64; no se distribuyen builds ARM64 ni x86.
-- El producto declara Windows 11. El manifiesto de trabajo apunta a `Windows.Desktop` desde `10.0.22000.0` (Windows 11 21H2); falta comprobarlo en una instalación limpia.
+- El producto declara Windows 11. El manifiesto de trabajo apunta a `Windows.Desktop` desde `10.0.22000.0` (Windows 11 21H2). La instalación se probó en Windows 11 build 26300; no se probó en la versión mínima 22000.
 - Ese mínimo es técnico y provisional: no afirma que Windows 11 21H2 siga recibiendo soporte. A fecha de esta revisión, Microsoft publica Windows 11 26H2 como build 26300 y 25H2 como 26200; 21H2 dejó de recibir actualizaciones hace años y 24H2 Home/Pro llegó al fin de servicio en octubre de 2026. Antes de publicar, decide si quieres conservar compatibilidad técnica con instalaciones antiguas o elevar el mínimo a una versión mantenida; el manifiesto debe reflejar esa decisión y probarse en Windows.
 - El archivo publicado `Semana.al.Plato_2.2.0_x64-setup.exe` es un instalador NSIS, no una aplicación portable. La API de GitHub informa 1.987.741 bytes y SHA-256 `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717`. El tag, el SHA del flujo y la versión del nombre del archivo coinciden. No se descargó ni ejecutó el EXE en el equipo de trabajo.
 - El instalador NSIS usa la configuración predeterminada de Tauri: si falta WebView2, descarga y ejecuta el bootstrapper de Microsoft. Por tanto el instalador actual no es offline completo. WebView2 Evergreen viene incluido en Windows 11; el paquete Store propuesto no contiene un runtime fijo.
@@ -46,9 +46,9 @@ El paquete candidato se generó en el runner Windows de GitHub Actions, run [424
 
 El artefacto ZIP privado de Actions ([descargar](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980/artifacts/13599156206)) incluye el `.msix`, `.msixupload`, icono, registros y `BUILD-METADATA.txt` con versiones exactas de herramientas. Pesa 5.576.398 bytes, SHA-256 `c31c66a381c7af5e70b7cf1d7ad34841b1a7820de95b2e02979ca9e2ed7c9651` y caduca el 22 de noviembre de 2026. El MSIX no se firma localmente: Microsoft firma paquetes MSIX tras aprobar la certificación. El script no instala ni ejecuta el programa; el artefacto es candidato para pruebas, no resultado de WACK o instalación.
 
-La plantilla marca `runFullTrust` porque esta aplicación de escritorio necesita proceso de confianza media. No incluye `unvirtualizedResources` ni otras capacidades. El candidato conserva `MaxVersionTested=10.0.22000.0`, valor inicial conservador; las pruebas actuales se ejecutaron en Windows 11 build `10.0.26300.0`. El paquete no se ha reconstruido para cambiar ese campo; si se actualiza antes del envío, hay que generar y verificar de nuevo el artefacto.
+La plantilla marca `runFullTrust` porque esta aplicación de escritorio necesita proceso de confianza media. No incluye `unvirtualizedResources` ni otras capacidades. El artefacto anterior conserva `MaxVersionTested=10.0.22000.0`; la plantilla y el script actuales usan `10.0.26300.0`, confirmado por `OSVERSION` en el XML de WACK de la VM. Falta reconstruir e instalar ese nuevo paquete y repetir WACK. El mínimo `10.0.22000.0` no se ha probado.
 
-El parámetro opcional `-MaxVersionTested` permite fijar el build Windows que se haya probado. Su valor predeterminado (`10.0.22000.0`) es provisional para preparar el manifiesto; no representa una prueba ejecutada y no debe usarse para declarar compatibilidad verificada.
+El parámetro opcional `-MaxVersionTested` permite fijar el build Windows que se haya probado. El valor predeterminado (`10.0.26300.0`) corresponde al sistema registrado en el XML de WACK de esta VM; si se ejecuta en otro Windows, usa su versión real. Esto no acredita por sí solo compatibilidad con versiones anteriores.
 
 ### Ejecutar la generación en Windows x64
 
@@ -65,7 +65,7 @@ Requisitos: Node.js 22, Rust estable con MSVC, Visual Studio C++ Build Tools, Wi
 
 El script se detiene si falta Node/Rust/SDK, si las versiones discrepan o si ya existe la carpeta de salida; no sobreescribe paquetes anteriores. No crea ni solicita certificados o claves privadas. La `.msixupload` contiene el paquete MSIX y no símbolos de depuración; Partner Center puede aceptar el `.msix` directamente, aunque Microsoft recomienda el formato de subida para Store.
 
-El workflow `Build Microsoft Store MSIX (manual)` genera un artefacto al subir cambios que afecten al código, script o manifiesto de empaquetado de esta rama; la retención es de 14 días. Los valores de identidad predeterminados son los que facilitó el usuario. La ejecución manual desde GitHub requiere que el workflow esté en la rama predeterminada; después se puede elegir esta rama como referencia. El workflow no publica una release ni envía el producto a certificación y no sustituye pruebas funcionales o WACK.
+El workflow `Build Microsoft Store MSIX (manual)` genera un artefacto al subir cambios que afecten al código, scripts o manifiesto de empaquetado de esta rama; la retención es de 14 días. También recopila el inventario Cargo de licencias y textos de terceros para revisión. Los valores de identidad predeterminados son los que facilitó el usuario. La ejecución manual desde GitHub requiere que el workflow esté en la rama predeterminada; después se puede elegir esta rama como referencia. El workflow no publica una release ni envía el producto a certificación y no sustituye pruebas funcionales o WACK.
 
 ## Resultados y pruebas Windows pendientes
 
@@ -73,9 +73,9 @@ Las pruebas realizadas usan una VM Windows 11 x64 Enterprise Evaluation y cuenta
 
 | Comprobación | Estado actual | Evidencia/alcance |
 | --- | --- | --- |
-| `npm test` sobre la rama | **Pasado**, 30/30 | Run de Windows [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), código de salida 0. |
-| Compilación Tauri x64 limpia | **Pasada** | Runner Windows, commit `257e0411fd09dae1d9cbdc67077a7c496b0fed2e`; el registro está en el artefacto de Actions. |
-| Empaquetado `.msix` / `.msixupload` | **Pasado como candidato sin firmar** | Run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), `Package creation succeeded`; hashes y nombres indicados arriba. No equivale a una prueba de instalación o certificación. |
+| `npm test` | **Pasado localmente**, 30/30 | Incluye la selección explícita de la semana al comprobar los datos tras reabrir. El run anterior [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980) también pasó 30/30. La nueva revisión debe completar su flujo Windows. |
+| Compilación Tauri x64 limpia | **Pasada en revisión anterior** | Runner Windows, commit `257e0411fd09dae1d9cbdc67077a7c496b0fed2e`; la reconstrucción actual está pendiente en Actions. |
+| Empaquetado `.msix` / `.msixupload` | **Candidato anterior generado** | Run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980). Se necesita un nuevo artefacto con `MaxVersionTested=10.0.26300.0`; empaquetar no equivale a instalar ni certificar. |
 | Instalación/primer arranque como usuario estándar | **Pasado, confirmado por el usuario** | VM Windows 11 Enterprise Evaluation, build 26300; cuenta `test-semana-standard`; paquete local de prueba 2.2.0.0. |
 | Funciones principales | **Pasado, confirmado por el usuario** | El usuario abrió y cerró la aplicación y probó su funcionamiento en la VM. No se registró un resultado automatizado por función. |
 | Guardar/cerrar/reabrir | **Pasado, confirmado por el usuario** | El usuario confirmó la persistencia tras cerrar y volver a abrir. |
@@ -84,9 +84,9 @@ Las pruebas realizadas usan una VM Windows 11 x64 Enterprise Evaluation y cuenta
 | Desinstalación y datos residuales | **Pasado con alcance limitado** | En la cuenta `test-semana`, Windows retiró el paquete y su directorio local: 288 archivos/67.619.374 bytes antes y directorio ausente después. No prueba el borrado de copias exportadas ni de otros perfiles. |
 | Microsoft Defender | **Pasado en el paquete local de prueba** | Análisis personalizado con protección en tiempo real activa; cero detecciones nuevas. SHA-256 del MSIX firmado para pruebas: `1332C10E50DFF8C017615E00DEB76DBD13901F9A6E88990C337C06589EF73624`. |
 | SmartScreen | **No ejecutado para el paquete MSIX** | El MSIX local usa firma de desarrollo y no representa la reputación de un paquete publicado por Store. No se desactivaron protecciones ni se quitó la marca de Internet. |
-| Windows App Certification Kit (WACK) | **Pasado con un fallo en una prueba opcional** | 24 pruebas: 23 pasaron, 1 opcional falló y 0 obligatorias fallaron; el XML registra `OVERALL_RESULT=PASS`. Véase el detalle siguiente. WACK no equivale a certificación de Store. |
+| Windows App Certification Kit (WACK) | **Pasado en el candidato anterior; pendiente repetir** | 24 pruebas: 23 pasaron, 1 opcional falló y 0 obligatorias fallaron; el XML registra `OVERALL_RESULT=PASS`. Debe repetirse en el paquete reconstruido. WACK no equivale a certificación de Store. |
 | Instalador del release y Authenticode | No ejecutado localmente | Descarga estática del EXE, `Get-AuthenticodeSignature`, metadatos PE y SHA-256 calculado localmente. No abrirlo. |
-| Licencias transitivas Rust | Revisión incompleta | Cargo no está instalado; validar manifiestos/licencias de todas las crates y conservar el inventario generado antes de publicar. |
+| Licencias transitivas Rust | **Inventario automatizado pendiente de generar y revisión legal incompleta** | El workflow incorpora `export-cargo-license-inventory.ps1` para adjuntar manifiestos/licencias y avisos de Cargo. La persona responsable debe revisar expresiones, textos y obligaciones; el inventario no es autorización legal. |
 
 ### Resultado WACK del 9 de noviembre de 2026
 
@@ -101,13 +101,13 @@ El XML completo se conserva fuera de Git en esta máquina, en la carpeta local v
 ## Dependencias, licencias y secretos
 
 - El código propio declara licencia MIT. El lockfile npm contiene solo herramientas de desarrollo y prueba; sus metadatos informan licencias MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC y MIT-0. No hay dependencias JavaScript de producción.
-- El binario Rust incluye el árbol fijado por `Cargo.lock` (Tauri, plugin de diálogo, bindings Win32 y transitivas). El lockfile no guarda licencias SPDX; no se pudo ejecutar una auditoría completa de licencias Cargo porque Cargo no está instalado. Esta revisión parcial **no es autorización legal** para publicar hasta completar el inventario de terceros.
+- El binario Rust incluye el árbol fijado por `Cargo.lock` (Tauri, plugin de diálogo, bindings Win32 y transitivas). El lockfile no guarda licencias SPDX. El workflow ahora genera un inventario y recopila textos de licencia; hasta ejecutar ese paso y revisar las obligaciones, el estado **no es autorización legal** para publicar.
 - Una búsqueda de patrones habituales de tokens, claves privadas, certificados PFX/PEM y secretos en los archivos de producto no encontró coincidencias. El checkout no contiene instaladores ni PE redistribuibles. No se inspeccionó memoria, archivos fuera del repositorio ni credenciales del entorno.
 
 ## Ficha de Store, privacidad y publicación
 
 - [Textos completos en español](STORE-LISTING.es.md) y [English listing](STORE-LISTING.en.md).
-- [Borrador de privacidad en español](PRIVACIDAD.es.md) y [English privacy draft](PRIVACY.en.md). Incluyen el resultado limitado de desinstalación. Antes de enlazarlos en Store faltan contacto público y URL pública, y revisar el alcance de esa prueba; el repositorio privado no sirve como enlace público.
+- [Política web bilingüe](privacy/index.html) y fuentes [española](PRIVACIDAD.es.md) / [inglesa](PRIVACY.en.md). El contacto propuesto es el formulario público de incidencias de GitHub, con una advertencia para no incluir datos personales. La página se servirá en `https://senecadpj.github.io/Semana-al-plato/` cuando el propietario active GitHub Pages para `gh-pages` en la raíz; aún no se afirma que la URL esté activa.
 - Se genera el icono cuadrado 300×300 para el listing con franja de marca, además de los logotipos de paquete 44×44, 50×50 y 150×150. El icono y los logotipos salen del SVG del producto.
 - Las capturas que aparecen en README son referencias reales, pero aún no se han entregado como archivos PNG locales de Store ni revisado en el paquete final. Store pide al menos una captura de escritorio; se recomienda aportar varias capturas reales de la versión MSIX final y no imágenes simuladas.
 
@@ -119,7 +119,7 @@ El usuario proporcionó estos valores, que se usan como predeterminados para gen
 - `Package/Identity/Publisher`: `CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9`
 - `PublisherDisplayName`: `SenecaDPJ`
 
-Antes de publicar, verifica que siguen coincidiendo con **Product identity**. En Partner Center tendrás que decidir o completar el nombre reservado, categoría, precio/mercados, clasificación por edades, licencia/condiciones, contacto que exija el tipo de cuenta, URL pública de privacidad, capturas y notas de certificación. No se ha creado un envío ni un borrador de producto.
+Antes de publicar, verifica que siguen coincidiendo con **Product identity**. En Partner Center tendrás que decidir o completar el nombre reservado, categoría, precio/mercados, clasificación por edades, licencia/condiciones, URL de privacidad una vez activa Pages, capturas reales y notas de certificación. El formulario público de issues es el canal de soporte propuesto; comprueba qué campos de contacto exige el formulario de Partner Center para tu cuenta. No se ha creado un envío ni un borrador de producto.
 
 ## Referencias oficiales consultadas
 

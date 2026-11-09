@@ -30,7 +30,7 @@
 - El flujo de [Publicación de Windows](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42403188032) terminó correctamente: pruebas y compilación NSIS x64.
 - La release privada [v1.0.3](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.3) está publicada. Contiene `Semana.al.Plato_1.0.3_x64-setup.exe` (1.981.890 bytes; SHA-256 `183334182d63a0ceb74cb184c6f627efb1ea4fd6bc131b54c830c2227a1cbb5b`).
 - Las pruebas automatizadas verifican que cancelar no abre el enlace y que aceptar invoca la apertura nativa. No se ha comprobado manualmente el navegador desde la aplicación instalada.
-- La información de GitHub confirma que el repositorio continúa siendo privado.
+- En esa comprobación histórica, GitHub confirmó que el repositorio seguía siendo privado; el propietario lo hizo público después.
 
 ## Comprobaciones de v2.0.0
 
@@ -58,7 +58,7 @@
 - El flujo final de Windows de la [PR #6](https://github.com/SenecaDPJ/semana-al-plato/pull/6) terminó correctamente en el [run 42424907500](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42424907500): 30 pruebas correctas, 0 fallidas y compilación NSIS x64.
 - El instalador de prueba quedó como artefacto (ID `13594654641`; ZIP de 1.973.055 bytes; SHA-256 `7dec3dc6797d3ab6e02b6cef40b9dee7b2f3f25933a17d6913ea270279b65854`). Se conserva 14 días.
 - Tras fusionar la PR #6, el flujo de publicación [42425539797](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42425539797) volvió a pasar 30 pruebas y publicó el instalador NSIS x64 de producción.
-- La release privada [v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0) contiene `Semana.al.Plato_2.2.0_x64-setup.exe` (1.987.741 bytes; SHA-256 `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717`). El repositorio continúa privado.
+- La release [v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0) contiene `Semana.al.Plato_2.2.0_x64-setup.exe` (1.987.741 bytes; SHA-256 `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717`). En la comprobación original el repositorio era privado; el propietario lo hizo público después.
 - La revisión visual del instalador en Windows queda pendiente; un resultado automatizado correcto no equivale a una comprobación visual ni a una prueba en otro equipo.
 
 ## Preparación de Microsoft Store (rama `msstore/v2.2.0-msix-prep`)
@@ -82,6 +82,16 @@
 - Workflow de Actions para empaquetar MSIX ejecutado con éxito; guardó el candidato como artefacto temporal, sin crear release ni envío de Partner Center. El despacho manual solo estará disponible tras incluir el workflow en la rama predeterminada.
 - Identidad exacta proporcionada: `SenecaDPJ.Semanaalplato`, `CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9`, `SenecaDPJ`; debe verificarse de nuevo contra Product identity antes del envío final.
 - Licencias Cargo transitivas: revisión **INCOMPLETA** por falta de Cargo; no se declara autorización de terceros hasta completar ese inventario. Búsqueda de patrones de secretos en el código del producto: sin coincidencias.
-- Visibilidad de GitHub: **PASADO**, la API sigue informando el repositorio privado. No se publicó release, no se creó envío de Partner Center ni se cambió la visibilidad.
+- Visibilidad de GitHub: la API informó que el repositorio era privado en la comprobación original; el propietario cambió su visibilidad a público después. Este trabajo no cambió ese ajuste. No se publicó una release nueva ni se creó un envío de Partner Center.
 
 Detalle y repetición: [preparación MSIX](docs/microsoft-store/README.es.md). El script genera los paquetes cuando se ejecute en Windows con las herramientas e identidad requeridas.
+
+### Seguimiento del 9 de noviembre de 2026
+
+- `npm test`: **PASADO localmente, 30/30**. Se ajustó únicamente la prueba de reapertura para seleccionar explícitamente la semana que contiene los datos guardados; la app sigue abriendo la semana actual.
+- Parseo del manifiesto XML y de los scripts PowerShell de empaquetado/inventario: **PASADO**. `git diff --check`: **PASADO**.
+- El manifiesto usa `MaxVersionTested=10.0.26300.0`, confirmado en el XML de WACK de la VM; conserva el mínimo técnico `10.0.22000.0`, que no se ha probado. La reconstrucción MSIX/Actions y un nuevo WACK sobre ese paquete siguen pendientes.
+- El workflow ahora genera un inventario de dependencias Cargo y textos de avisos. Debe generarse en Windows y requiere revisión humana de las obligaciones; no equivale a autorización legal.
+- La política de privacidad bilingüe está preparada en `docs/microsoft-store/privacy/index.html`, con el formulario público de incidencias como contacto propuesto. Falta publicar la rama `gh-pages` y activar Pages en el repositorio para confirmar la URL pública.
+- Siguen pendientes la prueba NSIS→MSIX conservando una copia JSON, capturas reales del MSIX final, el nuevo WACK, la revisión legal del inventario y completar campos/decisiones de Partner Center.
+- El propietario cambió la visibilidad del repositorio a público. No se publicó una release nueva ni se envió el producto a certificación.

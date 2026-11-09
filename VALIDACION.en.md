@@ -30,7 +30,7 @@
 - The [Windows release workflow](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42403188032) completed successfully: tests and NSIS x64 build.
 - The private [v1.0.3 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v1.0.3) contains `Semana.al.Plato_1.0.3_x64-setup.exe` (1,981,890 bytes; SHA-256 `183334182d63a0ceb74cb184c6f627efb1ea4fd6bc131b54c830c2227a1cbb5b`).
 - Automated tests verify that cancelling does not open the link and accepting invokes the native opener. The default browser has not been manually checked from the installed app.
-- GitHub confirms that the repository remains private.
+- At that historical check, GitHub confirmed that the repository was still private; its owner made it public later.
 
 ## v2.0.0 checks
 
@@ -58,7 +58,7 @@
 - The final Windows workflow for [PR #6](https://github.com/SenecaDPJ/semana-al-plato/pull/6) completed successfully in [run 42424907500](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42424907500): 30 passing tests, 0 failures and an NSIS x64 build.
 - The test installer was uploaded as an artifact (ID `13594654641`; ZIP size 1,973,055 bytes; SHA-256 `7dec3dc6797d3ab6e02b6cef40b9dee7b2f3f25933a17d6913ea270279b65854`). It is retained for 14 days.
 - After PR #6 was merged, release workflow [42425539797](https://github.com/SenecaDPJ/semana-al-plato/actions/runs/42425539797) passed 30 tests again and published the production NSIS x64 installer.
-- The private [v2.2.0 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0) contains `Semana.al.Plato_2.2.0_x64-setup.exe` (1,987,741 bytes; SHA-256 `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717`). The repository remains private.
+- The [v2.2.0 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0) contains `Semana.al.Plato_2.2.0_x64-setup.exe` (1,987,741 bytes; SHA-256 `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717`). The repository was private at the original check; its owner made it public later.
 - Visual review of the installer on Windows is pending; successful automation is not a visual check or a test on another computer.
 
 ## Microsoft Store preparation (`msstore/v2.2.0-msix-prep` branch)
@@ -80,6 +80,16 @@
 - Actions workflow for MSIX packaging completed successfully and stored the candidate as a temporary artifact without creating a release or Partner Center submission. Manual dispatch will be available after the workflow is included on the default branch.
 - Exact identity supplied: `SenecaDPJ.Semanaalplato`, `CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9`, `SenecaDPJ`; verify against Product identity again before final submission.
 - Transitive Cargo licenses: review **INCOMPLETE** because Cargo is unavailable; third-party clearance is not claimed until the inventory is complete. Search for common secret patterns in product code found no matches.
-- GitHub visibility: **PASS**, the API still reports the repository as private. No release was published, no Partner Center submission was created and visibility was not changed.
+- GitHub visibility: the API reported the repository as private at the original check; its owner later changed it to public. This work did not change that setting. No new release or Partner Center submission was created.
 
 Details and repeat steps: [MSIX preparation](docs/microsoft-store/README.en.md). The script generates packages when run on Windows with the required tools and identity.
+
+### Follow-up — 9 November 2026
+
+- `npm test`: **PASSED locally, 30/30**. Only the reopen test was adjusted to explicitly select the week containing its saved data; the app still opens the current week.
+- Manifest XML and PowerShell packaging/inventory scripts parsed successfully. `git diff --check`: **PASSED**.
+- `MaxVersionTested=10.0.26300.0` is confirmed by the VM's WACK XML; the manifest retains the technical minimum `10.0.22000.0`, which has not been tested. Rebuilding the MSIX in Actions and rerunning WACK on that package remain pending.
+- The workflow now generates a Cargo dependency and notice inventory. It must run on Windows and requires a human review of obligations; it is not legal clearance.
+- The bilingual privacy policy is prepared at `docs/microsoft-store/privacy/index.html`, with the public issue form as the proposed contact. The `gh-pages` branch still needs to be published and Pages enabled in repository settings before the public URL can be confirmed.
+- Still pending: NSIS-to-MSIX update with JSON backup preservation, real screenshots from the final MSIX, new WACK, legal review of the inventory, and Partner Center fields/decisions.
+- The owner changed repository visibility to public. No new release was published and the product was not submitted for certification.

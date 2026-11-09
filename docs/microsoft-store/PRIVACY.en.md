@@ -1,6 +1,6 @@
-# Privacy policy draft — Semana al Plato
+# Privacy policy — Semana al Plato
 
-**Status:** draft for review before publication. It describes the inspected v2.2.0 code and includes one Windows uninstall test using a VM account. Do not publish this draft as the final policy URL until the publisher's public contact is added and the test's scope has been reviewed against the intended policy.
+**Status:** text prepared for GitHub Pages, based on the inspected v2.2.0 code and one limited Windows uninstall test. The web version must be served from GitHub Pages and the test scope must remain explicit.
 
 ## Data and storage
 
@@ -34,4 +34,4 @@ The app does not request or require special-category personal data. Names, recip
 
 This policy will be updated if the app's collection, storage or connection behaviour changes.
 
-**Publisher's public contact:** to be added before publishing the listing or linking this policy.
+**Publisher contact:** [public GitHub issue form](https://github.com/SenecaDPJ/Semana-al-plato/issues/new). Issues are public; do not include personal data, sensitive information or copies of your menus.

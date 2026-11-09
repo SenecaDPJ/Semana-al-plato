@@ -1,6 +1,6 @@
-# Borrador de política de privacidad — Semana al Plato
+# Política de privacidad — Semana al Plato
 
-**Estado:** borrador para revisar antes de publicación. Describe el código v2.2.0 inspeccionado e incorpora una prueba de desinstalación en Windows con una cuenta de VM. No publicar este borrador como URL final sin añadir el contacto público del editor y revisar que el alcance de la prueba represente la política que se desea comunicar.
+**Estado:** texto para GitHub Pages, basado en el código v2.2.0 y una prueba limitada de desinstalación en Windows. La versión web debe servirse desde GitHub Pages y el alcance de la prueba debe mantenerse explícito.
 
 ## Datos y almacenamiento
 
@@ -34,4 +34,4 @@ La aplicación no solicita ni necesita datos personales especiales. Los nombres,
 
 Esta política se actualizará si cambia el comportamiento de recopilación, almacenamiento o conexión del programa.
 
-**Contacto público del editor:** pendiente de añadir antes de publicar la ficha o enlazar la política.
+**Contacto del editor:** [formulario público de incidencias de GitHub](https://github.com/SenecaDPJ/Semana-al-plato/issues/new). Las incidencias son públicas; no incluyas datos personales, información sensible ni copias de tus menús.

@@ -11,7 +11,7 @@ param(
 
     [string]$OutputDirectory,
 
-    [string]$MaxVersionTested = '10.0.22000.0'
+    [string]$MaxVersionTested = '10.0.26300.0'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -187,7 +187,7 @@ SHA-256: $uploadHash
 Product version: $appVersion
 Package version: $packageVersion (fourth component reserved as 0)
 Architecture: x64
-MaxVersionTested: $MaxVersionTested (provisional until validated on Windows)
+MaxVersionTested: $MaxVersionTested
 Package identity name: $PackageIdentityName
 Package publisher: $PackageIdentityPublisher
 Publisher display name: $PublisherDisplayName

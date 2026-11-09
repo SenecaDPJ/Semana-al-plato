@@ -1,14 +1,14 @@
 # Microsoft Store preparation (MSIX)
 
-**Status:** candidate package 2.2.0.0 prepared and partially tested in a Windows 11 VM; the NSIS migration and other publication items remain open. The supplied identity is configured. This work does not publish a release, change GitHub visibility, or submit the product for certification.
+**Status:** candidate package 2.2.0.0 prepared and partially tested in a Windows 11 VM. It is being rebuilt with `MaxVersionTested=10.0.26300.0`; the new artifact still needs WACK. The NSIS migration, Rust license review and other publication items remain open. The supplied identity is configured. This work does not publish a release or submit the product for certification.
 
 ## Verified starting point
 
-- Repository: private `SenecaDPJ/Semana-al-plato`; work branch `msstore/v2.2.0-msix-prep`.
+- Repository: public `SenecaDPJ/Semana-al-plato`, changed manually by its owner; work branch `msstore/v2.2.0-msix-prep`.
 - Source point: tag `v2.2.0`, commit `39423451edeccc7640ed1826582426333cf17d48`. Windows release run `42425539797` reports the same `head_sha`, completed successfully, and created release v2.2.0. This local review starts at documentation commit `26f2f110a4cae109157918aae7a5a39694f1c008`, descended from that point.
 - Technology: modular HTML/CSS/JavaScript frontend; Tauri 2 and Rust 2021 desktop host; WebView2 renders the interface. Node.js serves and tests the frontend; there are no JavaScript runtime dependencies. Windows workflows use Node 22 and stable Rust.
 - Local Tauri CLI is pinned by the installed tool at 2.12.4. `Cargo.lock` fixes Tauri 2.12.5, `tauri-plugin-dialog` 2.8.4 and `windows-sys` 0.61.2 (plus a transitive 0.45.0). Configuration and the existing release are x64; no ARM64 or x86 package is distributed.
-- The product declares Windows 11. The working manifest targets `Windows.Desktop` from `10.0.22000.0` (Windows 11 21H2); this still needs a clean-install test.
+- The product declares Windows 11. The working manifest targets `Windows.Desktop` from `10.0.22000.0` (Windows 11 21H2). Installation was tested on Windows 11 build 26300; build 22000, the declared minimum, was not tested.
 - That minimum is technical and provisional; it does not claim that Windows 11 21H2 is still serviced. As of this review, Microsoft lists Windows 11 26H2 as build 26300 and 25H2 as 26200; 21H2 stopped receiving updates years ago, and 24H2 Home/Pro reached end of servicing in October 2026. Before submission, decide whether to retain technical compatibility with older installs or raise the minimum to a serviced release; the manifest must reflect that choice and be tested on Windows.
 - The published `Semana.al.Plato_2.2.0_x64-setup.exe` is an NSIS installer, not a portable app. GitHub's API reports 1,987,741 bytes and SHA-256 `978792095f68dde221bf4a2f1f5dc997abf6249511e3a0c13f6d9253dfe29717`. The tag, workflow SHA and asset version in its name match. The EXE was not downloaded or executed on the work machine.
 - The NSIS installer uses Tauri's default configuration: if WebView2 is absent, it downloads and launches Microsoft's bootstrapper. Therefore, the current installer is not fully offline. WebView2 Evergreen is included with Windows 11; the proposed Store package does not contain a fixed runtime.
@@ -46,9 +46,9 @@ The candidate package was built on the GitHub Actions Windows runner in run [424
 
 The private Actions ZIP artifact ([download](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980/artifacts/13599156206)) includes the `.msix`, `.msixupload`, icon, logs and `BUILD-METADATA.txt` with exact tool versions. It is 5,576,398 bytes, SHA-256 `c31c66a381c7af5e70b7cf1d7ad34841b1a7820de95b2e02979ca9e2ed7c9651`, and expires on 22 November 2026. The MSIX is not locally signed: Microsoft signs MSIX packages after certification. The script does not install or execute the application; this artifact is a test candidate, not evidence of WACK or installation.
 
-The manifest declares `runFullTrust` because this desktop app needs a medium-integrity desktop process. It declares no `unvirtualizedResources` or other capabilities. The candidate keeps the initial conservative `MaxVersionTested=10.0.22000.0`; current tests ran on Windows 11 build `10.0.26300.0`. The package has not been rebuilt to change this field; if it is updated before submission, regenerate and verify the artifact.
+The manifest declares `runFullTrust` because this desktop app needs a medium-integrity desktop process. It declares no `unvirtualizedResources` or other capabilities. The previous artifact keeps `MaxVersionTested=10.0.22000.0`; the current template and script use `10.0.26300.0`, confirmed by `OSVERSION` in the VM's WACK XML. The package still needs to be rebuilt, installed and rerun through WACK. The minimum `10.0.22000.0` has not been tested.
 
-The optional `-MaxVersionTested` parameter lets you set the Windows build that was actually tested. Its default (`10.0.22000.0`) is provisional for preparing the manifest; it does not represent a completed test and must not be used to claim verified compatibility.
+The optional `-MaxVersionTested` parameter lets you set the Windows build that was actually tested. Its default (`10.0.26300.0`) matches the OS recorded in this VM's WACK XML; use the actual version if building on a different Windows system. This alone does not establish compatibility with earlier releases.
 
 ### Build on Windows x64
 
@@ -65,7 +65,7 @@ Requirements: Node.js 22, stable Rust with MSVC, Visual Studio C++ Build Tools, 
 
 The script stops if Node/Rust/SDK is missing, versions disagree, or the output folder already exists; it does not overwrite prior packages. It does not create or request certificates or private keys. The `.msixupload` contains the MSIX package and no debug symbols; Partner Center can accept `.msix` directly, though Microsoft recommends the Store upload format.
 
-The `Build Microsoft Store MSIX (manual)` workflow creates an artifact when changes affecting app code or MSIX build files are pushed to this branch; retention is 14 days. Its identity defaults are the values supplied by the user. Manual dispatch from GitHub requires the workflow to be on the default branch; after that, this branch can be selected as the ref. The workflow does not publish a release or submit the product for certification, and it does not replace functional testing or WACK.
+The `Build Microsoft Store MSIX (manual)` workflow creates an artifact when changes affecting app code, packaging scripts or manifest are pushed to this branch; retention is 14 days. It also collects the Cargo license inventory and third-party text for review. Its identity defaults are the values supplied by the user. Manual dispatch from GitHub requires the workflow to be on the default branch; after that, this branch can be selected as the ref. The workflow does not publish a release or submit the product for certification, and it does not replace functional testing or WACK.
 
 ## Windows results and remaining tests
 
@@ -73,9 +73,9 @@ Tests so far used a Windows 11 x64 Enterprise Evaluation VM and test accounts; t
 
 | Check | Current status | Evidence/scope |
 | --- | --- | --- |
-| `npm test` on this branch | **Passed**, 30/30 | Windows run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), exit code 0. |
-| Clean Tauri x64 build | **Passed** | Windows runner, commit `257e0411fd09dae1d9cbdc67077a7c496b0fed2e`; logs are in the Actions artifact. |
-| `.msix` / `.msixupload` packaging | **Passed as unsigned candidate** | Run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980), `Package creation succeeded`; hashes and filenames above. This is not an install or certification test. |
+| `npm test` | **Passed locally**, 30/30 | The reopen check now explicitly selects the week containing the saved data. Previous Windows run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980) also passed 30/30. The revised branch still needs its Windows workflow. |
+| Clean Tauri x64 build | **Passed on previous revision** | Windows runner, commit `257e0411fd09dae1d9cbdc67077a7c496b0fed2e`; the current rebuild is pending in Actions. |
+| `.msix` / `.msixupload` packaging | **Previous candidate generated** | Run [42433732980](https://github.com/SenecaDPJ/Semana-al-plato/actions/runs/42433732980). A new artifact with `MaxVersionTested=10.0.26300.0` is required; packaging is not an install or certification test. |
 | Install and first launch as standard user | **Passed, user-confirmed** | Windows 11 Enterprise Evaluation VM, build 26300; account `test-semana-standard`; local 2.2.0.0 test package. |
 | Main functions | **Passed, user-confirmed** | The user opened and closed the app and tested its functionality in the VM. No automated per-feature results were recorded. |
 | Save/close/reopen | **Passed, user-confirmed** | The user confirmed persistence after closing and reopening. |
@@ -84,9 +84,9 @@ Tests so far used a Windows 11 x64 Enterprise Evaluation VM and test accounts; t
 | Uninstall and residual data | **Passed, limited scope** | In the `test-semana` account, Windows removed the package and its local data directory: 288 files/67,619,374 bytes before, directory absent afterwards. This does not establish deletion of exported backups or data in other profiles. |
 | Microsoft Defender | **Passed on local test package** | Custom scan with real-time protection enabled; no new detections. SHA-256 of the locally test-signed MSIX: `1332C10E50DFF8C017615E00DEB76DBD13901F9A6E88990C337C06589EF73624`. |
 | SmartScreen | **Not run for the MSIX package** | The local MSIX uses a development signature and does not represent the reputation of a Store-published package. No protections were disabled or Internet provenance removed. |
-| Windows App Certification Kit (WACK) | **Passed with one optional test failure** | 24 tests: 23 passed, 1 optional test failed and 0 required tests failed; the XML records `OVERALL_RESULT=PASS`. See details below. WACK is not Store certification. |
+| Windows App Certification Kit (WACK) | **Passed on previous candidate; rerun pending** | 24 tests: 23 passed, 1 optional test failed and 0 required tests failed; the XML records `OVERALL_RESULT=PASS`. Rerun against the rebuilt package. WACK is not Store certification. |
 | Release installer and Authenticode | Not locally run | Static download, `Get-AuthenticodeSignature`, PE metadata and locally calculated SHA-256. Do not open it. |
-| Transitive Rust licenses | Incomplete review | Cargo is absent; validate every crate's manifest/license and keep the generated inventory before release. |
+| Transitive Rust licenses | **Automated inventory pending; legal review incomplete** | The workflow now runs `export-cargo-license-inventory.ps1` to collect Cargo manifests, license files and notices. The publisher must review expressions, texts and obligations; this inventory is not legal clearance. |
 
 ### WACK result from 9 November 2026
 
@@ -101,13 +101,13 @@ The complete XML is retained outside Git on this workstation in the adjacent loc
 ## Dependencies, licenses and secrets
 
 - The project's own code declares the MIT license. The npm lockfile contains development and test tooling only; its metadata lists MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC and MIT-0. There are no production JavaScript dependencies.
-- The Rust executable contains the dependency tree pinned by `Cargo.lock` (Tauri, dialog plugin, Win32 bindings and transitive crates). The lockfile does not store SPDX licenses; a complete Cargo license audit could not run because Cargo is unavailable. This partial review is **not legal clearance** for publication until the third-party inventory is completed.
+- The Rust executable contains the dependency tree pinned by `Cargo.lock` (Tauri, dialog plugin, Win32 bindings and transitive crates). The lockfile does not store SPDX licenses. The workflow now generates an inventory and collects license texts; until that step runs and the obligations are reviewed, this is **not legal clearance** for publication.
 - A search for common token, private-key, PFX/PEM certificate and secret patterns in product files found no matches. The checkout contains no installer or redistributable PE files. No process memory, files outside the repository or environment credentials were inspected.
 
 ## Store listing, privacy and publication
 
 - [Complete Spanish listing](STORE-LISTING.es.md) and [English listing](STORE-LISTING.en.md).
-- [Spanish privacy draft](PRIVACIDAD.es.md) and [English privacy draft](PRIVACY.en.md). They include the limited uninstall result. A public contact and URL are still needed, and the scope of that test must be reviewed before linking them in Store; the private repository cannot serve as the public policy URL.
+- [Bilingual web policy](privacy/index.html) and the [Spanish](PRIVACIDAD.es.md) / [English](PRIVACY.en.md) source texts. The proposed contact is the public GitHub issue form, with a warning not to include personal data. The page will be served at `https://senecadpj.github.io/Semana-al-plato/` once the owner enables GitHub Pages for the `gh-pages` branch root; the URL is not claimed to be active yet.
 - A square 300×300 Store tile with branding bar is generated, along with 44×44, 50×50 and 150×150 package logos. These are derived from the product SVG.
 - Screenshots shown in the README are authentic references, but have not been supplied here as local PNG files for Store or reviewed in the final package. Store needs at least one desktop screenshot; several real captures of the final MSIX build are recommended. Do not use simulated screenshots.
 
@@ -119,7 +119,7 @@ The user supplied these values, which are set as the package build defaults:
 - `Package/Identity/Publisher`: `CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9`
 - `PublisherDisplayName`: `SenecaDPJ`
 
-Before publication, verify that these still match **Product identity**. In Partner Center you will also need to choose/complete the reserved product name, category, price/markets, age rating, licence/terms, contact required by the account type, public privacy-policy URL, screenshots and certification notes. No submission or product draft has been created.
+Before publication, verify that these still match **Product identity**. In Partner Center you will also need to choose/complete the reserved product name, category, price/markets, age rating, licence/terms, privacy URL once Pages is active, real screenshots and certification notes. The public issue form is the proposed support channel; check which contact fields Partner Center requires for your account. No submission or product draft has been created.
 
 ## Official references consulted
 

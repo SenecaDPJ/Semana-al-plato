@@ -148,6 +148,8 @@ test("idioma español e inglés: controles, calendario y contenido inicial se lo
   assert.equal(b.w.localStorage.getItem("calendario-comidas.language"), "es");
   const reopened = boot(JSON.stringify(stored), undefined, undefined, "en");
   assert.equal(reopened.w.document.documentElement.lang, "en");
+  reopened.$("#week").value = "2026-11-02";
+  reopened.$("#week").dispatchEvent(new reopened.w.Event("change", { bubbles: true }));
   assert.match(reopened.$(".entry").textContent, /French omelette/);
   reopened.dom.window.close();
   b.dom.window.close();

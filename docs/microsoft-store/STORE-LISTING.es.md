@@ -48,4 +48,4 @@ Pendientes de incorporar como PNG reales de la versión MSIX final. Partner Cent
 
 ## Ajustes pendientes en Partner Center
 
-Elegir categoría y clasificación por edades a partir de las opciones vigentes de la cuenta. Confirmar nombre de Store, mercados, precio, condiciones de licencia, soporte y URL pública de privacidad. No se presupone ninguna de estas decisiones.
+Elegir categoría y clasificación por edades a partir de las opciones vigentes de la cuenta. Confirmar nombre de Store, mercados, precio y condiciones de licencia. Soporte propuesto: formulario público de incidencias `https://github.com/SenecaDPJ/Semana-al-plato/issues/new` (los informes son públicos; pedir que no incluyan datos personales). URL de privacidad prevista tras activar GitHub Pages: `https://senecadpj.github.io/Semana-al-plato/`.

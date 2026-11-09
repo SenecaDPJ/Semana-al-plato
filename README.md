@@ -212,4 +212,4 @@ Creado por [David De Prado · SenecaDPJ](https://github.com/SenecaDPJ).
 
 ## Preparación para Microsoft Store
 
-La evaluación de compatibilidad MSIX, el manifiesto parametrizable, el script de construcción, los textos de ficha y el borrador de privacidad están en [docs/microsoft-store](docs/microsoft-store/README.es.md). El paquete aún requiere identidad exacta de Partner Center y pruebas en Windows.
+La evaluación MSIX, el manifiesto y la compilación sin firma están documentados en [docs/microsoft-store](docs/microsoft-store/README.es.md). La identidad de Partner Center ya está configurada y se han hecho pruebas en una VM Windows 11. Siguen pendientes la migración desde el instalador NSIS, repetir WACK sobre el paquete reconstruido, revisar las licencias Rust, terminar la página pública de privacidad y aportar capturas reales del MSIX final. No se ha enviado el producto a certificación.
