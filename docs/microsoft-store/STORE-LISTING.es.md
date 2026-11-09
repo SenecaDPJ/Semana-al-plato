@@ -44,7 +44,7 @@ La aplicación funciona en Windows 11 de 64 bits y utiliza Microsoft Edge WebVie
 
 ## Capturas requeridas
 
-Pendientes de incorporar como PNG reales de la versión MSIX final. Para escritorio se exige al menos una captura y se recomiendan cuatro o más (máximo 10). Deben ser PNG en horizontal o vertical, de al menos 1366 × 768 píxeles y menos de 50 MB. Si se publican fichas en español e inglés, las imágenes y sus pies se cargan por separado en cada idioma, aunque se reutilice la misma captura. No usar mockups ni pantallas de una versión no comprobada.
+Hay una captura real candidata de la instalación MSIX verificada, fuera del repositorio: `../Compilacion_W11/Entrega-Store-2.2.0.0-x64/Store-screenshot-es-ES-20261109.png` (1919 × 1024, 571.266 bytes; SHA-256 `A15E1FA8CAF043F9F9CA0E1B119A98E48D66F7095195B5D6007EEDC0E0A42705`). Cumple el mínimo de escritorio, pero muestra la marca de evaluación de Windows y márgenes de la VM; revisa si quieres usarla o capturar una vista más limpia. Falta una captura en inglés. Para escritorio se exige al menos una captura y se recomiendan cuatro o más (máximo 10). Deben ser PNG en horizontal o vertical, de al menos 1366 × 768 píxeles y menos de 50 MB. Si se publican fichas en español e inglés, las imágenes y sus pies se cargan por separado en cada idioma, aunque se reutilice la misma captura.
 
 Pies propuestos (máximo oficial: 200 caracteres por pie):
 

@@ -44,7 +44,7 @@ The application is for 64-bit Windows 11 and uses Microsoft Edge WebView2, which
 
 ## Required screenshots
 
-Real PNG captures from the final MSIX build still need to be added. Desktop requires at least one screenshot and Microsoft recommends four or more (maximum 10). Files must be PNG in landscape or portrait, at least 1366 × 768 pixels and under 50 MB. For Spanish and English Store listings, upload images and captions separately for each language, even if reusing the same capture. Do not use mockups or screens from an unverified build.
+One real candidate screenshot from the verified MSIX install is staged outside Git: `../Compilacion_W11/Entrega-Store-2.2.0.0-x64/Store-screenshot-es-ES-20261109.png` (1919 × 1024, 571,266 bytes; SHA-256 `A15E1FA8CAF043F9F9CA0E1B119A98E48D66F7095195B5D6007EEDC0E0A42705`). It meets the desktop minimum but includes the Windows Evaluation watermark and VM margins; review it or capture a cleaner view. An English screenshot is still needed. Desktop requires at least one screenshot and Microsoft recommends four or more (maximum 10). Files must be PNG in landscape or portrait, at least 1366 × 768 pixels and under 50 MB. For Spanish and English Store listings, upload images and captions separately for each language, even if reusing the same capture.
 
 Suggested captions (official maximum: 200 characters per caption):
 
