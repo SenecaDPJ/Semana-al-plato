@@ -14,6 +14,7 @@ import {
   removeReferences,
   clonePlanEntries,
   movePlanEntry,
+  movePlanEntriesByDays,
   removePlanEntries,
   seed,
 } from "./domain.js";
@@ -51,6 +52,7 @@ let week = monday(new Date()),
   kind = "meal",
   returnFocus = null,
   selectedEntries = [],
+  bulkMoveArmed = false,
   pointerGesture = null,
   clearSelectionOnConfirmClose = false,
   suppressCalendarClick = false;
@@ -512,12 +514,18 @@ function showBulkActions() {
     countLabel = count === 1 ? "elemento seleccionado" : "elementos seleccionados";
   if (!d.open) returnFocus = document.activeElement;
   clearSelectionOnConfirmClose = true;
-  d.innerHTML = `<h2>${count} ${countLabel}</h2><p>Puedes clonar la selección en otro día o quitarla del calendario.</p><div class="actions bulk-selection-actions"><button type="button" class="primary" id="clone-selected">Clonar TODOS</button><button type="button" class="danger" id="delete-selected">Eliminar TODOS</button><button type="button" id="cancel-bulk-selection">Cancelar</button></div>`;
+  d.innerHTML = `<h2>${count} ${countLabel}</h2><p>Puedes mover o clonar la selección en otro día, o quitarla del calendario.</p><div class="actions bulk-selection-actions"><button type="button" class="move-action" id="move-selected">Mover en la semana</button><button type="button" class="primary" id="clone-selected">Clonar TODOS</button><button type="button" class="danger" id="delete-selected">Eliminar TODOS</button><button type="button" id="cancel-bulk-selection">Cancelar</button></div>`;
   localizeTree(d);
   if (!d.open) d.showModal();
   $("#cancel-bulk-selection").onclick = () => d.close();
   $("#clone-selected").onclick = () => openCloneDialog(selectedEntries, true);
   $("#delete-selected").onclick = confirmDeleteSelected;
+  $("#move-selected").onclick = () => {
+    clearSelectionOnConfirmClose = false;
+    bulkMoveArmed = true;
+    d.close();
+    toast("Arrastra una tarjeta seleccionada a otro día de esta semana. Pulsa Escape para cancelar.");
+  };
 }
 function updateMarquee(gesture, clientX, clientY) {
   const calendar = $("#calendar"),
@@ -556,9 +564,31 @@ function pointerCellAt(event) {
   const hit = document.elementFromPoint?.(event.clientX, event.clientY);
   return hit?.closest?.(".cell") || event.target?.closest?.(".cell") || null;
 }
-function insertionIndex(cell, clientY, draggedId) {
+function dayOffset(fromDate, toDate) {
+  const from = parseDate(fromDate),
+    to = parseDate(toDate);
+  return Math.round((Date.UTC(to.getFullYear(), to.getMonth(), to.getDate()) -
+    Date.UTC(from.getFullYear(), from.getMonth(), from.getDate())) / 86400000);
+}
+function groupDropOffset(gesture, cell) {
+  if (!cell) return null;
+  const [sourceDate, sourceSlot] = gesture.key.split("|"),
+    [targetDate, targetSlot] = cell.dataset.cell.split("|");
+  if (sourceSlot !== targetSlot) return null;
+  const offset = dayOffset(sourceDate, targetDate),
+    weekStart = dateKey(monday(week));
+  if (!offset || selectedEntries.some(({ key }) => {
+    const [date] = key.split("|");
+    const target = parseDate(date);
+    target.setDate(target.getDate() + offset);
+    return dateKey(monday(target)) !== weekStart;
+  })) return null;
+  return offset;
+}
+function insertionIndex(cell, clientY, draggedId, excludedIds = []) {
+  const excluded = new Set([draggedId, ...excludedIds]);
   const entries = [...cell.querySelectorAll(".entry")].filter(
-    (entry) => entry.dataset.entry !== draggedId,
+    (entry) => !excluded.has(entry.dataset.entry),
   );
   const index = entries.findIndex((entry) => {
     const rect = entry.getBoundingClientRect();
@@ -571,8 +601,16 @@ document.addEventListener("pointerdown", (event) => {
   const calendar = $("#calendar"),
     entry = event.target.closest?.(".entry");
   if (entry && calendar.contains(entry)) {
+    const selected = selectedEntries.some(
+      (item) => item.key === entry.dataset.key && item.id === entry.dataset.entry,
+    );
+    if (bulkMoveArmed && !selected) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
     pointerGesture = {
-      type: "entry",
+      type: bulkMoveArmed ? "group" : "entry",
       pointerId: event.pointerId ?? 1,
       startX: event.clientX,
       startY: event.clientY,
@@ -583,6 +621,7 @@ document.addEventListener("pointerdown", (event) => {
     };
     return;
   }
+  if (bulkMoveArmed) return;
   const cell = event.target.closest?.(".cell");
   if (
     cell &&
@@ -618,15 +657,22 @@ document.addEventListener("pointermove", (event) => {
   }
   if (!gesture.started && Math.hypot(deltaX, deltaY) < 7) return;
   gesture.started = true;
-  gesture.element.classList.add("is-dragging");
   const calendar = $("#calendar"),
     cell = pointerCellAt(event),
     sourceSlot = gesture.key.split("|")[1];
+  if (gesture.type === "group") {
+    calendar.querySelectorAll(".entry.is-selected").forEach((entry) => entry.classList.add("is-dragging"));
+  } else {
+    gesture.element.classList.add("is-dragging");
+  }
   calendar.querySelectorAll(".cell.drop-target, .cell.drop-invalid").forEach((node) =>
     node.classList.remove("drop-target", "drop-invalid"),
   );
   if (cell) {
-    cell.classList.add(cell.dataset.cell.split("|")[1] === sourceSlot ? "drop-target" : "drop-invalid");
+    const allowed = gesture.type === "group"
+      ? groupDropOffset(gesture, cell) !== null
+      : cell.dataset.cell.split("|")[1] === sourceSlot;
+    cell.classList.add(allowed ? "drop-target" : "drop-invalid");
   }
   event.preventDefault();
 });
@@ -652,6 +698,36 @@ document.addEventListener("pointerup", (event) => {
   if (!gesture.started) return;
   suppressCalendarClick = true;
   setTimeout(() => (suppressCalendarClick = false), 0);
+  if (gesture.type === "group") {
+    const cell = pointerCellAt(event),
+      offset = groupDropOffset(gesture, cell);
+    clearGestureVisuals(gesture);
+    if (!cell || offset === null) {
+      toast("Elige otro día de la semana y conserva la categoría de la tarjeta arrastrada.", "invalid-drop");
+      return;
+    }
+    const targetIndex = insertionIndex(
+      cell,
+      event.clientY,
+      gesture.id,
+      selectedEntries.map(({ id }) => id),
+    ),
+      count = selectedEntries.length;
+    if (commit((s) => movePlanEntriesByDays(
+      s,
+      selectedEntries,
+      offset,
+      dateKey(monday(week)),
+      gesture.id,
+      targetIndex,
+    ))) {
+      bulkMoveArmed = false;
+      selectedEntries = [];
+      render();
+      toast(`${count} ${count === 1 ? "elemento movido" : "elementos movidos"} en la semana.`);
+    }
+    return;
+  }
   const cell = pointerCellAt(event),
     sourceSlot = gesture.key.split("|")[1];
   const targetKey = cell?.dataset.cell;
@@ -672,11 +748,13 @@ document.addEventListener("pointercancel", () => {
   pointerGesture = null;
 });
 function selectCalendarEntries(entries) {
+  bulkMoveArmed = false;
   selectedEntries = entries;
   render();
   showBulkActions();
 }
 function clearCalendarSelection() {
+  bulkMoveArmed = false;
   selectedEntries = [];
 }
 function categoryOptions(id) {

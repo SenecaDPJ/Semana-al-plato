@@ -6,6 +6,8 @@
 
 [Descargar para Windows 11 · x64 · v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.2.0/Semana.al.Plato_2.2.0_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
+La rama de prueba v2.3.0 añade el movimiento en grupo por arrastre dentro de la semana. Sigue siendo una compilación de prueba: la descarga pública más reciente continúa siendo v2.2.0.
+
 <img width="1397" height="1013" alt="Captura de Semana al Plato del 7 de noviembre de 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
 
 <img width="1394" height="1010" alt="Segunda captura de Semana al Plato del 7 de noviembre de 2026" src="https://github.com/user-attachments/assets/fe564464-a3e8-4745-8dbf-34e497739123" />
@@ -32,7 +34,7 @@ Trabaja localmente, sin crear una cuenta ni conectarse a un servicio de planific
 | Clonado individual y múltiple | Copiar elementos a otro día de la semana visible o a una fecha de otra semana, manteniendo su momento del día. |
 | Arrastrar y reordenar | Mover elementos entre días de la misma fila y cambiar su orden dentro de una casilla. |
 | Aviso de movimiento no válido | Resaltar la casilla incorrecta con un símbolo de prohibido y mostrar un aviso destacado en ambos temas. |
-| Selección múltiple | Seleccionar con un arrastre desde un espacio vacío y elegir **Clonar TODOS**, **Eliminar TODOS** o cancelar. El borrado pide dos confirmaciones. |
+| Selección múltiple | Seleccionar con un arrastre desde un espacio vacío y elegir **Mover en la semana**, **Clonar TODOS**, **Eliminar TODOS** o cancelar. El movimiento conserva filas y distancias entre días; el borrado pide dos confirmaciones. |
 | Abrir perfil con permiso | La firma abre el perfil de GitHub únicamente después de confirmar. |
 | Guardado local y copias JSON | Mantener tu planificación y exportarla o restaurarla cuando lo necesites. |
 | Confirmación de cambios | Revisar dónde añades un elemento y confirmar las eliminaciones. |
@@ -107,7 +109,7 @@ Si lo eliminas desde el catálogo o el recetario, también se quitarán sus apar
 - Pulsa un elemento y elige **Clonar** para copiarlo a otro día de la misma semana o a una fecha de otra semana. Se conserva su desayuno, comida o cena.
 - Mantén pulsado un elemento y arrástralo para cambiar su orden dentro de la misma fila o moverlo a otro día de esa fila.
 - Si intentas soltarlo en otra categoría, la casilla muestra un símbolo grande de prohibido y aparece un aviso rojo destacado: oscuro en el tema claro y claro en el tema oscuro.
-- Para operar con varios elementos, arrastra desde un espacio vacío del calendario. En la selección puedes elegir **Clonar TODOS** o **Eliminar TODOS**. El clonado pide el día de destino y el borrado requiere dos confirmaciones.
+- Para operar con varios elementos, arrastra desde un espacio vacío del calendario. En la selección puedes elegir **Mover en la semana**, **Clonar TODOS** o **Eliminar TODOS**. Al mover, la selección permanece marcada: arrastra una de sus tarjetas a otro día y el grupo conserva sus filas y distancias entre días dentro de la semana visible. El clonado pide el día de destino y el borrado requiere dos confirmaciones.
 - El enlace a **github.com/SenecaDPJ** pide confirmación antes de abrir el perfil en el navegador predeterminado.
 
 ## Contenido inicial
@@ -212,4 +214,4 @@ Creado por [David De Prado · SenecaDPJ](https://github.com/SenecaDPJ).
 
 ## Preparación para Microsoft Store
 
-La evaluación MSIX, el manifiesto y la compilación están documentados en [docs/microsoft-store](docs/microsoft-store/README.es.md). El candidato 2.2.0.0 con `MinVersion=10.0.26100.1742` se compiló en Windows Actions y se instaló correctamente por PowerShell Direct en Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742, con una cuenta estándar (`PackageStatus=Ok`). La aplicación aún no se ha abierto manualmente con este artefacto exacto: queda confirmar en pantalla que los datos previos aparecen y que el uso básico y la persistencia siguen bien. El usuario ya comprobó estas funciones en el paquete anterior. WACK y Defender no se han repetido sobre el nuevo artefacto. Siguen pendientes la actualización in-place desde NSIS, la revisión de licencias Rust, las capturas finales y decisiones de Partner Center. Los textos de privacidad están actualizados en esta rama, pero la página pública aún no se ha sincronizado. No se ha creado una release ni enviado el producto a certificación.
+La evaluación MSIX, el manifiesto y la compilación están documentados en [docs/microsoft-store](docs/microsoft-store/README.es.md). El candidato 2.2.0.0 con `MinVersion=10.0.26100.1742` se instaló y se probó manualmente en Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742; el usuario comprobó el contenido, el uso básico y la persistencia. Defender no detectó amenazas y WACK obtuvo `OVERALL_RESULT=PASS`, con un único fallo opcional de «Ejecutables bloqueados» aún pendiente de evaluación. Esta rama prepara la versión de prueba 2.3.0, que añade el movimiento en grupo por arrastre. `npm test` pasó 32/32; la compilación MSIX de Windows y las pruebas manuales de este nuevo cambio siguen pendientes. La actualización in-place desde NSIS, la revisión de licencias Rust, las capturas finales y decisiones de Partner Center siguen pendientes. No se ha creado una release ni enviado el producto a certificación.

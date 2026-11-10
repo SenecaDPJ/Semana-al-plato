@@ -6,6 +6,8 @@
 
 [Download for Windows 11 · x64 · v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.2.0/Semana.al.Plato_2.2.0_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
+The v2.3.0 test branch adds drag-to-move for selected groups within the displayed week. It remains a test build; the latest public download is still v2.2.0.
+
 <img width="1397" height="1013" alt="Semana al Plato screenshot from 7 November 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
 
 <img width="1394" height="1010" alt="Second Semana al Plato screenshot from 7 November 2026" src="https://github.com/user-attachments/assets/fe564464-a3e8-4745-8dbf-34e497739123" />
@@ -32,7 +34,7 @@ It works locally, without an account or a meal-planning service. Your menu stays
 | Individual and group cloning | Copies entries to another day in the current week or to a date in another week, preserving each meal slot. |
 | Drag and reorder | Moves entries between days in the same row and changes their order within a slot. |
 | Invalid move feedback | Marks an invalid target with a prohibition symbol and a prominent warning in both themes. |
-| Multi-selection | Drag from an empty calendar area to select entries, then choose **Clone ALL**, **Delete ALL** or cancel. Deletion requires two confirmations. |
+| Multi-selection | Drag from an empty calendar area to select entries, then choose **Move within this week**, **Clone ALL**, **Delete ALL** or cancel. Group movement preserves rows and day offsets; deletion requires two confirmations. |
 | Confirmed profile link | Opens the GitHub profile only after you confirm. |
 | Local saving and JSON backups | Retains your plans and lets you export or restore them. |
 | Change confirmation | Lets you review where an entry will be added and confirm deletions. |
@@ -109,7 +111,7 @@ Deleting it from its catalogue or the recipe collection also removes its calenda
 - Click a calendar entry and choose **Clone** to copy it to another day in the same week or to a date in another week. Its breakfast, lunch or dinner row is preserved.
 - Press and hold an entry, then drag it to reorder it within its row or move it to another day in that row.
 - If you try to drop it into a different row, the cell shows a large prohibition symbol and a prominent red warning, dark-filled in the light theme and light-filled in the dark theme.
-- To work with multiple entries, drag from an empty area of the calendar. Choose **Clone ALL** or **Delete ALL**. Cloning asks for a destination day; deleting requires two confirmations.
+- To work with multiple entries, drag from an empty area of the calendar. Choose **Move within this week**, **Clone ALL** or **Delete ALL**. When moving, the selection stays highlighted: drag one selected card to another day and the group keeps its rows and day offsets within the displayed week. Cloning asks for a destination day; deleting requires two confirmations.
 - The **github.com/SenecaDPJ** link asks for confirmation before opening the profile in the default browser.
 
 ## Starter content
@@ -214,4 +216,4 @@ Created by [David De Prado · SenecaDPJ](https://github.com/SenecaDPJ).
 
 ## Microsoft Store preparation
 
-The MSIX review, manifest and build are documented in [docs/microsoft-store](docs/microsoft-store/README.en.md). Package 2.2.0.0 with `MinVersion=10.0.26100.1742` was built in Windows Actions and installed successfully through PowerShell Direct on Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742, under a standard account (`PackageStatus=Ok`). The app has not yet been opened manually with this exact artifact: an on-screen check that the previous data appears, followed by basic-use and persistence checks, remains. The user already checked these functions on the preceding package. WACK and Defender have not been rerun on the new artifact. An in-place NSIS update, Rust licence review, final screenshots and Partner Center decisions remain pending. The privacy texts are updated in this branch but the public page has not been synced. No release has been created and the product has not been submitted for certification.
+The MSIX review, manifest and build are documented in [docs/microsoft-store](docs/microsoft-store/README.en.md). Package 2.2.0.0 with `MinVersion=10.0.26100.1742` was installed and manually checked on Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742; the user confirmed its content, basic use and persistence. Defender reported no detections and WACK returned `OVERALL_RESULT=PASS`, with one optional **Blocked Executables** failure still under review. This branch prepares test version 2.3.0, which adds drag-to-move for selected groups. `npm test` passed 32/32; the Windows MSIX build and manual checks of this new change are still pending. An in-place NSIS update, Rust licence review, final screenshots and Partner Center decisions remain pending. No release has been created and the product has not been submitted for certification.

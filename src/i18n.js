@@ -7,7 +7,7 @@ const ES_TO_EN = {
   "Tu semana, plato a plato.": "Your week, one meal at a time.",
   "Organiza lo que te apetece. Deja espacio para improvisar.": "Plan what you feel like eating. Leave room to improvise.",
   "En tu dispositivo": "On this device",
-  "VERSIÓN 2.0.0": "VERSION 2.0.0",
+  "VERSIÓN 2.3.0": "VERSION 2.3.0",
   "Mis datos": "My data",
   "Exportar copia": "Export backup",
   "Restaurar copia": "Restore backup",
@@ -50,6 +50,15 @@ const ES_TO_EN = {
   "La selección no contiene elementos del calendario.": "The selection contains no calendar entries.",
   "Muévelo a otro día dentro de la misma categoría.": "Move it to another day in the same row.",
   "Elemento movido en el calendario.": "Entry moved on the calendar.",
+  "Mover en la semana": "Move within this week",
+  "Puedes mover o clonar la selección en otro día, o quitarla del calendario.": "Move or clone the selection to another day, or remove it from the calendar.",
+  "Arrastra una tarjeta seleccionada a otro día de esta semana. Pulsa Escape para cancelar.": "Drag a selected card to another day in this week. Press Escape to cancel.",
+  "Elige otro día de la semana y conserva la categoría de la tarjeta arrastrada.": "Choose another day in this week and keep the dragged card's category.",
+  "Selecciona al menos un elemento para mover.": "Select at least one entry to move.",
+  "Elige otro día de la semana.": "Choose another day in this week.",
+  "Todos los elementos deben pertenecer a la semana visible.": "All entries must belong to the displayed week.",
+  "El movimiento debe permanecer dentro de la semana visible.": "The move must stay within the displayed week.",
+  "El elemento de referencia no está en la selección.": "The reference entry is not selected.",
   "Los elementos seleccionados ya no están en el calendario.": "The selected entries are no longer on the calendar.",
   "No se puede guardar: exporta lo visible o restaura una copia válida. Los datos anteriores no se han sobrescrito.": "Cannot save: export the visible data or restore a valid backup. Your previous data has not been overwritten.",
   "El idioma ha cambiado, pero no se ha podido guardar la preferencia.": "The language changed, but the preference could not be saved.",
@@ -267,6 +276,10 @@ export function translateText(value, language) {
 
   if (language === "en") {
     let match;
+    if ((match = core.match(/^(\d+) elementos? movidos? en la semana\.$/)))
+      return `${match[1]} ${match[1] === "1" ? "entry" : "entries"} moved within this week.`;
+    if ((match = core.match(/^(\d+) elementos? seleccionados?$/)))
+      return `${match[1]} ${match[1] === "1" ? "entry" : "entries"} selected`;
     if ((match = core.match(/^¿Permites abrir (https:\/\/github\.com\/[^ ]+) en el navegador predeterminado\?$/)))
       return `Allow opening ${match[1]} in your default browser?`;
     if ((match = core.match(/^No se pudo abrir el perfil: (.+)$/)))

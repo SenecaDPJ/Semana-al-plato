@@ -14,6 +14,7 @@ import {
   removeReferences,
   clonePlanEntries,
   movePlanEntry,
+  movePlanEntriesByDays,
   removePlanEntries,
 } from "../src/domain.js";
 test("30 alimentos, 30 comidas, 10 por cada categoría, 3 recetas", () => {
@@ -144,6 +145,70 @@ test("arrastrar reordena y mueve elementos entre fechas sin perder referencias",
   assert.deepEqual(s.plan["2026-11-02|Comida"].map((x) => x.id), ["c", "a"]);
   assert.deepEqual(s.plan["2026-11-03|Comida"].map((x) => x.id), ["b"]);
   validate(s);
+});
+test("arrastrar una selección desplaza el grupo por días y conserva filas, orden e identificadores", () => {
+  const s = seed();
+  s.plan = {
+    "2026-11-02|Desayuno": [
+      { id: "group-a", refId: "meal-0-0", kind: "meal" },
+      { id: "stay", refId: "meal-0-1", kind: "meal" },
+      { id: "group-b", refId: "food-0-0", kind: "food" },
+    ],
+    "2026-11-03|Desayuno": [
+      { id: "destination", refId: "meal-0-2", kind: "meal" },
+    ],
+    "2026-11-04|Comida": [
+      { id: "group-c", refId: "meal-1-0", kind: "meal" },
+    ],
+    "2026-11-05|Comida": [
+      { id: "lunch-destination", refId: "meal-1-1", kind: "meal" },
+    ],
+  };
+  const moved = movePlanEntriesByDays(
+    s,
+    [
+      { key: "2026-11-02|Desayuno", id: "group-a" },
+      { key: "2026-11-02|Desayuno", id: "group-b" },
+      { key: "2026-11-04|Comida", id: "group-c" },
+    ],
+    1,
+    "2026-11-02",
+    "group-b",
+    1,
+  );
+  assert.equal(moved, 3);
+  assert.deepEqual(s.plan["2026-11-02|Desayuno"].map((entry) => entry.id), ["stay"]);
+  assert.deepEqual(s.plan["2026-11-03|Desayuno"].map((entry) => entry.id), [
+    "group-a", "group-b", "destination",
+  ]);
+  assert.deepEqual(s.plan["2026-11-05|Comida"].map((entry) => entry.id), [
+    "lunch-destination", "group-c",
+  ]);
+  assert.equal(s.plan["2026-11-04|Comida"], undefined);
+  validate(s);
+
+  const beforeOutOfWeek = structuredClone(s.plan);
+  assert.throws(
+    () => movePlanEntriesByDays(s, [{ key: "2026-11-08|Cena", id: "boundary" }], 1, "2026-11-02", "boundary", 0),
+    /semana visible/,
+  );
+  assert.deepEqual(s.plan, beforeOutOfWeek);
+
+  const full = seed();
+  full.plan["2026-11-02|Desayuno"] = [
+    { id: "capacity-source", refId: "meal-0-0", kind: "meal" },
+  ];
+  full.plan["2026-11-03|Desayuno"] = Array.from({ length: 100 }, (_, i) => ({
+    id: `occupied-${i}`,
+    refId: "meal-0-0",
+    kind: "meal",
+  }));
+  const beforeFull = structuredClone(full.plan);
+  assert.throws(
+    () => movePlanEntriesByDays(full, [{ key: "2026-11-02|Desayuno", id: "capacity-source" }], 1, "2026-11-02", "capacity-source", 0),
+    /límite de 100/,
+  );
+  assert.deepEqual(full.plan, beforeFull);
 });
 test("eliminación múltiple quita solo las apariciones seleccionadas", () => {
   const s = seed();
