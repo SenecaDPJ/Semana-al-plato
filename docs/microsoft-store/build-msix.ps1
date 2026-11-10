@@ -84,7 +84,7 @@ if ($appVersion -ne [string]$tauriConfig.version -or $appVersion -ne $cargoVersi
     throw 'package.json, tauri.conf.json y Cargo.toml deben tener la misma versión.'
 }
 if ($appVersion -notmatch '^(\d+)\.(\d+)\.(\d+)$') {
-    throw 'La versión de producto debe usar tres componentes numéricos, por ejemplo 2.2.0.'
+    throw 'La versión de producto debe usar tres componentes numéricos, por ejemplo 2.3.0.'
 }
 $versionParts = @($Matches[1], $Matches[2], $Matches[3]) | ForEach-Object { [int]$_ }
 if ($versionParts | Where-Object { $_ -gt 65535 }) { throw 'Cada componente de la versión debe ser menor o igual a 65535.' }

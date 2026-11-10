@@ -1,9 +1,10 @@
-name: Build Microsoft Store MSIX (manual)
+name: Build Microsoft Store MSIX (test-only)
 
 on:
   push:
     branches:
       - msstore/v2.2.0-msix-prep
+      - feature/v2.3.0-move-selected-entries
     paths:
       - '.github/workflows/build-msstore-msix.yml'
       - 'src-tauri/**'
@@ -80,7 +81,7 @@ jobs:
         shell: pwsh
         env:
           STORE_PACKAGE_IDENTITY_PUBLISHER: ${{ inputs.package_identity_publisher || 'CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9' }}
-        run: .\docs\microsoft-store\sign-msix-for-local-testing.ps1 -ArtifactsDirectory 'artifacts\msstore\2.2.0.0-x64' -ExpectedPublisher "$env:STORE_PACKAGE_IDENTITY_PUBLISHER"
+        run: .\docs\microsoft-store\sign-msix-for-local-testing.ps1 -ArtifactsDirectory 'artifacts\msstore\2.3.0.0-x64' -ExpectedPublisher "$env:STORE_PACKAGE_IDENTITY_PUBLISHER"
 
       - name: Export Cargo dependency license inventory
         shell: pwsh
@@ -89,7 +90,7 @@ jobs:
       - name: Preserve unsigned package, listing icon and logs for review
         uses: actions/upload-artifact@v4
         with:
-          name: msstore-msix-2.2.0-${{ github.sha }}
+          name: msstore-msix-2.3.0-test-${{ github.sha }}
           path: artifacts/msstore/**
           if-no-files-found: error
           retention-days: 14

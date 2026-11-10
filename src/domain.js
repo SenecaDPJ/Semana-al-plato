@@ -389,6 +389,99 @@ export function movePlanEntry(state, sourceKey, id, targetKey, targetIndex) {
   }
   return sourceKey !== targetKey || sourceIndex !== index;
 }
+export function movePlanEntriesByDays(
+  state,
+  selected,
+  dayOffset,
+  weekStart,
+  anchorId,
+  targetIndex,
+) {
+  if (!Array.isArray(selected) || !selected.length)
+    throw Error("Selecciona al menos un elemento para mover.");
+  if (!Number.isInteger(dayOffset) || dayOffset === 0)
+    throw Error("Elige otro día de la semana.");
+  if (!Number.isInteger(targetIndex))
+    throw Error("La posición de destino no es válida.");
+
+  const firstDay = monday(parseDate(weekStart));
+  const firstKey = dateKey(firstDay);
+  const lastDay = new Date(firstDay);
+  lastDay.setDate(lastDay.getDate() + 6);
+  const lastKey = dateKey(lastDay);
+  const seen = new Set();
+  const moves = selected.map(({ key, id }) => {
+    const token = `${key}|${id}`;
+    if (seen.has(token)) throw Error("La selección contiene elementos repetidos.");
+    seen.add(token);
+    const [sourceDate, slot, ...extra] = String(key).split("|");
+    if (extra.length || !SLOTS.includes(slot))
+      throw Error("El momento del día no es válido.");
+    const sourceDay = parseDate(sourceDate);
+    if (sourceDate < firstKey || sourceDate > lastKey)
+      throw Error("Todos los elementos deben pertenecer a la semana visible.");
+    const targetDay = new Date(sourceDay);
+    targetDay.setDate(targetDay.getDate() + dayOffset);
+    const targetDate = dateKey(targetDay);
+    if (targetDate < firstKey || targetDate > lastKey)
+      throw Error("El movimiento debe permanecer dentro de la semana visible.");
+    const source = state.plan[key];
+    const sourceIndex = source?.findIndex((entry) => entry.id === id) ?? -1;
+    if (sourceIndex < 0) throw Error("Un elemento seleccionado ya no está en el calendario.");
+    return {
+      sourceKey: key,
+      sourceDate,
+      sourceIndex,
+      targetKey: `${targetDate}|${slot}`,
+      id,
+      entry: source[sourceIndex],
+    };
+  });
+
+  const anchor = moves.find((move) => move.id === anchorId);
+  if (!anchor) throw Error("El elemento de referencia no está en la selección.");
+  const changes = new Map();
+  const getNext = (key) => {
+    if (!changes.has(key)) changes.set(key, [...(state.plan[key] || [])]);
+    return changes.get(key);
+  };
+  const selectedBySource = new Map();
+  for (const move of moves) {
+    if (!selectedBySource.has(move.sourceKey)) selectedBySource.set(move.sourceKey, new Set());
+    selectedBySource.get(move.sourceKey).add(move.id);
+  }
+  for (const [key, ids] of selectedBySource) {
+    const next = getNext(key).filter((entry) => !ids.has(entry.id));
+    changes.set(key, next);
+  }
+
+  const byTarget = new Map();
+  for (const move of moves) {
+    if (!byTarget.has(move.targetKey)) byTarget.set(move.targetKey, []);
+    byTarget.get(move.targetKey).push(move);
+  }
+  for (const [key, group] of byTarget) {
+    const next = getNext(key);
+    group.sort((a, b) => a.sourceIndex - b.sourceIndex);
+    if (key === anchor.targetKey) {
+      const precedingAnchorEntries = group.filter(
+        (move) => move.sourceKey === anchor.sourceKey && move.sourceIndex < anchor.sourceIndex,
+      ).length;
+      const index = Math.max(0, Math.min(targetIndex - precedingAnchorEntries, next.length));
+      next.splice(index, 0, ...group.map((move) => move.entry));
+    } else {
+      next.push(...group.map((move) => move.entry));
+    }
+    if (next.length > 100)
+      throw Error("Una casilla ha alcanzado el límite de 100 elementos.");
+  }
+
+  for (const [key, entries] of changes) {
+    if (entries.length) state.plan[key] = entries;
+    else delete state.plan[key];
+  }
+  return moves.length;
+}
 export function removePlanEntries(state, selected) {
   const grouped = new Map();
   for (const { key, id } of selected) {

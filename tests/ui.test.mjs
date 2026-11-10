@@ -239,6 +239,7 @@ test("los diálogos de clonado, selección múltiple y perfil también se traduc
   pointer(b.w.document, "pointermove", 120, 100);
   pointer(b.w.document, "pointerup", 120, 100);
   assert.match(b.$("#confirm").textContent, /1 entry selected/);
+  assert.match(b.$("#confirm").textContent, /Move within this week/);
   assert.match(b.$("#confirm").textContent, /Clone ALL/);
   assert.match(b.$("#confirm").textContent, /Delete ALL/);
   b.click("#delete-selected");
@@ -466,6 +467,68 @@ test("selección múltiple permite clonar y exige dos confirmaciones para borrar
   assert.equal(data().plan["2026-11-02|Desayuno"], undefined);
   assert.equal(data().plan["2026-11-03|Comida"], undefined);
   assert.equal(data().plan["2026-11-05|Desayuno"].length, 1);
+  dom.window.close();
+});
+test("Mover en la semana conserva la selección y arrastra sus tarjetas con el mismo desplazamiento", () => {
+  const state = seed();
+  state.plan = {
+    "2026-11-02|Desayuno": [
+      { id: "group-a", refId: "meal-0-0", kind: "meal" },
+    ],
+    "2026-11-03|Desayuno": [
+      { id: "breakfast-destination", refId: "meal-0-1", kind: "meal" },
+    ],
+    "2026-11-04|Comida": [
+      { id: "group-b", refId: "meal-1-0", kind: "meal" },
+    ],
+    "2026-11-05|Comida": [
+      { id: "lunch-destination", refId: "meal-1-1", kind: "meal" },
+    ],
+  };
+  const { dom, w, $, click, data } = boot(JSON.stringify(state));
+  $("#week").value = "2026-11-02";
+  $("#week").dispatchEvent(new w.Event("change", { bubbles: true }));
+  const pointer = (target, type, x, y) =>
+    target.dispatchEvent(new w.MouseEvent(type, {
+      bubbles: true,
+      cancelable: true,
+      button: 0,
+      clientX: x,
+      clientY: y,
+    }));
+  const a = $('[data-entry="group-a"]'),
+    b = $('[data-entry="group-b"]');
+  a.getBoundingClientRect = () => ({ left: 30, right: 100, top: 30, bottom: 70, height: 40 });
+  b.getBoundingClientRect = () => ({ left: 150, right: 220, top: 90, bottom: 130, height: 40 });
+  pointer($('[data-cell="2026-11-02|Desayuno"]'), "pointerdown", 10, 10);
+  pointer(w.document, "pointermove", 240, 150);
+  pointer(w.document, "pointerup", 240, 150);
+  assert.equal($("#confirm").open, true);
+  assert.equal(w.document.querySelectorAll(".entry.is-selected").length, 2);
+  const actions = [...$(".bulk-selection-actions").querySelectorAll("button")];
+  assert.equal(actions[0].id, "move-selected");
+  assert.equal(actions[1].id, "clone-selected");
+  assert.equal(actions[2].id, "delete-selected");
+  click("#move-selected");
+  assert.equal($("#confirm").open, false);
+  assert.equal(w.document.querySelectorAll(".entry.is-selected").length, 2);
+
+  const target = $('[data-cell="2026-11-03|Desayuno"]');
+  $('[data-entry="breakfast-destination"]').getBoundingClientRect = () => ({ left: 130, right: 230, top: 30, bottom: 70, height: 40 });
+  w.document.elementFromPoint = () => target;
+  pointer($('[data-entry="group-a"]'), "pointerdown", 50, 50);
+  pointer(w.document, "pointermove", 160, 40);
+  pointer(w.document, "pointerup", 160, 40);
+  assert.deepEqual(data().plan["2026-11-02|Desayuno"], undefined);
+  assert.deepEqual(data().plan["2026-11-03|Desayuno"].map((entry) => entry.id), [
+    "group-a", "breakfast-destination",
+  ]);
+  assert.deepEqual(data().plan["2026-11-05|Comida"].map((entry) => entry.id), [
+    "lunch-destination", "group-b",
+  ]);
+  assert.equal(data().plan["2026-11-04|Comida"], undefined);
+  assert.equal(w.document.querySelectorAll(".entry.is-selected").length, 0);
+  assert.match($("#toast").textContent, /2 elementos movidos en la semana/);
   dom.window.close();
 });
 test("CRUD alimentos y rechazo de duplicados", () => {

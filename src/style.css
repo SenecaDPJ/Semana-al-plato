@@ -55,6 +55,16 @@ button.primary {
 button.primary:hover {
   background: #1d3c2c;
 }
+button.move-action {
+  color: #fff;
+  background: #123f73;
+  border-color: #123f73;
+}
+button.move-action:hover {
+  color: #fff;
+  background: #0d315b;
+  border-color: #0d315b;
+}
 button.action-food,
 button.action-category,
 button.action-recipe {
@@ -1102,7 +1112,7 @@ html[data-theme="dark"] .selection-marquee {
   border-color: #83b8ff;
   background: #83b8ff30;
 }
-html[data-theme="dark"] button:where(:not(.primary, .action-food, .action-category, .action-recipe, .entry, .swatch, .cell-add)),
+html[data-theme="dark"] button:where(:not(.primary, .move-action, .action-food, .action-category, .action-recipe, .entry, .swatch, .cell-add)),
 html[data-theme="dark"] summary,
 html[data-theme="dark"] input,
 html[data-theme="dark"] select,
@@ -1111,7 +1121,7 @@ html[data-theme="dark"] textarea {
   color: #e7efe9;
   border-color: #4b625d;
 }
-html[data-theme="dark"] button:where(:not(.primary, .action-food, .action-category, .action-recipe, .entry, .swatch, .cell-add)):hover {
+html[data-theme="dark"] button:where(:not(.primary, .move-action, .action-food, .action-category, .action-recipe, .entry, .swatch, .cell-add)):hover {
   background: #34494a;
 }
 html[data-theme="dark"] button.icon,
