@@ -40,8 +40,37 @@ New-Item -ItemType Directory -Path $licenseOutputRoot -Force | Out-Null
 $inventory = [System.Collections.Generic.List[object]]::new()
 $noticeSections = [System.Collections.Generic.List[string]]::new()
 $includedTextCount = 0
+$supplementalTextCount = 0
+$supplementedPackageCount = 0
 $missingLicenseExpressionCount = 0
 $missingLicenseTextCount = 0
+
+$licenseSupplements = @{
+    'alloc-stdlib@0.3.0' = [pscustomobject]@{
+        Files = @('alloc-stdlib-0.3.0-BSD-3-Clause.txt')
+        Source = 'https://github.com/dropbox/rust-alloc-no-stdlib/blob/master/LICENSE'
+    }
+    'selectors@0.38.0' = [pscustomobject]@{
+        Files = @('selectors-0.38.0-MPL-2.0.txt')
+        Source = 'https://www.mozilla.org/en-US/MPL/2.0/ (canonical MPL-2.0 text; Servo source notes at https://github.com/servo/stylo/issues/317)'
+    }
+    'tauri-plugin@2.7.2' = [pscustomobject]@{
+        Files = @('tauri-plugin-2.7.2-Apache-2.0.txt', 'tauri-plugin-2.7.2-MIT.txt')
+        Source = 'https://github.com/tauri-apps/tauri (shared repository license files; see license-supplements/SOURCES.md)'
+    }
+    'webview2-com@0.39.1' = [pscustomobject]@{
+        Files = @('webview2-rs-0.39.1-MIT.txt')
+        Source = 'https://github.com/wravery/webview2-rs/blob/main/LICENSE'
+    }
+    'webview2-com-macros@0.8.1' = [pscustomobject]@{
+        Files = @('webview2-rs-0.39.1-MIT.txt')
+        Source = 'https://github.com/wravery/webview2-rs/blob/main/LICENSE'
+    }
+    'webview2-com-sys@0.39.1' = [pscustomobject]@{
+        Files = @('webview2-rs-0.39.1-MIT.txt')
+        Source = 'https://github.com/wravery/webview2-rs/blob/main/LICENSE'
+    }
+}
 
 foreach ($package in $externalPackages) {
     $packageRoot = Split-Path -Parent ([string]$package.manifest_path)
@@ -79,6 +108,9 @@ foreach ($package in $externalPackages) {
     $safePackageName = ('{0}-{1}' -f $package.name, $package.version) -replace '[^A-Za-z0-9._-]', '_'
     $packageOutput = Join-Path $licenseOutputRoot $safePackageName
     $copiedNames = [System.Collections.Generic.List[string]]::new()
+    $supplementSource = ''
+    $supplementKey = '{0}@{1}' -f $package.name, $package.version
+    $supplement = $licenseSupplements[$supplementKey]
     [void]$noticeSections.Add("## $($package.name) $($package.version)")
     [void]$noticeSections.Add("Declared SPDX license: $(if ($package.license) { $package.license } else { 'not declared' })")
     [void]$noticeSections.Add("Source: $($package.source)")
@@ -101,16 +133,39 @@ foreach ($package in $externalPackages) {
         }
     }
 
-    if ([string]::IsNullOrWhiteSpace([string]$package.license) -and $uniqueFiles.Count -eq 0) {
+    if ($uniqueFiles.Count -eq 0 -and $supplement) {
+        New-Item -ItemType Directory -Path $packageOutput -Force | Out-Null
+        foreach ($supplementName in $supplement.Files) {
+            $supplementPath = Join-Path $PSScriptRoot (Join-Path 'license-supplements' $supplementName)
+            if (-not (Test-Path -LiteralPath $supplementPath -PathType Leaf)) {
+                throw "Falta el texto de licencia suplementario '$supplementName' para $supplementKey."
+            }
+            $copyPath = Join-Path $packageOutput $supplementName
+            Copy-Item -LiteralPath $supplementPath -Destination $copyPath
+            [void]$copiedNames.Add($supplementName)
+            [void]$noticeSections.Add("### Supplemental license text: $supplementName")
+            [void]$noticeSections.Add("Supplement source: $($supplement.Source)")
+            [void]$noticeSections.Add((Get-Content -LiteralPath $supplementPath -Raw))
+            [void]$noticeSections.Add('')
+            $includedTextCount++
+            $supplementalTextCount++
+        }
+        $supplementSource = $supplement.Source
+        $supplementedPackageCount++
+    }
+
+    if ([string]::IsNullOrWhiteSpace([string]$package.license) -and $uniqueFiles.Count -eq 0 -and -not $supplement) {
         $reviewStatus = 'MANUAL_REVIEW_REQUIRED_MISSING_EXPRESSION_AND_TEXT'
         $missingLicenseExpressionCount++
         $missingLicenseTextCount++
     } elseif ([string]::IsNullOrWhiteSpace([string]$package.license)) {
         $reviewStatus = 'MANUAL_REVIEW_REQUIRED_MISSING_EXPRESSION'
         $missingLicenseExpressionCount++
-    } elseif ($uniqueFiles.Count -eq 0) {
+    } elseif ($uniqueFiles.Count -eq 0 -and -not $supplement) {
         $reviewStatus = if ($declaredFileMissing) { 'MANUAL_REVIEW_REQUIRED_DECLARED_FILE_MISSING' } else { 'MANUAL_REVIEW_REQUIRED_TEXT_NOT_FOUND' }
         $missingLicenseTextCount++
+    } elseif ($uniqueFiles.Count -eq 0 -and $supplement) {
+        $reviewStatus = 'MANUAL_REVIEW_REQUIRED_SUPPLEMENTED_TEXT_VERIFY_SOURCE_AND_TERMS'
     } else {
         $reviewStatus = 'MANUAL_REVIEW_REQUIRED_REVIEW_TERMS'
     }
@@ -122,6 +177,7 @@ foreach ($package in $externalPackages) {
         LicenseExpression = [string]$package.license
         DeclaredLicenseFile = $declaredDisplayPath
         IncludedLicenseFiles = ($copiedNames -join '; ')
+        SupplementalLicenseTextSource = $supplementSource
         ReviewStatus = $reviewStatus
     })
 }
@@ -131,8 +187,9 @@ $summaryPath = Join-Path $outputRoot 'CARGO-LICENSE-SUMMARY.json'
 $noticesPath = Join-Path $outputRoot 'THIRD-PARTY-NOTICES.txt'
 $inventory | Export-Csv -LiteralPath $inventoryPath -NoTypeInformation -Encoding utf8
 $noticeHeader = @(
-    "Generated from the Cargo dependency graph for target $targetTriple and license files included with the locked dependencies."
+    "Generated from the Cargo dependency graph for target $targetTriple, license files included with locked dependencies, and documented upstream supplements."
     'This inventory is for review; it is not legal clearance or a determination that licenses are compatible.'
+    'Supplemented texts and their sources are listed in CARGO-LICENSE-INVENTORY.csv and docs/microsoft-store/license-supplements/SOURCES.md.'
     ''
 )
 @($noticeHeader + $noticeSections) | Set-Content -LiteralPath $noticesPath -Encoding utf8
@@ -146,6 +203,8 @@ $summary = [pscustomobject]@{
     TargetTriple = $targetTriple
     ExternalPackageCount = $externalPackages.Count
     LicenseFilesIncluded = $includedTextCount
+    SupplementalLicenseTextsIncluded = $supplementalTextCount
+    PackagesWithSupplementedLicenseText = $supplementedPackageCount
     PackagesMissingLicenseExpression = $missingLicenseExpressionCount
     PackagesMissingLicenseText = $missingLicenseTextCount
     PackagesRequiringManualLicenseReview = $externalPackages.Count
