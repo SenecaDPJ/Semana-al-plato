@@ -25,6 +25,14 @@ La versión de prueba 2.3.0 incorpora el movimiento por arrastre de selecciones 
 - Microsoft describe las pruebas opcionales de Desktop Bridge como informativas y dice que no se usan para evaluar la incorporación a Store. «Ejecutables bloqueados» busca riesgos de compatibilidad con Windows 10 S; su resultado por sí solo no determina la certificación. [Documentación de Microsoft sobre las pruebas Desktop Bridge](https://learn.microsoft.com/en-us/windows/uwp/debug-test-perf/windows-desktop-bridge-app-tests).
 - Estas comprobaciones locales no equivalen a la certificación de Microsoft Store. No se ha publicado una release ni se ha enviado la aplicación a certificación.
 
+### Reejecución de WACK sobre la candidata de revisión (11 de noviembre de 2026)
+
+- **Resultado:** WACK 10.0.26100.9457, Windows 11 Enterprise LTSC Evaluation 24H2 (compilación 26100.1742), ejecución completa (`PARTIAL_RUN=FALSE`), resultado global **PASS**; 23/24 pruebas pasaron. La única fallida fue «Ejecutables bloqueados», opcional (`OPTIONAL=TRUE`); no hubo fallos obligatorios. Códigos de salida: `reset=0`, `test=0`.
+- **Artefacto analizado:** MSIX local de pruebas, versión 2.3.0.0 x64, mínimo `10.0.26100.1742`, SHA-256 `654FC69721F9E8250A72A2ED58F8343DB724DFC06DB0CC1687FB49B4A27E2BCC`. WACK recibió este paquete directamente. Este resultado es independiente del intento de instalación de igual versión que Windows rechazó con `0x80073CFB`.
+- **Informe XML:** `WACK-2.3.0.0-LTSC26100-LICENSEREVIEW-20261111-204604.xml`, SHA-256 `2C62C1F89ABEAC4ABD06E892CA274C4E18EA00B7C66114F90DA5FBE00D7F6918`.
+- **Resumen JSON:** `WACK-2.3.0.0-LTSC26100-LICENSEREVIEW-20261111-204604-summary.json`, SHA-256 `17D8077F4ABFF9A9EF3E41EB24B034157827E6FB7CE7122ABECB89C1FF8A5ADE`.
+- Los XML/JSON completos permanecen en la VM de laboratorio; aquí se publican los hashes y resultados, sin rutas locales ni credenciales.
+
 # Test summary — 2.3.0.0 candidate
 
 Updated 11 November 2026.
@@ -51,3 +59,12 @@ Test version 2.3.0 adds drag-to-move for multi-selections within the displayed w
 - **Licenses:** the inventory covers 247 Rust dependencies and lists 440 license-file copies in the review materials; 7 supplemental license texts were added for 6 packages. No package was found without a license expression or license text, but all 247 packages still require manual legal review. Legal review is incomplete; this is not a conclusion that every license permits distribution.
 - Microsoft describes the optional Desktop Bridge tests as informational and says they are not used to evaluate Store onboarding. **Blocked Executables** checks for Windows 10 S compatibility risks; this result alone does not determine certification. See [Microsoft's Desktop Bridge app tests](https://learn.microsoft.com/en-us/windows/uwp/debug-test-perf/windows-desktop-bridge-app-tests).
 - These local checks are not Microsoft Store certification. No release has been published and the app has not been submitted for certification.
+
+### WACK rerun on the license-review candidate (11 November 2026)
+
+- **Result:** WACK 10.0.26100.9457 on Windows 11 Enterprise LTSC Evaluation 24H2 (build 26100.1742), complete run (`PARTIAL_RUN=FALSE`), overall result **PASS**; 23 of 24 tests passed. The only failure was **Blocked Executables**, marked optional (`OPTIONAL=TRUE`); no required tests failed. Exit codes: `reset=0`, `test=0`.
+- **Artifact examined:** local test MSIX, version 2.3.0.0 x64, minimum `10.0.26100.1742`, SHA-256 `654FC69721F9E8250A72A2ED58F8343DB724DFC06DB0CC1687FB49B4A27E2BCC`. WACK received this package directly. This result is separate from the same-version installation attempt that Windows rejected with `0x80073CFB`.
+- **XML report:** `WACK-2.3.0.0-LTSC26100-LICENSEREVIEW-20261111-204604.xml`, SHA-256 `2C62C1F89ABEAC4ABD06E892CA274C4E18EA00B7C66114F90DA5FBE00D7F6918`.
+- **JSON summary:** `WACK-2.3.0.0-LTSC26100-LICENSEREVIEW-20261111-204604-summary.json`, SHA-256 `17D8077F4ABFF9A9EF3E41EB24B034157827E6FB7CE7122ABECB89C1FF8A5ADE`.
+- Full XML/JSON files remain in the lab VM; this public summary contains result hashes without local paths or credentials.
+
