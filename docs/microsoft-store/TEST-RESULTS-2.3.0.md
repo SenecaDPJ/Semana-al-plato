@@ -1,6 +1,6 @@
 # Resumen de pruebas — candidata 2.3.0.0
 
-Actualizado el 10 de noviembre de 2026.
+Actualizado el 11 de noviembre de 2026.
 
 La versión de prueba 2.3.0 incorpora el movimiento por arrastre de selecciones múltiples dentro de la semana visible.
 
@@ -15,7 +15,8 @@ La versión de prueba 2.3.0 incorpora el movimiento por arrastre de selecciones 
 
 ## Comprobaciones
 
-- **Instalación aislada:** instalado el paquete de prueba en una VM Windows 11 Enterprise LTSC Evaluation 24H2, compilación 26100.1742. La máquina se restauró después al estado anterior a la prueba.
+- **Instalación y actualización aisladas:** la versión 2.2.0.0 se instaló en el perfil estándar de la VM Windows 11 Enterprise LTSC Evaluation 24H2 (compilación 26100.1742). El registro de AppX confirma una actualización correcta de 2.2.0.0 a 2.3.0.0 (eventos 855 y 400). El usuario comprobó después el calendario, el cambio de idioma y tema, y la persistencia al cerrar y volver a abrir. La VM conserva la instalación 2.3.0.0 de prueba; no se restauró a un checkpoint tras las comprobaciones más recientes.
+- **Reintento de la misma versión:** una operación posterior intentó instalar un MSIX con la misma identidad y versión 2.3.0.0 pero contenido distinto. Windows la rechazó con `0x80073CFB`, como exige la identidad/versionado de paquetes. Este error separado no invalida la actualización 2.2.0.0 → 2.3.0.0 que sí terminó correctamente; los artefactos de una versión deben mantenerse inmutables y un cambio de contenido debe usar una versión superior.
 - **Pruebas manuales:** el usuario confirmó el movimiento de elementos seleccionados, el cambio entre español e inglés y la persistencia tras cerrar y volver a abrir la aplicación.
 - **Microsoft Defender:** análisis del paquete MSIX de Store, del archivo .msixupload y del MSIX de prueba completados sin detecciones.
 - **WACK 10.0.26100.9457:** informe completo con resultado global **PASS**; pasaron 23 de 24 pruebas. La única fallida fue «Ejecutables bloqueados», marcada como opcional. No hubo fallos obligatorios. SHA-256 del informe XML: `53E108BFD1C9D05882F2B4F6E08DE68501D87743A048ECAA641A471795EE4698`.
@@ -26,7 +27,7 @@ La versión de prueba 2.3.0 incorpora el movimiento por arrastre de selecciones 
 
 # Test summary — 2.3.0.0 candidate
 
-Updated 10 November 2026.
+Updated 11 November 2026.
 
 Test version 2.3.0 adds drag-to-move for multi-selections within the displayed week.
 
@@ -41,7 +42,8 @@ Test version 2.3.0 adds drag-to-move for multi-selections within the displayed w
 
 ## Checks
 
-- **Isolated installation:** installed the test package in a Windows 11 Enterprise LTSC Evaluation 24H2 VM, build 26100.1742. The VM was restored to its pre-test state afterward.
+- **Isolated installation and update:** version 2.2.0.0 was installed for the VM's standard test profile on Windows 11 Enterprise LTSC Evaluation 24H2 (build 26100.1742). The AppX deployment log confirms a successful update from 2.2.0.0 to 2.3.0.0 (events 855 and 400). The user then checked the calendar, language and theme switching, and persistence after closing and reopening the app. The VM still has the 2.3.0.0 test installation; it was not restored to a checkpoint after the latest checks.
+- **Same-version retry:** a later operation tried to install an MSIX with the same 2.3.0.0 identity/version but different content. Windows rejected it with `0x80073CFB`, consistent with package identity/versioning. This separate error does not invalidate the successful 2.2.0.0 → 2.3.0.0 update; artifacts for a version must remain immutable, and changed content needs a higher version.
 - **Manual checks:** the user confirmed moving selected entries, switching between Spanish and English, and persistence after closing and reopening the app.
 - **Microsoft Defender:** scans of the Store MSIX, the .msixupload file, and the test MSIX completed with no detections.
 - **WACK 10.0.26100.9457:** complete report with overall result **PASS**; 23 of 24 tests passed. The only failure was **Blocked Executables**, marked optional. No required tests failed. WACK XML report SHA-256: `53E108BFD1C9D05882F2B4F6E08DE68501D87743A048ECAA641A471795EE4698`.
