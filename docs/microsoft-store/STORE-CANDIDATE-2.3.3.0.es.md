@@ -29,6 +29,10 @@ El propietario ha elegido los valores previstos para la ficha. Son decisiones re
 | Idiomas de ficha | `es-ES` y `en-US`; el paquete declara ambos recursos |
 | Precio | Gratis |
 | Mercados | Todos los mercados que Partner Center permita seleccionar para esta aplicación |
+| Clasificación IARC | No hay IARC ID previo; el propietario responderá el cuestionario en Partner Center |
+| Capturas | Usar las dos actuales: una para `es-ES` y otra para `en-US`; no se solicitan capturas adicionales |
+
+El propietario autoriza distribuir la versión `2.3.3.0` en Microsoft Store una vez completada la preparación pendiente. Esta autorización no crea un borrador ni envía el paquete a certificación.
 
 ## Artefactos locales
 
@@ -74,7 +78,7 @@ El directorio de salida debe ser nuevo. El script vuelve a generar el inventario
 | Comprobación tras reinstalar en perfil administrador | **PASADO** | Tras reiniciar la VM, PowerShell Direct confirmó el paquete `2.3.3.0`, estado `Ok` y la app cerrada; el directorio de datos del paquete tenía 2 archivos/8.192 bytes y el perfil externo Tauri/WebView2, 175 archivos/5.079.996 bytes. Coincidieron los hashes de los 175 archivos externos previos a la desinstalación. Después, el usuario abrió la app y confirmó la versión y los tres registros, cambió tema e idioma, cerró y volvió a abrir; confirmó persistencia y cerró de nuevo. |
 | Certificado temporal de pruebas | **PASADO, RETIRADO** | Tras finalizar las pruebas, se eliminaron de `LocalMachine\TrustedPeople` de la VM seis certificados autofirmados del editor de pruebas; la comprobación final no encontró ninguno restante. No se usó ni quedó clave privada en ese almacén. |
 | Punto de control previo a desinstalar | **PASADO** | El usuario creó un punto de control de Hyper-V antes de la prueba. |
-| Revisión de licencias y avisos | **REVISIÓN MANUAL CONFIRMADA POR EL PROPIETARIO** | Inventario técnico: 247 crates, 443 archivos de licencia y 7 textos suplementarios de 6 crates. El propietario indicó haber completado la revisión manual de licencias, cabeceras de copyright y `NOTICE`. La autorización legal final para distribuir sigue siendo una decisión del propietario. |
+| Revisión de licencias y autorización | **REVISIÓN MANUAL CONFIRMADA; AUTORIZACIÓN CONDICIONAL OTORGADA** | Inventario técnico: 247 crates, 443 archivos de licencia y 7 textos suplementarios de 6 crates. El propietario confirmó haber completado la revisión manual de licencias, cabeceras de copyright y `NOTICE`, y autorizó distribuir la versión `2.3.3.0` en Store cuando termine la preparación. |
 | Capturas de ficha | **PASADAS, MÍNIMO POR IDIOMA** | Se preparó una captura PNG por idioma, tomada de la aplicación 2.3.3.0 en el perfil estándar y copiada sin modificar; no contiene marco de VM ni marca de evaluación. Inglés/oscuro: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120.409 bytes, SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`. Español/claro: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150.966 bytes, SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`. Están en la carpeta local de entrega, fuera de Git. Una captura de escritorio es el mínimo; Microsoft recomienda al menos cuatro por familia y permite hasta diez. |
 | Certificación de Microsoft Store | **NO EJECUTADA** | No se envió el paquete a Partner Center. |
 
@@ -83,8 +87,7 @@ Los informes completos de WACK y las salidas de instalación están en la carpet
 ## Pendiente para completar la preparación
 
 1. Aplicar en Partner Center las decisiones seleccionadas de categoría, precio, mercados e idiomas; verificar nombre reservado e identidad; completar las fichas `es-ES` y `en-US`; cargar la captura preparada y su pie en el idioma correspondiente. Las capturas adicionales son opcionales: hay una por idioma, el mínimo documentado.
-2. Completar con respuestas veraces el cuestionario IARC de clasificación por edades (o vincular un IARC ID existente), revisar las condiciones de licencia, los campos de contacto y la URL de privacidad publicada. No se ha creado ningún borrador en Partner Center.
-3. El propietario debe confirmar la autorización legal final de distribución. La revisión manual de licencias, cabeceras y `NOTICE` ya fue confirmada por el propietario.
-4. Evaluar el origen del fallo opcional `Ejecutables bloqueados` de WACK, sin clasificarlo como falso positivo mientras no se trace.
+2. Responder con veracidad el cuestionario IARC de clasificación por edades; el propietario confirmó que no tiene un IARC ID previo. Revisar las condiciones de licencia, los campos de contacto y la URL de privacidad publicada. No se ha creado ningún borrador en Partner Center.
+3. Evaluar el origen del fallo opcional `Ejecutables bloqueados` de WACK, sin clasificarlo como falso positivo mientras no se trace.
 
 La prueba funcional respalda Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742; no demuestra compatibilidad con otras ediciones ni builds. WACK es una comprobación local; la certificación oficial solo ocurre tras enviar el paquete desde Partner Center.

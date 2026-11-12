@@ -29,6 +29,10 @@ The owner has selected the intended listing values below. These choices are reco
 | Listing languages | `es-ES` and `en-US`; both resources are declared by the package |
 | Price | Free |
 | Markets | All markets that Partner Center allows for this app |
+| IARC rating | No existing IARC ID; the owner will answer the Partner Center questionnaire |
+| Screenshots | Use the two current images: one for `es-ES` and one for `en-US`; no additional screenshots requested |
+
+The owner authorizes distribution of version `2.3.3.0` through Microsoft Store once the remaining preparation is complete. This authorization does not create a draft or submit the package for certification.
 
 ## Local artifacts
 
@@ -74,7 +78,7 @@ The output directory must be new. The script regenerates the inventory and unsig
 | Post-reinstall verification in administrator profile | **PASS** | After the VM restart, PowerShell Direct confirmed package `2.3.3.0`, status `Ok`, and no running app process; the package data directory had 2 files/8,192 bytes, and the external Tauri/WebView2 profile had 175 files/5,079,996 bytes. All 175 external-profile file hashes matched the pre-uninstall copy. The user then opened the app and confirmed the version and all three records, changed theme and language, closed and reopened it, confirmed persistence, and closed it again. |
 | Temporary test certificate | **PASS, REMOVED** | After testing, six self-signed test publisher certificates were removed from the VM's `LocalMachine\TrustedPeople` store; a final check found none remaining. No private key was used or left in that store. |
 | Checkpoint before uninstall | **PASS** | The user created a Hyper-V checkpoint before the test. |
-| Licence and notice review | **MANUAL REVIEW CONFIRMED BY OWNER** | Technical inventory: 247 crates, 443 licence files and 7 supplemental texts for 6 crates. The owner said they completed the manual review of licences, copyright headers and `NOTICE` files. Final legal distribution authorization remains the owner's decision. |
+| Licence review and authorization | **MANUAL REVIEW CONFIRMED; CONDITIONAL AUTHORIZATION GRANTED** | Technical inventory: 247 crates, 443 licence files and 7 supplemental texts for 6 crates. The owner confirmed completing the manual review of licences, copyright headers and `NOTICE` files, and authorized distribution of version `2.3.3.0` through the Store once preparation is complete. |
 | Microsoft Store certification | **NOT RUN** | The package was not submitted to Partner Center. |
 | Store listing screenshots | **PASS, MINIMUM PER LANGUAGE** | One PNG screenshot per language was prepared from the 2.3.3.0 app under the standard profile and copied unchanged; neither includes a VM frame or Evaluation watermark. English/dark: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120,409 bytes, SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`. Spanish/light: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150,966 bytes, SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`. They are staged in the local delivery folder outside Git. One desktop screenshot is the minimum; Microsoft recommends at least four per device family and allows up to ten. |
 
@@ -83,8 +87,7 @@ Full WACK reports and installation output are in the local artifact folder outsi
 ## Remaining preparation
 
 1. Enter the selected category, price, markets and listing languages in Partner Center; verify the reserved name and product identity; complete the `es-ES` and `en-US` listings; and upload the prepared screenshot and caption for its corresponding language. Additional screenshots are optional: one per language is prepared, the documented minimum.
-2. Complete the IARC age-rating questionnaire accurately (or link an existing IARC ID), review licence terms, contact fields and the published privacy URL. No Partner Center draft has been created.
-3. The owner must confirm final legal authorization to distribute. The owner has confirmed completing the manual review of licences, source headers and `NOTICE` files.
-4. Assess the origin of WACK's optional `Blocked Executables` failure; do not label it a false positive until traced.
+2. Complete the IARC age-rating questionnaire accurately; the owner confirmed there is no existing IARC ID. Review licence terms, contact fields and the published privacy URL. No Partner Center draft has been created.
+3. Assess the origin of WACK's optional `Blocked Executables` failure; do not label it a false positive until traced.
 
 The functional test supports Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742; it does not establish compatibility with other editions or builds. WACK is a local check; official certification occurs only after submitting the package through Partner Center.
