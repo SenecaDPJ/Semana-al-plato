@@ -19,6 +19,17 @@ La versión 2.3.3 corrige la etiqueta de versión de la interfaz, que aún mostr
 | Commit fuente | `0459c963c772635ec63a48aea13984dae393604e` |
 | Firma Store | Sin firmar; Microsoft firma el paquete tras la certificación y publicación |
 
+## Decisiones seleccionadas para Partner Center
+
+El propietario ha elegido los valores previstos para la ficha. Son decisiones registradas para aplicarlas en Partner Center; todavía no se han introducido allí.
+
+| Campo | Selección |
+|---|---|
+| Categoría principal | Food + dining |
+| Idiomas de ficha | `es-ES` y `en-US`; el paquete declara ambos recursos |
+| Precio | Gratis |
+| Mercados | Todos los mercados que Partner Center permita seleccionar para esta aplicación |
+
 ## Artefactos locales
 
 Directorio ignorado por Git: `artifacts/msstore/2.3.3.0-x64-cleanbuild/`.
@@ -71,8 +82,9 @@ Los informes completos de WACK y las salidas de instalación están en la carpet
 
 ## Pendiente para completar la preparación
 
-1. Completar en Partner Center los campos de ficha, disponibilidad, clasificación por edades, contactos y elección de inglés (`en-US` o ficha adicional `en-GB`); cargar por separado las dos capturas y sus pies para cada idioma.
-2. El propietario debe confirmar la autorización legal final de distribución. La revisión manual de licencias, cabeceras y `NOTICE` ya fue confirmada por el propietario.
-3. Evaluar el origen del fallo opcional `Ejecutables bloqueados` de WACK, sin clasificarlo como falso positivo mientras no se trace.
+1. Aplicar en Partner Center las decisiones seleccionadas de categoría, precio, mercados e idiomas; verificar nombre reservado e identidad; completar las fichas `es-ES` y `en-US`; cargar la captura preparada y su pie en el idioma correspondiente. Las capturas adicionales son opcionales: hay una por idioma, el mínimo documentado.
+2. Completar con respuestas veraces el cuestionario IARC de clasificación por edades (o vincular un IARC ID existente), revisar las condiciones de licencia, los campos de contacto y la URL de privacidad publicada. No se ha creado ningún borrador en Partner Center.
+3. El propietario debe confirmar la autorización legal final de distribución. La revisión manual de licencias, cabeceras y `NOTICE` ya fue confirmada por el propietario.
+4. Evaluar el origen del fallo opcional `Ejecutables bloqueados` de WACK, sin clasificarlo como falso positivo mientras no se trace.
 
 La prueba funcional respalda Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742; no demuestra compatibilidad con otras ediciones ni builds. WACK es una comprobación local; la certificación oficial solo ocurre tras enviar el paquete desde Partner Center.

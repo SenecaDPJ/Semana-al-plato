@@ -1,4 +1,4 @@
-# Microsoft Store listing — English (United Kingdom)
+# Microsoft Store listing — English (United States)
 
 Partner Center draft reviewed against local candidate 2.3.3.0. It includes drag-to-move for multi-selections; it does not claim that this version is released or certified. User-reported functional checks and the local WACK result are documented in `STORE-CANDIDATE-2.3.3.0.en.md`.
 
@@ -8,13 +8,13 @@ Partner Center draft reviewed against local candidate 2.3.3.0. It includes drag-
 
 ## Short description
 
-Plan meals from Monday to Sunday, organise recipes and keep your menu on this device with JSON backups.
+Plan meals from Monday to Sunday, organize recipes and keep your menu on this device with JSON backups.
 
 ## Description
 
-Organise your weekly meals with Semana al Plato. Plan breakfast, lunch and dinner for each day, combine multiple entries in a slot and change weeks whenever you need to.
+Organize your weekly meals with Semana al Plato. Plan breakfast, lunch and dinner for each day, combine multiple entries in a slot and change weeks whenever you need to.
 
-Add dishes, food items and recipes to editable catalogues. Create colour-coded categories, search for entries and read recipes without closing the calendar. Each recipe can include ingredients, preparation steps, time and servings.
+Add dishes, food items and recipes to editable catalogs. Create color-coded categories, search for entries and read recipes without closing the calendar. Each recipe can include ingredients, preparation steps, time and servings.
 
 Move entries between days in the same meal row, change their order and clone them individually. You can also select several entries and drag them together to another day in the displayed week, clone them or delete them; bulk deletion requires confirmation.
 
@@ -28,7 +28,7 @@ The application is for 64-bit Windows 11 and uses Microsoft Edge WebView2, which
 
 - Monday-to-Sunday plan with breakfast, lunch and dinner.
 - Add multiple dishes, food items and recipes to one calendar slot.
-- Editable catalogues with search, filters and colour-coded categories.
+- Editable catalogs with search, filters and color-coded categories.
 - Recipes with ingredients, steps, time and servings.
 - Clone entries to another day in the current week or a later date.
 - Drag and reorder entries within the same meal row.
@@ -60,8 +60,8 @@ Suggested localized captions (official maximum: 200 characters per caption):
 
 ## Listing field limits
 
-The current short description has 103 characters (field limit: 1,000; Microsoft recommends fewer than 270). The 11 product features are at most 69 characters each (up to 20, maximum 200 per feature). The description field accepts up to 10,000 characters. These drafts are prepared for `es-ES` and `en-GB`; complete each language separately in Partner Center. The package manifest declares `es-ES` and `en-US`, so decide whether British English will be an additional Store listing language or whether the listing should use US English.
+The current short description has 103 characters (field limit: 1,000; Microsoft recommends fewer than 270). The 11 product features are at most 69 characters each (up to 20, maximum 200 per feature). The description field accepts up to 10,000 characters. This draft is prepared for `en-US`, alongside the Spanish `es-ES` draft, and should be completed separately in Partner Center. The package manifest declares both locales.
 
-## Partner Center decisions still pending
+## Partner Center setup still pending
 
-In Partner Center, check the reserved name and product identity; choose the required category, markets and price/availability; complete the age-rating questionnaire; review licence terms; and verify the published privacy URL: `https://senecadpj.github.io/Semana-al-plato/`. Complete Spanish and English listings; decide whether British English (`en-GB`) should be an additional listing next to the package's US English (`en-US`) resource. Leave “What's new” blank for a first submission. Review whichever contact details are required for the account type. Proposed support URL: public GitHub issue form at `https://github.com/SenecaDPJ/Semana-al-plato/issues/new` (issues are public; users should not include personal data). No draft or certification submission has been created.
+The owner selected **Food + dining**, **free**, **all markets available in Partner Center**, and listing languages **es-ES** and **en-US**. These are planned values, not settings already entered in the portal. Still verify the reserved name and product identity; complete the IARC age-rating questionnaire accurately (or link an existing IARC ID); review licence terms, applicable contact fields and the published privacy URL `https://senecadpj.github.io/Semana-al-plato/`; and upload the prepared screenshot and caption for each language. One screenshot per language is prepared and meets the documented minimum; three more per language are optional. Leave “What's new” blank for a first submission. Proposed support URL: public GitHub issue form at `https://github.com/SenecaDPJ/Semana-al-plato/issues/new` (issues are public; users should not include personal data). Final legal authorization to distribute remains pending. No draft or certification submission has been created.

@@ -4,7 +4,7 @@
 
 La compilación x64 desde `0459c963c772635ec63a48aea13984dae393604e` creó un MSIX Store sin firmar y un `.msixupload`. `npm test` pasó 32/32. La actualización 2.3.2.0→2.3.3.0 en LTSC 24H2 build 26100.1742 conservó los datos a nivel de archivos; el usuario confirmó la apertura y persistencia. La desinstalación eliminó 10 archivos del directorio del paquete pero conservó sin cambios de hash el perfil Tauri/WebView2 (175 archivos); la reinstalación quedó `Ok`. En perfil estándar, el usuario confirmó tres elementos, cambio de tema/idioma y persistencia tras reabrir. Se retiraron de la VM seis certificados públicos temporales de prueba y no queda ninguno en `TrustedPeople`. Defender no detectó amenazas. WACK terminó con `OVERALL_RESULT=PASS`, 23/24 PASADAS y solo una falla opcional.
 
-Detalles, SHA-256, alcance exacto de las pruebas y acciones pendientes: [candidata 2.3.3.0](STORE-CANDIDATE-2.3.3.0.es.md). El estado anterior queda en [2.3.2.0](STORE-CANDIDATE-2.3.2.0.es.md); la revisión de licencias está en [español e inglés](LICENSE-REVIEW-UPDATE-2.3.2.0.es.md).
+El propietario ha seleccionado para Partner Center la categoría **Food + dining**, ficha gratuita, todos los mercados disponibles y los idiomas `es-ES` y `en-US`; la selección está documentada, pero aún no introducida en el portal. Detalles, SHA-256, alcance exacto de las pruebas y acciones pendientes: [candidata 2.3.3.0](STORE-CANDIDATE-2.3.3.0.es.md). El estado anterior queda en [2.3.2.0](STORE-CANDIDATE-2.3.2.0.es.md); la revisión de licencias está en [español e inglés](LICENSE-REVIEW-UPDATE-2.3.2.0.es.md).
 
 Los datos de 2.3.0.0 y 2.3.1.0 que aparecen en las secciones históricas siguientes no se trasladan automáticamente a la candidata actual. No se creó una release ni se envió el producto a certificación.
 
@@ -147,7 +147,7 @@ El usuario proporcionó estos valores, que se usan como predeterminados para gen
 - `Package/Identity/Publisher`: `CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9`
 - `PublisherDisplayName`: `SenecaDPJ`
 
-Antes de publicar, verifica que siguen coincidiendo con **Product identity**. En Partner Center tendrás que verificar el nombre reservado, elegir categoría, mercados y precio/disponibilidad, completar la clasificación por edades, revisar licencia/condiciones, completar las fichas `es-ES` y `en-US`, cargar capturas reales, introducir la URL de privacidad verificada y añadir las notas de certificación pertinentes. El formulario público de issues es el canal de soporte; comprueba los campos de contacto aplicables al tipo de cuenta. En el primer envío, deja vacío «Novedades». No se ha creado un envío ni un borrador de producto.
+Antes de publicar, verifica que siguen coincidiendo con **Product identity** y comprueba el nombre reservado. El propietario ha seleccionado **Food + dining**, precio **gratis**, **todos los mercados disponibles** y fichas `es-ES` y `en-US`; son decisiones, no cambios ya introducidos en Partner Center. Allí queda completar las fichas, responder con veracidad el cuestionario IARC, revisar licencia/condiciones y los campos de contacto aplicables, cargar la captura y el pie de cada idioma, y verificar la URL de privacidad. El formulario público de incidencias de GitHub es el canal de soporte. En el primer envío, deja vacío «Novedades». No se ha creado un envío ni un borrador de producto.
 
 ## Referencias oficiales consultadas
 
@@ -160,5 +160,8 @@ Antes de publicar, verifica que siguen coincidiendo con **Product identity**. En
 - [Distribución de WebView2 Evergreen](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/evergreen-vs-fixed-version)
 - [Requisitos de iconos y capturas de Store](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/screenshots-and-images)
 - [Campos y límites de la ficha de Store](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msix/add-and-edit-store-listing-info)
+- [Categorías y subcategorías disponibles](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/categories-and-subcategories?pivots=store-installer-msix)
+- [Añadir y editar los idiomas de una ficha](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/add-and-edit-store-listing-info?pivots=store-installer-msix)
+- [Clasificaciones por edades e IARC para aplicaciones MSIX](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/age-ratings?pivots=store-installer-msix)
 - [Requisitos de la ficha y del envío MSIX](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msix/create-app-submission?pivots=store-installer-msix)
 - [Versiones y estado de mantenimiento de Windows 11](https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information)

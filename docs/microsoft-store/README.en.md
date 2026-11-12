@@ -4,7 +4,7 @@
 
 The x64 build from commit `0459c963c772635ec63a48aea13984dae393604e` created an unsigned Store MSIX and an `.msixupload`. `npm test` passed 32/32. The 2.3.2.0→2.3.3.0 update on LTSC 24H2 build 26100.1742 preserved the data at file level; the user confirmed launch and persistence. Uninstall removed 10 files from the package directory but retained the Tauri/WebView2 profile unchanged (175 files); reinstall returned to `Ok`. In the standard profile, the user confirmed three entries, theme/language changes and persistence after reopening. Six temporary public test certificates were removed from the VM; none remain in `TrustedPeople`. Defender found no threats. WACK completed with `OVERALL_RESULT=PASS`, 23/24 PASS and one optional failure.
 
-Exact scope, SHA-256 values, test results and remaining actions: [2.3.3.0 candidate](STORE-CANDIDATE-2.3.3.0.en.md). The previous status remains in [2.3.2.0](STORE-CANDIDATE-2.3.2.0.en.md); the licence-review update is available in [English and Spanish](LICENSE-REVIEW-UPDATE-2.3.2.0.en.md).
+The owner selected **Food + dining**, a free listing, all available markets and listing languages `es-ES` and `en-US` for Partner Center. These choices are documented but have not been entered in the portal. Exact scope, SHA-256 values, test results and remaining actions: [2.3.3.0 candidate](STORE-CANDIDATE-2.3.3.0.en.md). The previous status remains in [2.3.2.0](STORE-CANDIDATE-2.3.2.0.en.md); the licence-review update is available in [English and Spanish](LICENSE-REVIEW-UPDATE-2.3.2.0.en.md).
 
 The 2.3.0.0 and 2.3.1.0 information in the historical sections below is not automatically carried forward to the current candidate. No release was created and the product was not submitted for certification.
 
@@ -146,7 +146,7 @@ The user supplied these values, which are set as the package build defaults:
 - `Package/Identity/Publisher`: `CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9`
 - `PublisherDisplayName`: `SenecaDPJ`
 
-Before publication, verify that these still match **Product identity**. In Partner Center, verify the reserved name; choose the required category, markets and price/availability; complete the age-rating questionnaire; review licence terms; complete the `es-ES` and `en-US` listings; add authentic screenshots; enter the verified privacy URL and relevant certification notes. The public issue form is the support channel; check which contact fields apply to the account type. Leave “What's new” blank for a first submission. No submission or product draft has been created.
+Before publication, verify that these still match **Product identity** and check the reserved name. The owner selected **Food + dining**, **free**, **all available markets**, and `es-ES` and `en-US` listings; these are decisions, not settings already entered in Partner Center. Remaining portal work: complete both listings, answer the IARC questionnaire accurately, review licence terms and applicable contact fields, upload the screenshot and caption for each language, and verify the privacy URL. The public GitHub issue form is the support channel. Leave “What's new” blank for a first submission. No submission or product draft has been created.
 
 ## Official references consulted
 
@@ -159,5 +159,8 @@ Before publication, verify that these still match **Product identity**. In Partn
 - [WebView2 Evergreen distribution](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/evergreen-vs-fixed-version)
 - [Store screenshot and icon requirements](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/screenshots-and-images)
 - [Store listing fields and limits](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msix/add-and-edit-store-listing-info)
+- [Available categories and subcategories](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/categories-and-subcategories?pivots=store-installer-msix)
+- [Add and edit Store listing languages](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/add-and-edit-store-listing-info?pivots=store-installer-msix)
+- [Age ratings and IARC for MSIX apps](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/age-ratings?pivots=store-installer-msix)
 - [MSIX listing and submission requirements](https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msix/create-app-submission?pivots=store-installer-msix)
 - [Windows 11 release and servicing information](https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information)

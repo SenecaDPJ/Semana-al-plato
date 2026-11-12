@@ -14,7 +14,7 @@
 - The temporary public test certificate was removed from the VM's `LocalMachine\TrustedPeople` store: six self-signed test publisher certificates were removed and the final check found none remaining. No private key was used or left in that store.
 - Manual licence, source-header and `NOTICE` review: completed according to the owner. Final legal authorization to distribute remains pending.
 - Store screenshots are staged outside Git: one PNG per language, copied unchanged, without a VM frame or Evaluation watermark. English/dark, 1393 × 977, 120,409 bytes, SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`; Spanish/light, 1395 × 981, 150,966 bytes, SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`. They meet the minimum of one desktop screenshot; Microsoft recommends at least four per family.
-- Remaining: complete Partner Center listing/markets/price/rating/contact fields, decide `en-US` versus an additional `en-GB` listing, upload screenshots and localized captions, confirm final legal authorization, and assess the optional WACK failure. No release or certification submission was created.
+- Partner Center choices selected: Food + dining category, free price, all available markets, and `es-ES`/`en-US` listings. They have not yet been entered in the portal. Remaining: complete the IARC and contact fields, review licence terms and privacy URL, upload one screenshot and caption per language, confirm final legal authorization, and assess the optional WACK failure. No release or certification submission was created.
 - Details, hashes and statuses: [`STORE-CANDIDATE-2.3.3.0.en.md`](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.en.md).
 
 ## Historical MSIX 2.3.2.0 candidate — 12 November 2026 (superseded)
