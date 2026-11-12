@@ -1,5 +1,7 @@
 # Revisión manual de licencias Rust — candidata MSIX 2.3.0.0 x64
 
+> **Informe histórico de la candidata 2.3.0.0.** Para el estado de los avisos en el paquete 2.3.2.0, la confirmación del propietario sobre la revisión manual de cabeceras y las decisiones aún pendientes, consulta [la actualización 2.3.2.0](LICENSE-REVIEW-UPDATE-2.3.2.0.es.md). Las conclusiones de este informe describen la candidata 2.3.0.0, no el paquete actual.
+
 **Estado: cribado técnico de expresiones y textos completado para los 247 registros; autorización legal de distribución NO completada.** Este documento no es un dictamen jurídico, no confirma compatibilidad de todas las licencias entre sí y no declara que el paquete esté autorizado para publicarse.
 
 ## Alcance y material revisado

@@ -1,6 +1,6 @@
 # Microsoft Store listing — English (United Kingdom)
 
-Partner Center draft based on the 2.3.0.0 test candidate. It includes drag-to-move for multi-selections; it does not claim that this version is released or certified.
+Partner Center draft reviewed against local test candidate 2.3.2.0. It includes drag-to-move for multi-selections; it does not claim that this version is released or certified. Candidate 2.3.2.0 still needs a final visual check and resolution of the WACK results in `STORE-CANDIDATE-2.3.2.0.en.md`.
 
 ## Name
 

@@ -1,6 +1,6 @@
 # Privacy policy — Semana al Plato
 
-**Status:** source text reviewed for the v2.3.0.0 test candidate. Moving a multi-selection reorganises existing local data and adds no remote storage or connection. The uninstall observations below concern v2.2.0 and were not repeated for v2.3.0. The v2.3.0 bilingual web source is on the `gh-pages` branch; the current HTTP deployment has not been verified. This policy describes local storage and the limits of the tests; it does not guarantee that Windows will remove or retain data on every version or account.
+**Status:** source text updated for local candidate v2.3.2.0. The DPI manifest change does not alter data, telemetry or connections; moving multi-selections reorganises existing local data. The uninstall observations below concern v2.2.0 and were not repeated for 2.3.2.0. The bilingual web source remains on the `gh-pages` branch; an HTTP check could not confirm that the deployed page is current. This policy describes local storage and test limits; it does not guarantee that Windows will remove or retain data on every version or account.
 
 ## Data and storage
 

@@ -1,5 +1,7 @@
 # Estado de preparación MSIX 2.3.1.0
 
+> **Registro histórico, sustituido el 12-11-2026 por la candidata 2.3.2.0.** Los estados pendientes que siguen describen la planificación de 2.3.1.0 antes de generar la nueva versión; no son el estado actual. Consulta [el informe 2.3.2.0](STORE-CANDIDATE-2.3.2.0.es.md).
+
 **Fecha:** 12 de noviembre de 2026  
 **Estado:** EN PREPARACIÓN LOCAL. No es una entrega certificada ni lista para enviar.
 

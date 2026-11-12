@@ -1,6 +1,6 @@
 # Política de privacidad — Semana al Plato
 
-**Estado:** texto fuente revisado para la candidata v2.3.0.0. El movimiento de selecciones múltiples reorganiza datos locales existentes y no añade almacenamiento remoto ni conexiones. Las observaciones de desinstalación más abajo corresponden a v2.2.0 y no se han repetido para v2.3.0. La fuente web bilingüe de la versión 2.3.0 está en la rama `gh-pages`; el despliegue HTTP actual no se ha verificado. La política describe el almacenamiento local y los límites de las pruebas; no garantiza que Windows elimine o conserve los datos en todas las versiones o cuentas.
+**Estado:** texto fuente actualizado para la candidata local v2.3.2.0. El cambio de manifiesto DPI no altera datos, telemetría ni conexiones; el movimiento de selecciones múltiples reorganiza datos locales existentes. Las observaciones de desinstalación más abajo corresponden a v2.2.0 y no se han repetido para 2.3.2.0. La fuente web bilingüe sigue en `gh-pages`; no se pudo confirmar por HTTP que el despliegue publicado esté actualizado. La política describe el almacenamiento local y los límites de las pruebas; no garantiza que Windows elimine o conserve los datos en todas las versiones o cuentas.
 
 ## Datos y almacenamiento
 

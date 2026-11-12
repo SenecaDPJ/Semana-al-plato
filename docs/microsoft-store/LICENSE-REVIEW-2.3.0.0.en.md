@@ -1,5 +1,7 @@
 # Manual Rust licence review — MSIX candidate 2.3.0.0 x64
 
+> **Historical report for candidate 2.3.0.0.** For the notice status in package 2.3.2.0, the owner's confirmation of manual header review and remaining decisions, see the [2.3.2.0 update](LICENSE-REVIEW-UPDATE-2.3.2.0.en.md). Conclusions below describe candidate 2.3.0.0, not the current package.
+
 **Status: technical screening of expressions and bundled texts completed for all 247 records; legal authorization to distribute is NOT complete.** This is not a legal opinion, does not confirm compatibility of every licence, and does not declare the package authorized for publication.
 
 ## Scope and reviewed material

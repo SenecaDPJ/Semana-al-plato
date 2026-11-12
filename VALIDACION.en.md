@@ -1,12 +1,18 @@
 # Semana al Plato validation record
 
-## MSIX 2.3.1.0 candidate preparation — 12 November 2026
+## MSIX 2.3.2.0 candidate — build and tests, 12 November 2026
 
-- Reason: correct third-party notice contents. Candidate 2.3.0.0 omitted three nested legal texts; the exporter now collects them and preserves their source paths. A new immutable `2.3.1.0` payload is being prepared; no application feature or dependency changes.
-- `MinVersion=10.0.26100.1742` remains unchanged. Existing evidence is from Windows 11 Enterprise LTSC Evaluation 24H2, build 26100.1742.
-- Build, tests, installation/update, Defender and WACK for 2.3.1.0: **NOT RUN** until the package exists and is checked in the VM. Results from 2.3.0.0 are not reused.
-- Pending: human/legal review of notices and source-header mentions, final screenshots, Partner Center listing decisions and Microsoft certification. No release is created and the product is not submitted.
-- Details: [`docs/microsoft-store/STORE-CANDIDATE-2.3.1.0.en.md`](docs/microsoft-store/STORE-CANDIDATE-2.3.1.0.en.md).
+- x64 build from `59d49fb26902415f0165545691a029c7830e9b9f`: `npm ci`, `npm test` (32/32), Tauri build and MakeAppx: **PASS**. Partner Center identity, architecture, version `2.3.2.0` and minimum `10.0.26100.1742`: **PASS**.
+- 2.3.1.0→2.3.2.0 update on Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742, administrator profile: MSIX `Ok`; all 174 data files remained and the six `localStorage` LevelDB files retained identical hashes: **PASS within file-level scope**. Visual confirmation of the data in this version remains pending.
+- Host Defender: exit code 0, no detections: **PASS**.
+- WACK 10.0.26100.9457: complete run and exit 0; **WARNING**, 22/24 PASS, one optional `Blocked Executables` failure and one required `DPIAwarenessValidation` warning. This is not certification.
+- Manual review of copyright headers and `NOTICE` files: the owner confirmed completion. Final legal authorization to distribute remains pending.
+- Remaining: visual confirmation of 2.3.2.0 in the VM, assess/resolve both WACK results, verify the privacy page over HTTP, final EN/ES screenshots and remaining Partner Center decisions. No release or certification submission was created.
+- Details and hashes: [`STORE-CANDIDATE-2.3.2.0.en.md`](docs/microsoft-store/STORE-CANDIDATE-2.3.2.0.en.md).
+
+## Historical MSIX 2.3.1.0 candidate preparation — 12 November 2026 (superseded)
+
+The **NOT RUN** status recorded while preparing 2.3.1.0 was superseded by the 2.3.2.0 candidate described above. See [`STORE-CANDIDATE-2.3.1.0.en.md`](docs/microsoft-store/STORE-CANDIDATE-2.3.1.0.en.md) for the historical scope.
 
 ## Inherited v1.0.1 record
 

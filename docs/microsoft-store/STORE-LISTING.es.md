@@ -1,6 +1,6 @@
 # Ficha de Microsoft Store — Español (España)
 
-Borrador para Partner Center basado en la candidata de prueba 2.3.0.0. Incluye el movimiento por arrastre de selecciones múltiples; no afirma que esta versión esté publicada o certificada.
+Borrador para Partner Center revisado contra la candidata local de prueba 2.3.2.0. Incluye el movimiento por arrastre de selecciones múltiples; no afirma que esta versión esté publicada o certificada. La candidata 2.3.2.0 continúa pendiente de una comprobación visual final y de resolver los resultados WACK descritos en `STORE-CANDIDATE-2.3.2.0.es.md`.
 
 ## Nombre
 
