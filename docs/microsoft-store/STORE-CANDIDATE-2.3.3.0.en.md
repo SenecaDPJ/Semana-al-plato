@@ -95,7 +95,7 @@ Microsoft describes optional Desktop Bridge tests as informational and says they
 ## Remaining preparation
 
 1. Enter the selected category, price, markets and listing languages in Partner Center; verify the reserved name and product identity; complete the `es-ES` and `en-US` listings; and upload the prepared screenshot and caption for its corresponding language. Additional screenshots are optional: one per language is prepared, the documented minimum.
-2. Complete the IARC age-rating questionnaire accurately; the owner confirmed there is no existing IARC ID. In Partner Center, also answer whether the app accesses, collects or transmits personal information; the app stores user-entered content locally, and its policy notes that it could include personal information. Apply the selected MIT link under “Additional license terms” and review contact fields.
+2. Complete the IARC age-rating questionnaire accurately; the owner confirmed there is no existing IARC ID. The owner selected “Yes” for Partner Center's question about accessing, collecting or transmitting personal information because user-entered content could include it; the app stores it locally and does not send it to its own server. Apply the selected MIT link under “Additional license terms” and review contact fields.
 3. Verify the reserved name and exact identity in Partner Center, apply the already-published privacy URL, and upload the two screenshots with their captions. No Partner Center draft has been created.
 
 The functional test supports Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742; it does not establish compatibility with other editions or builds. WACK is a local check; official certification occurs only after submitting the package through Partner Center.
