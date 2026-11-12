@@ -49,14 +49,12 @@ Real candidate screenshots of app version 2.3.3.0, captured during the standard-
 - Spanish, light theme: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150,966 bytes; SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`.
 - English, dark theme: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120,409 bytes; SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`.
 
-Both images were copied unchanged from the user's supplied screenshots; they show the same calendar with three meals in the real app and contain no VM frame or Evaluation watermark. Both are PNG, exceed the desktop minimum of 1366 × 768 and are under 50 MB. One screenshot per device family is the minimum; Microsoft recommends at least four per family and allows up to ten. Three additional screenshots per language can better complete the listing by showcasing other features. Partner Center requires images and captions to be uploaded separately for each listing language.
+Both images were copied unchanged from the user's supplied screenshots; they show the same calendar with three meals in the real app and contain no VM frame or Evaluation watermark. Both are PNG, exceed the desktop minimum of 1366 × 768 and are under 50 MB. The owner chose to use these two images only, one per language; no further screenshots will be added. Microsoft recommends at least four per device family and allows up to ten. Partner Center requires each image and its caption to be uploaded separately for each listing language.
 
-Suggested localized captions (official maximum: 200 characters per caption):
+Captions for the two selected screenshots (official maximum: 200 characters per caption):
 
-- Screenshot 1 (light theme): `Plan breakfast, lunch and dinner in your weekly calendar.`
-- Screenshot 2 (dark theme): `View the weekly plan with each day and meal time.`
-- Additional screenshot: `Select several entries to clone, move together or delete them.`
-- Additional screenshot: `Switch between light and dark themes and English and Spanish.`
+- Spanish screenshot (`es-ES`): `Organiza desayunos, comidas y cenas en tu calendario semanal.`
+- English screenshot (`en-US`): `Plan breakfast, lunch and dinner in your weekly calendar.`
 
 ## Listing field limits
 
@@ -64,4 +62,4 @@ The current short description has 103 characters (field limit: 1,000; Microsoft 
 
 ## Partner Center setup still pending
 
-The owner selected **Food + dining**, **free**, **all markets available in Partner Center**, and listing languages **es-ES** and **en-US**. These are planned values, not settings already entered in the portal. The owner has no existing IARC ID and will answer the age-rating questionnaire in Partner Center. Still verify the reserved name and product identity; review licence terms, applicable contact fields and the published privacy URL `https://senecadpj.github.io/Semana-al-plato/`; and upload the two current screenshots with their captions, one per language. No additional screenshots will be prepared. Leave “What's new” blank for a first submission. Proposed support URL: public GitHub issue form at `https://github.com/SenecaDPJ/Semana-al-plato/issues/new` (issues are public; users should not include personal data). The owner conditionally authorized distribution of version 2.3.3.0 once preparation is complete; no draft or certification submission has been created.
+The owner selected **Food + dining**, **free**, **all markets available in Partner Center**, and listing languages **es-ES** and **en-US**. These are planned values, not settings already entered in the portal. The owner has no existing IARC ID and will answer the age-rating questionnaire in Partner Center. Still verify the reserved name and product identity; confirm additional license terms, applicable contact fields and the published privacy URL `https://senecadpj.github.io/Semana-al-plato/`; and upload the two current screenshots with their captions, one per language. No additional screenshots will be prepared. Leave “What's new” blank for a first submission. The selected support contact is the public GitHub issue form at `https://github.com/SenecaDPJ/Semana-al-plato/issues/new` (the repository is public; users should not include personal data). The owner conditionally authorized distribution of version 2.3.3.0 once preparation is complete; no draft or certification submission has been created.

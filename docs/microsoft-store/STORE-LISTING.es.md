@@ -49,14 +49,12 @@ Capturas reales candidatas de la aplicación 2.3.3.0, tomadas durante la prueba 
 - Español, tema claro: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150.966 bytes; SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`.
 - Inglés, tema oscuro: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120.409 bytes; SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`.
 
-Las dos imágenes se copiaron sin modificar desde las capturas facilitadas por el usuario; muestran el mismo calendario con tres comidas en la aplicación real y no incluyen marco de VM ni marca de evaluación. Ambas son PNG, superan el mínimo de escritorio de 1366 × 768 y pesan menos de 50 MB. Una captura por familia de dispositivo es el mínimo; Microsoft recomienda al menos cuatro por familia y permite hasta diez. Para completar mejor la ficha se pueden añadir tres capturas por idioma que muestren otras funciones. Partner Center requiere cargar imágenes y pies por separado para cada idioma de ficha.
+Las dos imágenes se copiaron sin modificar desde las capturas facilitadas por el usuario; muestran el mismo calendario con tres comidas en la aplicación real y no incluyen marco de VM ni marca de evaluación. Ambas son PNG, superan el mínimo de escritorio de 1366 × 768 y pesan menos de 50 MB. El propietario eligió conservar solo estas dos imágenes, una por idioma; no se añadirán más capturas. Microsoft recomienda al menos cuatro por familia y permite hasta diez. Partner Center requiere cargar cada imagen y su pie por separado para cada idioma de ficha.
 
-Pies localizados propuestos (máximo oficial: 200 caracteres por pie):
+Pies de las dos capturas elegidas (máximo oficial: 200 caracteres por pie):
 
-- Captura 1 (tema claro): `Organiza desayunos, comidas y cenas en tu calendario semanal.`
-- Captura 2 (tema oscuro): `Consulta el plan semanal con los días y cada momento de comida.`
-- Captura adicional: `Selecciona varias comidas para clonarlas, moverlas juntas o eliminarlas.`
-- Captura adicional: `Cambia entre los temas claro y oscuro y los idiomas español e inglés.`
+- Captura española (`es-ES`): `Organiza desayunos, comidas y cenas en tu calendario semanal.`
+- Captura inglesa (`en-US`): `Plan breakfast, lunch and dinner in your weekly calendar.`
 
 ## Comprobación de límites de ficha
 
@@ -64,4 +62,4 @@ El resumen breve actual tiene 121 caracteres (límite del campo: 1.000; Microsof
 
 ## Preparación pendiente en Partner Center
 
-El propietario ha elegido **Food + dining**, **gratis**, **todos los mercados disponibles en Partner Center** y los idiomas de ficha **es-ES** y **en-US**. Son valores previstos; aún no se han introducido en el portal. El propietario no tiene IARC ID y responderá el cuestionario en Partner Center. Falta comprobar el nombre reservado y la identidad, revisar las condiciones de licencia, los campos de contacto aplicables y la URL de privacidad publicada `https://senecadpj.github.io/Semana-al-plato/`, y cargar las dos capturas actuales con sus pies, una por idioma. No se añadirán más capturas. Para un primer envío, el campo de novedades se deja vacío. Soporte propuesto: formulario público de incidencias `https://github.com/SenecaDPJ/Semana-al-plato/issues/new` (los informes son públicos; pedir que no incluyan datos personales). El propietario autorizó condicionalmente la distribución de la versión 2.3.3.0 una vez completada la preparación; no se ha creado un borrador ni enviado nada a certificación.
+El propietario ha elegido **Food + dining**, **gratis**, **todos los mercados disponibles en Partner Center** y los idiomas de ficha **es-ES** y **en-US**. Son valores previstos; aún no se han introducido en el portal. El propietario no tiene IARC ID y responderá el cuestionario en Partner Center. Falta comprobar el nombre reservado y la identidad, confirmar los términos adicionales de licencia, revisar los campos de contacto aplicables y la URL de privacidad publicada `https://senecadpj.github.io/Semana-al-plato/`, y cargar las dos capturas actuales con sus pies, una por idioma. No se añadirán más capturas. Para un primer envío, el campo de novedades se deja vacío. El contacto elegido para soporte es el formulario público de incidencias `https://github.com/SenecaDPJ/Semana-al-plato/issues/new` (repositorio público; advertir que no incluyan datos personales). El propietario autorizó condicionalmente la distribución de la versión 2.3.3.0 una vez completada la preparación; no se ha creado un borrador ni enviado nada a certificación.
