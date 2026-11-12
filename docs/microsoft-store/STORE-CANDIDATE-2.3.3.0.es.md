@@ -33,8 +33,9 @@ El propietario ha elegido los valores previstos para la ficha. Son decisiones re
 | Clasificación IARC | No hay IARC ID previo; el propietario responderá el cuestionario en Partner Center |
 | Capturas | Usar las dos actuales: una para `es-ES` y otra para `en-US`; no se solicitan capturas adicionales |
 | Términos adicionales de licencia | Enlazar la licencia MIT del repositorio: `https://github.com/SenecaDPJ/Semana-al-plato/blob/main/LICENSE` en ambas fichas |
+| Información personal | «Sí»: los datos que introduzca el usuario podrían incluirla; se guardan localmente y no se envían al servidor de la app |
 
-El propietario autoriza distribuir la versión `2.3.3.0` en Microsoft Store una vez completada la preparación pendiente. Esta autorización no crea un borrador ni envía el paquete a certificación.
+El propietario confirmó que el nombre «Semana al Plato» está reservado en Partner Center y proporcionó la identidad exacta de la tabla anterior, que coincide con el paquete. Autoriza distribuir la versión `2.3.3.0` en Microsoft Store una vez completada la preparación pendiente. Esta autorización no crea un borrador ni envía el paquete a certificación.
 
 ## Artefactos locales
 
@@ -94,8 +95,8 @@ Microsoft describe las pruebas opcionales de Desktop Bridge como informativas y 
 
 ## Pendiente para completar la preparación
 
-1. Aplicar en Partner Center las decisiones seleccionadas de categoría, precio, mercados e idiomas; verificar nombre reservado e identidad; completar las fichas `es-ES` y `en-US`; cargar la captura preparada y su pie en el idioma correspondiente. Las capturas adicionales son opcionales: hay una por idioma, el mínimo documentado.
+1. Aplicar en Partner Center las decisiones seleccionadas de categoría, precio, mercados e idiomas; completar las fichas `es-ES` y `en-US`; cargar la captura preparada y su pie en el idioma correspondiente. Las capturas adicionales son opcionales: hay una por idioma, el mínimo documentado.
 2. Responder con veracidad el cuestionario IARC de clasificación por edades; el propietario confirmó que no tiene un IARC ID previo. El propietario eligió responder «Sí» a la pregunta de Partner Center sobre acceso, recopilación o transmisión de información personal, porque el contenido que se introduce podría incluirla; la app lo guarda localmente y no lo envía a un servidor propio. Aplicar el enlace MIT elegido en «Additional license terms» y revisar los campos de contacto.
-3. Verificar el nombre reservado y la identidad exacta en Partner Center, aplicar la URL de privacidad ya publicada y cargar las dos capturas con sus pies. No se ha creado ningún borrador en Partner Center.
+3. Aplicar la URL de privacidad ya publicada y comprobar que se muestra en la ficha. No se ha creado ningún borrador en Partner Center.
 
 La prueba funcional respalda Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742; no demuestra compatibilidad con otras ediciones ni builds. WACK es una comprobación local; la certificación oficial solo ocurre tras enviar el paquete desde Partner Center.

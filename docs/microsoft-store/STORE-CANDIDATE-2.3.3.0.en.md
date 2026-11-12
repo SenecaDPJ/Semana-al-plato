@@ -33,8 +33,9 @@ The owner has selected the intended listing values below. These choices are reco
 | IARC rating | No existing IARC ID; the owner will answer the Partner Center questionnaire |
 | Screenshots | Use the two current images: one for `es-ES` and one for `en-US`; no additional screenshots requested |
 | Additional license terms | Link the repository's MIT licence: `https://github.com/SenecaDPJ/Semana-al-plato/blob/main/LICENSE` in both listings |
+| Personal information | “Yes”: user-entered content could include personal information; it is stored locally and not sent to the app's server |
 
-The owner authorizes distribution of version `2.3.3.0` through Microsoft Store once the remaining preparation is complete. This authorization does not create a draft or submit the package for certification.
+The owner confirmed that the “Semana al Plato” product name is reserved in Partner Center and supplied the exact identity from the table above, which matches the package. The owner authorizes distribution of version `2.3.3.0` through Microsoft Store once the remaining preparation is complete. This authorization does not create a draft or submit the package for certification.
 
 ## Local artifacts
 
@@ -94,8 +95,8 @@ Microsoft describes optional Desktop Bridge tests as informational and says they
 
 ## Remaining preparation
 
-1. Enter the selected category, price, markets and listing languages in Partner Center; verify the reserved name and product identity; complete the `es-ES` and `en-US` listings; and upload the prepared screenshot and caption for its corresponding language. Additional screenshots are optional: one per language is prepared, the documented minimum.
+1. Enter the selected category, price, markets and listing languages in Partner Center; complete the `es-ES` and `en-US` listings; and upload the prepared screenshot and caption for its corresponding language. Additional screenshots are optional: one per language is prepared, the documented minimum.
 2. Complete the IARC age-rating questionnaire accurately; the owner confirmed there is no existing IARC ID. The owner selected “Yes” for Partner Center's question about accessing, collecting or transmitting personal information because user-entered content could include it; the app stores it locally and does not send it to its own server. Apply the selected MIT link under “Additional license terms” and review contact fields.
-3. Verify the reserved name and exact identity in Partner Center, apply the already-published privacy URL, and upload the two screenshots with their captions. No Partner Center draft has been created.
+3. Apply the already-published privacy URL and verify that it appears in the listing. No Partner Center draft has been created.
 
 The functional test supports Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742; it does not establish compatibility with other editions or builds. WACK is a local check; official certification occurs only after submitting the package through Partner Center.
