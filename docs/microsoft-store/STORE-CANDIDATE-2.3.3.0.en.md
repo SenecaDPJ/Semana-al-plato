@@ -54,13 +54,13 @@ The output directory must be new. The script regenerates the inventory and unsig
 | x64 build and MSIX packaging | **PASS** | Node 22.21.0, npm 10.9.4, Rust/Cargo 1.99.1, Tauri CLI 2.12.4 and MakeAppx 10.0.19041.5609; Windows 10.0.26300.0. The additional NSIS installer build did not complete because its NSIS download failed with DNS; this did not prevent MSIX generation. |
 | Manifest and identity | **PASS** | Identity, Publisher, version `2.3.3.0`, x64 and minimum match Partner Center and the candidate configuration. |
 | `2.3.2.0 → 2.3.3.0` update | **PASS, file-level scope** | Windows 11 Enterprise LTSC Evaluation 24H2, administrator account `test-semana24H2`, build 26100. The package ended `Ok`; all 10 files under the package-family local data directory (98,304 bytes) retained identical SHA-256 hashes. This does not replace checking the app interface. |
-| Migrated data before update | **PASS** | The user's screenshot shows the expected records: `Café de migración` (Breakfast), `Tortilla de migración` (Lunch) and `Crema de prueba` (Dinner). It was captured with 2.3.2.0 installed; confirming the same data under 2.3.3.0 remains pending. |
+| Migrated data and persistence in 2.3.3.0 | **PASS** | The user confirmed the `2.3.3` label and the entries `Café de migración` (Breakfast, Monday 9), `Tortilla de migración` (Lunch, Tuesday 10) and `Crema de prueba` (Dinner, Wednesday 11) after the update; they closed and reopened the app and confirmed persistence. |
 | WACK 10.0.26100.9457 | **PASS WITH OPTIONAL FAILURE** | Complete report, exit code 0, `OVERALL_RESULT=PASS`, 23/24 tests PASS. `DPIAwarenessValidation` passed. The only failing test is `Blocked Executables`, marked `OPTIONAL=TRUE`; this is not certification. XML SHA-256: `EDAAD3F33894A15D9A9ADCFE2E1B5E202E1D1DD5A368839C13E3CF41087E706D`. |
 | Microsoft Defender | **PASS** | Custom scan of the artifact directory, completion event 1001; antivirus and real-time protection enabled, zero detections. Run on the development host. |
-| First visual launch of 2.3.3.0 and close/reopen persistence | **PENDING** | The package is installed and closed. The user should open it, verify the `2.3.3` label and the three records listed above, then close and reopen. |
-| 2.3.3.0 standard-profile test | **NOT RUN** | Update and WACK used the administrator profile. Checks from another version or profile are not attributed to this candidate. |
-| Uninstall of 2.3.3.0 | **NOT RUN** | The updated package has not been removed; this candidate's data-retention-on-uninstall check remains pending. |
-| Pre-update checkpoint | **NOT CREATED** | Hyper-V refused a new checkpoint in the VM's current state. The VM was not paused or shut down; older checkpoints remain available. |
+| First visual launch and persistence of 2.3.3.0 | **PASS** | The user opened the candidate, checked the label and three entries, closed and reopened it, confirmed persistence, then closed the app. |
+| 2.3.3.0 standard-profile registration | **PASS, REGISTRATION ONLY** | PowerShell Direct as `test-semana24H2-std` confirmed a standard account and 2.3.3.0 registered with status `Ok`, with 185 files in its package data directory. Interactive launch and visual content confirmation remain pending. |
+| 2.3.3.0 uninstall and reinstall | **PASS, DATA SCOPE** | Under `test-semana24H2`, `Remove-AppxPackage` removed the MSIX. The package-family data directory (10 files, 98,304 bytes) disappeared; the external Tauri/WebView2 profile remained with 175 files and 5,079,996 bytes. Reinstalled 2.3.3.0 (`Ok`); all 175 files retained their pre-uninstall hashes. The backup and manifests remain in the VM, not Git. Visual confirmation of the records after reinstall remains pending. |
+| Checkpoint before uninstall | **PASS** | The user created the Hyper-V checkpoint `SemanaAlPlato-LTSC26100-Test - (12/11/2026 - 20:44:53)` before the test. |
 | Licence and notice review | **MANUAL REVIEW CONFIRMED BY OWNER** | Technical inventory: 247 crates, 443 licence files and 7 supplemental texts for 6 crates. The owner said they completed the manual review of licences, copyright headers and `NOTICE` files. Final legal distribution authorization remains the owner's decision. |
 | Microsoft Store certification | **NOT RUN** | The package was not submitted to Partner Center. |
 
@@ -68,10 +68,9 @@ Full WACK reports and installation output are in the local Git-ignored artifact 
 
 ## Remaining preparation
 
-1. Open 2.3.3.0 in the VM, confirm the `2.3.3` label and three records, then close/reopen to check persistence.
-2. Test with the standard profile if the package can be registered for that account; record any PowerShell Direct limitation without silently elevating or changing permissions.
-3. Complete the uninstall test and document which data remains.
-4. Remove the test public certificate from the VM's `TrustedPeople` store after testing.
-5. Complete real English and Spanish screenshots, decide the remaining Partner Center listing fields, and confirm legal distribution authorization.
+1. Open the reinstalled 2.3.3.0 in the administrator account and confirm the three records remain visible.
+2. Sign in as `test-semana24H2-std`, open the app registered for that profile, and confirm its version, content and close/reopen persistence.
+3. Remove the test public certificate from the VM's `TrustedPeople` store after testing.
+4. Complete real English and Spanish screenshots, decide the remaining Partner Center listing fields, and confirm legal distribution authorization.
 
 This candidate is not claimed to work on other Windows editions and is not ready for submission while these actions remain. WACK is a local check; official certification occurs only after submitting the package through Partner Center.

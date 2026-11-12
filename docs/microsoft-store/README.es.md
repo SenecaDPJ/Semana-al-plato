@@ -2,7 +2,7 @@
 
 ## Candidata local 2.3.3.0 — 12-11-2026
 
-La compilación x64 desde `0459c963c772635ec63a48aea13984dae393604e` creó un MSIX Store sin firmar y un `.msixupload`. `npm test` pasó 32/32. La actualización 2.3.2.0→2.3.3.0 en LTSC 24H2 build 26100.1742 conservó los hashes de los 10 archivos del directorio local de datos de la familia del paquete. Defender completó el análisis personalizado sin detecciones. WACK terminó con `OVERALL_RESULT=PASS` y 23/24 pruebas PASADAS; `DPIAwarenessValidation` pasó y falló únicamente la comprobación opcional de ejecutables bloqueados. Sigue pendiente abrir 2.3.3.0 y confirmar la etiqueta y los datos en pantalla, además de las pruebas de perfil estándar y desinstalación.
+La compilación x64 desde `0459c963c772635ec63a48aea13984dae393604e` creó un MSIX Store sin firmar y un `.msixupload`. `npm test` pasó 32/32. La actualización 2.3.2.0→2.3.3.0 en LTSC 24H2 build 26100.1742 conservó los datos a nivel de archivos; el usuario confirmó la apertura y persistencia. La desinstalación eliminó 10 archivos del directorio del paquete pero conservó sin cambios de hash el perfil Tauri/WebView2 (175 archivos); la reinstalación quedó `Ok`. El perfil estándar tiene el paquete registrado, aunque falta la apertura interactiva. Defender no detectó amenazas. WACK terminó con `OVERALL_RESULT=PASS`, 23/24 PASADAS y solo una falla opcional.
 
 Detalles, SHA-256, alcance exacto de las pruebas y acciones pendientes: [candidata 2.3.3.0](STORE-CANDIDATE-2.3.3.0.es.md). El estado anterior queda en [2.3.2.0](STORE-CANDIDATE-2.3.2.0.es.md); la revisión de licencias está en [español e inglés](LICENSE-REVIEW-UPDATE-2.3.2.0.es.md).
 

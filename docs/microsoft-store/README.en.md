@@ -2,7 +2,7 @@
 
 ## Local 2.3.3.0 candidate — 12 Nov 2026
 
-The x64 build from commit `0459c963c772635ec63a48aea13984dae393604e` created an unsigned Store MSIX and an `.msixupload`. `npm test` passed 32/32. The 2.3.2.0→2.3.3.0 update on LTSC 24H2 build 26100.1742 preserved the hashes of all 10 files under the package-family local data directory. Defender completed a custom scan with no detections. WACK completed with `OVERALL_RESULT=PASS` and 23/24 tests PASS; `DPIAwarenessValidation` passed and only the optional Blocked Executables check failed. A visual launch of 2.3.3.0 to confirm its label and data remains, along with standard-profile and uninstall tests.
+The x64 build from commit `0459c963c772635ec63a48aea13984dae393604e` created an unsigned Store MSIX and an `.msixupload`. `npm test` passed 32/32. The 2.3.2.0→2.3.3.0 update on LTSC 24H2 build 26100.1742 preserved the data at file level; the user confirmed launch and persistence. Uninstall removed 10 files from the package directory but retained the Tauri/WebView2 profile unchanged (175 files); reinstall returned to `Ok`. The package is registered in the standard profile, but interactive launch remains untested. Defender found no threats. WACK completed with `OVERALL_RESULT=PASS`, 23/24 PASS and one optional failure.
 
 Exact scope, SHA-256 values, test results and remaining actions: [2.3.3.0 candidate](STORE-CANDIDATE-2.3.3.0.en.md). The previous status remains in [2.3.2.0](STORE-CANDIDATE-2.3.2.0.en.md); the licence-review update is available in [English and Spanish](LICENSE-REVIEW-UPDATE-2.3.2.0.en.md).
 

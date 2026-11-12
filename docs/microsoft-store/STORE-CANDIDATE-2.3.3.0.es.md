@@ -54,13 +54,13 @@ El directorio de salida debe ser nuevo. El script vuelve a generar el inventario
 | Compilación x64 y empaquetado MSIX | **PASADO** | Node 22.21.0, npm 10.9.4, Rust/Cargo 1.99.1, Tauri CLI 2.12.4 y MakeAppx 10.0.19041.5609; Windows 10.0.26300.0. La compilación adicional del instalador NSIS no completó porque su descarga de NSIS falló por DNS; no impidió generar MSIX. |
 | Manifiesto e identidad | **PASADO** | Identidad, Publisher, versión `2.3.3.0`, x64 y mínimo coinciden con Partner Center y la configuración de la candidata. |
 | Actualización `2.3.2.0 → 2.3.3.0` | **PASADO, alcance de archivos** | Windows 11 Enterprise LTSC Evaluation 24H2, cuenta administradora `test-semana24H2`, build 26100. El paquete terminó `Ok`; los 10 archivos bajo el directorio local de datos de la familia del paquete (98.304 bytes) conservaron sus SHA-256. Esto no sustituye la comprobación dentro de la interfaz. |
-| Contenido de migración antes de actualizar | **PASADO** | La captura del usuario muestra los tres registros esperados: `Café de migración` (Desayuno), `Tortilla de migración` (Comida) y `Crema de prueba` (Cena). Se tomó con 2.3.2.0 instalada; falta confirmar que 2.3.3.0 los presenta tras la actualización. |
+| Contenido de migración y persistencia en 2.3.3.0 | **PASADO** | El usuario confirmó que la etiqueta `2.3.3` y los registros `Café de migración` (Desayuno, lunes 9), `Tortilla de migración` (Comida, martes 10) y `Crema de prueba` (Cena, miércoles 11) aparecen tras la actualización; cerró y reabrió la aplicación y confirmó que persistían. |
 | WACK 10.0.26100.9457 | **PASADO CON FALLO OPCIONAL** | Informe completo, salida 0, `OVERALL_RESULT=PASS`, 23/24 pruebas PASADAS. `DPIAwarenessValidation` pasó. La única prueba fallida es `Ejecutables bloqueados`, marcada `OPTIONAL=TRUE`; no se presenta como una certificación. SHA-256 del XML: `EDAAD3F33894A15D9A9ADCFE2E1B5E202E1D1DD5A368839C13E3CF41087E706D`. |
 | Microsoft Defender | **PASADO** | Análisis personalizado del directorio de artefactos, evento de finalización 1001; protección antivirus y en tiempo real activas, cero detecciones. Ejecutado en el anfitrión de desarrollo. |
-| Primera apertura visual de 2.3.3.0 y persistencia tras cerrar/abrir | **PENDIENTE** | El paquete está instalado y cerrado. El usuario debe abrirlo y comprobar que la etiqueta indica `2.3.3` y siguen apareciendo los tres registros indicados; después cerrarlo. |
-| Prueba de perfil estándar específica de 2.3.3.0 | **NO EJECUTADA** | La actualización y WACK se ejecutaron en el perfil administrador. No se atribuyen a esta candidata comprobaciones de otra versión o perfil. |
-| Desinstalación de 2.3.3.0 | **NO EJECUTADA** | No se ha eliminado el paquete actualizado; la prueba de retención durante desinstalación de esta candidata queda pendiente. |
-| Punto de control previo | **NO CREADO** | Hyper-V rechazó crear un punto nuevo mientras la VM estaba en su estado actual. No se apagó ni pausó; los puntos anteriores siguen disponibles. |
+| Primera apertura visual y persistencia en 2.3.3.0 | **PASADO** | El usuario abrió la candidata, confirmó la etiqueta y los tres registros, cerró y volvió a abrir; confirmó la persistencia y cerró la app. |
+| Registro de 2.3.3.0 en perfil estándar | **PASADO, REGISTRO** | PowerShell Direct como `test-semana24H2-std` confirmó que es cuenta estándar y 2.3.3.0 figura `Ok`, con 185 archivos en su directorio de datos del paquete. Falta apertura interactiva y confirmar el contenido en pantalla. |
+| Desinstalación y reinstalación de 2.3.3.0 | **PASADO, ALCANCE DE DATOS** | En `test-semana24H2`, `Remove-AppxPackage` quitó el MSIX. Desapareció el directorio de datos de la familia del paquete (10 archivos, 98.304 bytes); el perfil Tauri/WebView2 externo permaneció: 175 archivos y 5.079.996 bytes. Se reinstaló 2.3.3.0 (`Ok`); los 175 archivos conservaron los hashes anteriores a la desinstalación. La copia de seguridad y los manifiestos quedan en la VM, no en Git. Falta confirmar visualmente los registros tras esta reinstalación. |
+| Punto de control previo a desinstalar | **PASADO** | El usuario creó en Hyper-V el punto `SemanaAlPlato-LTSC26100-Test - (12/11/2026 - 20:44:53)`, antes de la prueba. |
 | Revisión de licencias y avisos | **REVISIÓN MANUAL CONFIRMADA POR EL PROPIETARIO** | Inventario técnico: 247 crates, 443 archivos de licencia y 7 textos suplementarios de 6 crates. El propietario indicó haber completado la revisión manual de licencias, cabeceras de copyright y `NOTICE`. La autorización legal final para distribuir sigue siendo una decisión del propietario. |
 | Certificación de Microsoft Store | **NO EJECUTADA** | No se envió el paquete a Partner Center. |
 
@@ -68,10 +68,9 @@ Los informes completos de WACK y las salidas de instalación están en la carpet
 
 ## Pendiente para completar la preparación
 
-1. Abrir 2.3.3.0 en la VM, confirmar etiqueta `2.3.3` y los tres registros, y cerrar/reabrir para comprobar persistencia.
-2. Probar con el perfil estándar si se puede registrar el paquete en esa cuenta; registrar cualquier limitación de PowerShell Direct sin elevar ni cambiar silenciosamente sus permisos.
-3. Completar la prueba de desinstalación y documentar qué datos permanecen.
-4. Retirar el certificado público de prueba de `TrustedPeople` en la VM una vez terminadas las pruebas.
-5. Completar las capturas reales en español e inglés, decidir los campos de ficha restantes en Partner Center y confirmar la autorización legal de distribución.
+1. Abrir la reinstalación 2.3.3.0 en la cuenta administradora y confirmar que los tres registros siguen visibles.
+2. Iniciar sesión como `test-semana24H2-std`, abrir la app registrada para ese perfil y confirmar versión, contenido y persistencia tras cerrar/abrir.
+3. Retirar el certificado público de prueba de `TrustedPeople` en la VM una vez terminadas las pruebas.
+4. Completar las capturas reales en español e inglés, decidir los campos de ficha restantes en Partner Center y confirmar la autorización legal de distribución.
 
 No se presenta la candidata como validada en otras ediciones de Windows ni como lista para envío mientras queden esas tareas. WACK es una comprobación local; la certificación oficial solo ocurre tras enviar el paquete desde Partner Center.

@@ -4,11 +4,14 @@
 
 - Compilación x64 desde `0459c963c772635ec63a48aea13984dae393604e`: `npm ci`, `npm test` (32/32), compilación Tauri y MakeAppx: **PASADOS**. La etiqueta de versión visible se alinea ahora con el paquete `2.3.3.0`; el cambio no modifica las funciones ni el formato de datos.
 - Actualización `2.3.2.0→2.3.3.0` en Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742, cuenta administradora: paquete `Ok`; los 10 archivos del directorio local de datos de la familia del paquete (98.304 bytes) conservaron hashes idénticos: **PASADA dentro del alcance de archivos**.
-- La captura del usuario anterior a la actualización confirma los tres elementos esperados de migración: Café de migración (Desayuno), Tortilla de migración (Comida) y Crema de prueba (Cena). Falta la confirmación visual después de actualizar a 2.3.3.0.
+- El usuario abrió 2.3.3.0, confirmó etiqueta y datos, cerró y reabrió, y confirmó persistencia: **PASADO**.
+- Desinstalación y reinstalación en la cuenta administradora: **PASADAS dentro del alcance de datos**. Windows eliminó el directorio de datos de la familia del paquete (10 archivos/98.304 bytes), pero conservó el perfil externo Tauri/WebView2 (175 archivos/5.079.996 bytes) sin cambios de hash. Tras reinstalar, el paquete quedó `Ok` y el perfil conservó los mismos hashes. Falta confirmar visualmente los datos tras la reinstalación.
+- PowerShell Direct confirma que el perfil estándar tiene 2.3.3.0 registrado `Ok` y 185 archivos de datos: **PASADO, registro solamente**. Falta lanzamiento interactivo y comprobación visual/persistencia en esa sesión.
+- El usuario creó en Hyper-V un punto de control antes de la desinstalación: **PASADO**.
 - Defender en el anfitrión: análisis personalizado finalizado (evento 1001), protección activa y cero detecciones: **PASADO**.
 - WACK 10.0.26100.9457: informe completo, salida 0, `OVERALL_RESULT=PASS`, 23/24 pruebas PASADAS. `DPIAwarenessValidation` pasó; la única prueba fallida, `Ejecutables bloqueados`, es opcional. No equivale a certificación.
 - Revisión manual de licencias (247 crates), cabeceras y `NOTICE`: completada según el propietario. La autorización legal final para distribuir continúa pendiente.
-- Pendientes: apertura y persistencia de 2.3.3.0 en la VM, prueba con perfil estándar, desinstalación y retención de datos, capturas reales ES/EN y decisiones restantes de Partner Center. No se creó release ni se envió a certificación.
+- Pendientes: inspección visual tras reinstalación, prueba interactiva con perfil estándar, retirada del certificado de prueba, capturas reales ES/EN y decisiones restantes de Partner Center. No se creó release ni se envió a certificación.
 - Detalle, hashes y estados: [`STORE-CANDIDATE-2.3.3.0.es.md`](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.es.md).
 
 ## Candidata histórica MSIX 2.3.2.0 — 12 de noviembre de 2026 (sustituida)

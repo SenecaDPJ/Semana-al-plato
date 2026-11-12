@@ -4,11 +4,14 @@
 
 - x64 build from `0459c963c772635ec63a48aea13984dae393604e`: `npm ci`, `npm test` (32/32), Tauri build and MakeAppx: **PASS**. The visible version label now matches package `2.3.3.0`; this change does not alter features or the data format.
 - `2.3.2.0→2.3.3.0` update on Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742, administrator account: package `Ok`; all 10 files under the package-family local data directory (98,304 bytes) retained identical hashes: **PASS within file-level scope**.
-- The user's pre-update screenshot confirms the three expected migration entries: Café de migración (Breakfast), Tortilla de migración (Lunch) and Crema de prueba (Dinner). Visual confirmation after updating to 2.3.3.0 remains pending.
+- The user opened 2.3.3.0, checked the label and data, closed and reopened it, and confirmed persistence: **PASS**.
+- Uninstall and reinstall under the administrator account: **PASS within data scope**. Windows removed the package-family data directory (10 files/98,304 bytes) but retained the external Tauri/WebView2 profile (175 files/5,079,996 bytes) with identical hashes. After reinstall the package was `Ok` and the profile retained the same hashes. Visual confirmation of the data after reinstall remains pending.
+- PowerShell Direct confirms 2.3.3.0 is registered `Ok` in the standard profile with 185 data files: **PASS, registration only**. Interactive launch and visual/persistence confirmation in that session remain pending.
+- The user created a Hyper-V checkpoint before uninstall: **PASS**.
 - Host Defender: custom scan completed (event 1001), protection enabled and no detections: **PASS**.
 - WACK 10.0.26100.9457: complete report, exit 0, `OVERALL_RESULT=PASS`, 23/24 tests PASS. `DPIAwarenessValidation` passed; the only failing test, `Blocked Executables`, is optional. This is not certification.
 - Manual licence, source-header and `NOTICE` review: completed according to the owner. Final legal authorization to distribute remains pending.
-- Remaining: launch and persistence check of 2.3.3.0 in the VM, standard-profile test, uninstall/data-retention test, real EN/ES screenshots and remaining Partner Center decisions. No release or certification submission was created.
+- Remaining: visual check after reinstall, interactive standard-profile test, remove the test certificate, real EN/ES screenshots and remaining Partner Center decisions. No release or certification submission was created.
 - Details, hashes and statuses: [`STORE-CANDIDATE-2.3.3.0.en.md`](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.en.md).
 
 ## Historical MSIX 2.3.2.0 candidate — 12 November 2026 (superseded)
