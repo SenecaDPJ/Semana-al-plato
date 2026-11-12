@@ -31,6 +31,20 @@ Git-ignored directory: `artifacts/msstore/2.3.3.0-x64-cleanbuild/`.
 
 The temporary public certificate (`7CCE1273649D6287C12B98B963CD73FE769CB64B`, expires 26 Nov 2026) is in the VM's `LocalMachine\TrustedPeople` store. No PFX or private key exists. It will be removed after testing. The Store MSIX and `.msixupload` remain unsigned.
 
+## Rebuilding
+
+On x64 Windows with Node 22, stable Rust and the Windows SDK installed, start from a clean Git tree and run the [packaging script](build-msix.ps1):
+
+```powershell
+.\docs\microsoft-store\build-msix.ps1 `
+  -PackageIdentityName 'SenecaDPJ.Semanaalplato' `
+  -PackageIdentityPublisher 'CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9' `
+  -PublisherDisplayName 'SenecaDPJ' `
+  -OutputDirectory 'artifacts/msstore/2.3.3.0-x64-rebuild'
+```
+
+The output directory must be new. The script regenerates the inventory and unsigned artifacts; for local installation testing, use `sign-msix-for-local-testing.ps1` separately and trust its public certificate only in the isolated VM.
+
 ## Checks
 
 | Check | Status | Evidence and scope |

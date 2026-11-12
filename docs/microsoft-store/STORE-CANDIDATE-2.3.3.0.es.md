@@ -31,6 +31,20 @@ Directorio ignorado por Git: `artifacts/msstore/2.3.3.0-x64-cleanbuild/`.
 
 El certificado público temporal (`7CCE1273649D6287C12B98B963CD73FE769CB64B`, vence el 26-11-2026) está en `LocalMachine\TrustedPeople` de la VM. No hay PFX ni clave privada. Se retirará al terminar las pruebas. El MSIX Store y el `.msixupload` permanecen sin firmar.
 
+## Repetir la compilación
+
+En Windows x64 con Node 22, Rust estable y Windows SDK instalados, parte de un árbol Git limpio y ejecuta el [script de empaquetado](build-msix.ps1):
+
+```powershell
+.\docs\microsoft-store\build-msix.ps1 `
+  -PackageIdentityName 'SenecaDPJ.Semanaalplato' `
+  -PackageIdentityPublisher 'CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9' `
+  -PublisherDisplayName 'SenecaDPJ' `
+  -OutputDirectory 'artifacts/msstore/2.3.3.0-x64-rebuild'
+```
+
+El directorio de salida debe ser nuevo. El script vuelve a generar el inventario y los artefactos sin firma; para instalar una prueba local se usa por separado `sign-msix-for-local-testing.ps1` y se confía su certificado público únicamente en la VM aislada.
+
 ## Comprobaciones
 
 | Comprobación | Estado | Evidencia y alcance |
