@@ -62,7 +62,7 @@ El propietario confirmó el 12-11-2026 que completó la revisión manual de cabe
 
 ## Pendiente antes de Partner Center
 
-- Abrir 2.3.2.0 en la VM administradora, confirmar visualmente los datos conservados y repetir cierre/reapertura. Después, si se requiere evidencia de cuenta estándar, instalar y probar el mismo paquete en `test-semana24H2-std`.
+- Abrir 2.3.2.0 en la VM administradora, confirmar visualmente los datos conservados y repetir cierre/reapertura. Después, si se requiere evidencia de cuenta estándar, instalar y probar el mismo paquete en `cuenta estándar de prueba`.
 - Resolver la advertencia obligatoria DPI y evaluar el hallazgo opcional de ejecutables bloqueados; volver a ejecutar WACK sobre el artefacto final si se modifica el paquete.
 - Obtener la autorización legal final para distribuir dependencias y avisos.
 - **Política de privacidad publicada: PASADO** — el 12-11-2026 `https://senecadpj.github.io/Semana-al-plato/` respondió HTTP 200 y sirvió las etiquetas de versión/fecha 2.3.2 en español e inglés. El commit de `gh-pages` es `da411cd`.

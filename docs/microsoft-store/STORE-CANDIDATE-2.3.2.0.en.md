@@ -62,7 +62,7 @@ The owner confirmed on 12 November 2026 that they completed the manual review of
 
 ## Remaining before Partner Center
 
-- Open 2.3.2.0 in the VM administrator profile, visually confirm the preserved data and repeat close/reopen. If standard-account evidence is required, install and test the same package in `test-semana24H2-std` afterward.
+- Open 2.3.2.0 in the VM administrator profile, visually confirm the preserved data and repeat close/reopen. If standard-account evidence is required, install and test the same package in `standard test account` afterward.
 - Resolve the required DPI warning and assess the optional Blocked Executables finding; rerun WACK on the final artifact if the package changes.
 - Obtain final legal authorization to distribute dependencies and notices.
 - **Published privacy policy: PASS** — on 12 Nov 2026, `https://senecadpj.github.io/Semana-al-plato/` returned HTTP 200 and served the 2.3.2 version/date labels in Spanish and English. The `gh-pages` commit is `da411cd`.
