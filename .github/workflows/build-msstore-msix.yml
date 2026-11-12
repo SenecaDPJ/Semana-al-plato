@@ -82,12 +82,12 @@ jobs:
         shell: pwsh
         env:
           STORE_PACKAGE_IDENTITY_PUBLISHER: ${{ inputs.package_identity_publisher || 'CN=6F3CA482-2B0E-4C58-95F1-BFA42598F4C9' }}
-        run: .\docs\microsoft-store\sign-msix-for-local-testing.ps1 -ArtifactsDirectory 'artifacts\msstore\2.3.1.0-x64' -ExpectedPublisher "$env:STORE_PACKAGE_IDENTITY_PUBLISHER"
+        run: .\docs\microsoft-store\sign-msix-for-local-testing.ps1 -ArtifactsDirectory 'artifacts\msstore\2.3.2.0-x64' -ExpectedPublisher "$env:STORE_PACKAGE_IDENTITY_PUBLISHER"
 
       - name: Preserve unsigned package, listing icon and logs for review
         uses: actions/upload-artifact@v4
         with:
-          name: msstore-msix-2.3.1-test-${{ github.sha }}
+          name: msstore-msix-2.3.2-test-${{ github.sha }}
           path: artifacts/msstore/**
           if-no-files-found: error
           retention-days: 14
