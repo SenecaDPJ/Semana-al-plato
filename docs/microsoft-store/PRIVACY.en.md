@@ -1,6 +1,6 @@
 # Privacy policy — Semana al Plato
 
-**Status:** source text updated for local candidate v2.3.2.0. The DPI manifest change does not alter data, telemetry or connections; moving multi-selections reorganises existing local data. The uninstall observations below concern v2.2.0 and were not repeated for 2.3.2.0. The bilingual web source remains on the `gh-pages` branch; an HTTP check could not confirm that the deployed page is current. This policy describes local storage and test limits; it does not guarantee that Windows will remove or retain data on every version or account.
+**Status:** bilingual policy v2.3.2 is published on GitHub Pages and was checked over HTTP (200) on 12 Nov 2026. The DPI manifest change does not alter data, telemetry or connections; moving multi-selections reorganises existing local data. The uninstall observations below concern v2.2.0 and were not repeated for 2.3.2.0. This policy describes local storage and test limits; it does not guarantee that Windows will remove or retain data on every version or account.
 
 ## Data and storage
 

@@ -65,7 +65,7 @@ El propietario confirmó el 12-11-2026 que completó la revisión manual de cabe
 - Abrir 2.3.2.0 en la VM administradora, confirmar visualmente los datos conservados y repetir cierre/reapertura. Después, si se requiere evidencia de cuenta estándar, instalar y probar el mismo paquete en `test-semana24H2-std`.
 - Resolver la advertencia obligatoria DPI y evaluar el hallazgo opcional de ejecutables bloqueados; volver a ejecutar WACK sobre el artefacto final si se modifica el paquete.
 - Obtener la autorización legal final para distribuir dependencias y avisos.
-- Verificar por HTTP la política de privacidad alojada en GitHub Pages. La fuente bilingüe está en el repositorio, pero la URL publicada no quedó accesible en la comprobación de esta sesión.
+- **Política de privacidad publicada: PASADO** — el 12-11-2026 `https://senecadpj.github.io/Semana-al-plato/` respondió HTTP 200 y sirvió las etiquetas de versión/fecha 2.3.2 en español e inglés. El commit de `gh-pages` es `da411cd`.
 - Seleccionar capturas actuales y reales en español e inglés y completar las decisiones restantes de Partner Center (clasificación por edades, mercados, disponibilidad/precio, categoría y ficha).
 
 La identidad asignada por Partner Center ya está incorporada y coincide con el paquete. No se cambió la visibilidad del repositorio, no se creó una release pública y no se inició la certificación.
