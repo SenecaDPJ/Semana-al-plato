@@ -1,6 +1,6 @@
 # Política de privacidad — Semana al Plato
 
-**Estado:** texto fuente revisado para v2.2.0. GitHub Pages sigue sirviendo la versión anterior hasta que el propietario sincronice este contenido con la rama `gh-pages`. La política describe el almacenamiento local y los límites de una prueba de desinstalación; no garantiza que Windows elimine o conserve los datos en todas las versiones o cuentas.
+**Estado:** texto fuente revisado para la candidata v2.3.0.0. El movimiento de selecciones múltiples reorganiza datos locales existentes y no añade almacenamiento remoto ni conexiones. Las observaciones de desinstalación más abajo corresponden a v2.2.0 y no se han repetido para v2.3.0. La fuente web bilingüe de la versión 2.3.0 está en la rama `gh-pages`; el despliegue HTTP actual no se ha verificado. La política describe el almacenamiento local y los límites de las pruebas; no garantiza que Windows elimine o conserve los datos en todas las versiones o cuentas.
 
 ## Datos y almacenamiento
 

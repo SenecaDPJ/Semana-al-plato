@@ -116,6 +116,15 @@ if ($LASTEXITCODE -ne 0) { throw 'Instala Cargo junto con Rust antes de compilar
 $tauriVersion = (& npm run tauri -- --version 2>&1 | Out-String).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'No se pudo consultar la versión de Tauri CLI.' }
 
+$licenseExporter = Join-Path $PSScriptRoot 'export-cargo-license-inventory.ps1'
+& $licenseExporter -OutputDirectory $outputRoot 2>&1 | Tee-Object -FilePath (Join-Path $logsRoot 'cargo-license-inventory.log')
+if ($LASTEXITCODE -ne 0) { throw 'No se pudo generar el inventario y los avisos de licencias Cargo.' }
+$licenseSummaryPath = Join-Path $outputRoot 'CARGO-LICENSE-SUMMARY.json'
+$licenseSummary = Get-Content -LiteralPath $licenseSummaryPath -Raw | ConvertFrom-Json
+if ([int]$licenseSummary.PackagesMissingLicenseText -gt 0) {
+    throw "El MSIX no se empaqueta mientras falten textos de licencia: $($licenseSummary.PackagesMissingLicenseText) paquetes sin texto. Revisa $licenseSummaryPath."
+}
+
 Invoke-LoggedCommand -Command 'npm' -Arguments @('test') -LogPath (Join-Path $logsRoot 'npm-test.log')
 Invoke-LoggedCommand -Command 'npm' -Arguments @('run', 'tauri', '--', 'build', '--target', 'x86_64-pc-windows-msvc', '--no-bundle', '--ci') -LogPath (Join-Path $logsRoot 'tauri-build.log')
 
@@ -152,6 +161,9 @@ try {
     Copy-Item -LiteralPath (Join-Path $iconRootApp '44x44.png') -Destination (Join-Path $assetRoot 'Square44x44Logo.png')
     Copy-Item -LiteralPath (Join-Path $iconRootApp '150x150.png') -Destination (Join-Path $assetRoot 'Square150x150Logo.png')
     Copy-Item -LiteralPath (Join-Path $iconRootApp '50x50.png') -Destination (Join-Path $assetRoot 'StoreLogo.png')
+    Copy-Item -LiteralPath (Join-Path $outputRoot 'THIRD-PARTY-NOTICES.txt') -Destination (Join-Path $stageRoot 'THIRD-PARTY-NOTICES.txt')
+    Copy-Item -LiteralPath (Join-Path $outputRoot 'CARGO-LICENSE-INVENTORY.csv') -Destination (Join-Path $stageRoot 'CARGO-LICENSE-INVENTORY.csv')
+    Copy-Item -LiteralPath $licenseSummaryPath -Destination (Join-Path $stageRoot 'CARGO-LICENSE-SUMMARY.json')
     $listingAssets = Join-Path $outputRoot 'listing-assets'
     New-Item -ItemType Directory -Path $listingAssets -Force | Out-Null
     Copy-Item -LiteralPath (Join-Path $iconRootStore '300x300.png') -Destination (Join-Path $listingAssets 'StoreTile-300x300.png')

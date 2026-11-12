@@ -1,6 +1,6 @@
 # Microsoft Store listing — English (United Kingdom)
 
-Text draft for Partner Center, based on the current 2.2.0 app. It does not claim future functionality or unrun validation.
+Partner Center draft based on the 2.3.0.0 test candidate. It includes drag-to-move for multi-selections; it does not claim that this version is released or certified.
 
 ## Name
 
@@ -16,7 +16,7 @@ Organise your weekly meals with Semana al Plato. Plan breakfast, lunch and dinne
 
 Add dishes, food items and recipes to editable catalogues. Create colour-coded categories, search for entries and read recipes without closing the calendar. Each recipe can include ingredients, preparation steps, time and servings.
 
-Move entries between days in the same meal row, change their order, clone them individually or select several to clone or delete. Delete actions ask for confirmation.
+Move entries between days in the same meal row, change their order and clone them individually. You can also select several entries and drag them together to another day in the displayed week, clone them or delete them; bulk deletion requires confirmation.
 
 The interface is available in Spanish and English, with light and dark themes. The current week appears at startup; choose another date, move backwards or forwards, or return to today.
 
@@ -32,7 +32,7 @@ The application is for 64-bit Windows 11 and uses Microsoft Edge WebView2, which
 - Recipes with ingredients, steps, time and servings.
 - Clone entries to another day in the current week or a later date.
 - Drag and reorder entries within the same meal row.
-- Select several entries to clone or delete with confirmation.
+- Select several entries to clone, move by drag within the week or delete with confirmation.
 - Spanish and English interface, with light and dark themes.
 - Local saving and JSON backup export/restore.
 - No account or meal-planning service synchronisation required.
@@ -50,7 +50,7 @@ Suggested captions (official maximum: 200 characters per caption):
 
 - Plan your week with several meals arranged by day and meal type.
 - Manage dishes, foods and recipes in editable catalogues.
-- Select several calendar entries to clone or delete them.
+- Select several calendar entries to clone, move by drag or delete them.
 - Choose a light or dark theme and switch between Spanish and English.
 
 ## Listing field limits

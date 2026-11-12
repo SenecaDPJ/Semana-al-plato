@@ -1,6 +1,6 @@
 # Privacy policy — Semana al Plato
 
-**Status:** source text reviewed for v2.2.0. GitHub Pages still serves the previous version until the owner syncs this content to the `gh-pages` branch. This policy describes local storage and the limits of an uninstall test; it does not guarantee that Windows will remove or retain data on every version or account.
+**Status:** source text reviewed for the v2.3.0.0 test candidate. Moving a multi-selection reorganises existing local data and adds no remote storage or connection. The uninstall observations below concern v2.2.0 and were not repeated for v2.3.0. The v2.3.0 bilingual web source is on the `gh-pages` branch; the current HTTP deployment has not been verified. This policy describes local storage and the limits of the tests; it does not guarantee that Windows will remove or retain data on every version or account.
 
 ## Data and storage
 

@@ -1,6 +1,6 @@
 # Ficha de Microsoft Store — Español (España)
 
-Borrador de texto para Partner Center. Está basado en la aplicación 2.2.0 actual; no afirma funciones futuras ni validaciones que no se hayan ejecutado.
+Borrador para Partner Center basado en la candidata de prueba 2.3.0.0. Incluye el movimiento por arrastre de selecciones múltiples; no afirma que esta versión esté publicada o certificada.
 
 ## Nombre
 
@@ -16,7 +16,7 @@ Organiza tu semana de comidas con Semana al Plato. Planifica desayuno, comida y 
 
 Añade platos, alimentos y recetas a catálogos editables. Crea categorías con colores, encuentra elementos con la búsqueda y consulta tus recetas sin cerrar el calendario. Cada receta puede incluir ingredientes, preparación, tiempo y raciones.
 
-Mueve elementos entre días del mismo momento, cambia su orden, clónalos individualmente o selecciona varios para clonar o eliminar. Las acciones de borrado piden confirmación.
+Mueve elementos entre días del mismo momento, cambia su orden y clónalos individualmente. También puedes seleccionar varios elementos, arrastrarlos juntos a otro día de la semana visible, clonarlos o eliminarlos; el borrado múltiple requiere confirmación.
 
 La interfaz está disponible en español e inglés, con tema claro y oscuro. La semana actual aparece al abrir; puedes elegir otra fecha, avanzar o retroceder y volver a hoy.
 
@@ -32,7 +32,7 @@ La aplicación funciona en Windows 11 de 64 bits y utiliza Microsoft Edge WebVie
 - Recetas con ingredientes, pasos, tiempo y raciones.
 - Clona elementos a otro día de la semana actual o a una fecha posterior.
 - Arrastra y reordena elementos dentro del mismo momento del día.
-- Selecciona varios elementos para clonarlos o eliminarlos con confirmación.
+- Selecciona varios elementos para clonarlos, moverlos por arrastre dentro de la semana o eliminarlos con confirmación.
 - Interfaz en español e inglés, con tema claro y oscuro.
 - Guardado local y exportación/restauración de copias JSON.
 - No necesita cuenta ni sincronización con un servicio de menús.
@@ -50,7 +50,7 @@ Pies propuestos (máximo oficial: 200 caracteres por pie):
 
 - Planifica la semana con varias comidas organizadas por día y momento.
 - Gestiona platos, alimentos y recetas desde catálogos editables.
-- Selecciona varias comidas del calendario para clonarlas o eliminarlas.
+- Selecciona varias comidas del calendario para clonarlas, moverlas por arrastre o eliminarlas.
 - Elige tema claro u oscuro y cambia entre español e inglés.
 
 ## Comprobación de límites de ficha
