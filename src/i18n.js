@@ -7,7 +7,7 @@ const ES_TO_EN = {
   "Tu semana, plato a plato.": "Your week, one meal at a time.",
   "Organiza lo que te apetece. Deja espacio para improvisar.": "Plan what you feel like eating. Leave room to improvise.",
   "En tu dispositivo": "On this device",
-  "VERSIÓN 2.3.0": "VERSION 2.3.0",
+  "VERSIÓN 2.3.3": "VERSION 2.3.3",
   "Mis datos": "My data",
   "Exportar copia": "Export backup",
   "Restaurar copia": "Restore backup",

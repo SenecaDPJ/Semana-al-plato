@@ -2600,7 +2600,7 @@ dependencies = [
 
 [[package]]
 name = "semana-al-plato"
-version = "2.3.2"
+version = "2.3.3"
 dependencies = [
  "tauri",
  "tauri-build",
