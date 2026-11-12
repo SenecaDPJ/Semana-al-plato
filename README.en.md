@@ -6,7 +6,7 @@
 
 [Download for Windows 11 · x64 · v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.2.0/Semana.al.Plato_2.2.0_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
-The v2.3.0 test branch adds drag-to-move for selected groups within the displayed week. It remains a test build; the latest public download is still v2.2.0.
+The v2.3.3 test candidate includes drag-to-move for selected groups within the displayed week and fixes the version shown in the interface. It remains a test build; the latest public download is still v2.2.0. The MSIX package status is in the [Microsoft Store preparation notes](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.en.md).
 
 <img width="1397" height="1013" alt="Semana al Plato screenshot from 7 November 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
 

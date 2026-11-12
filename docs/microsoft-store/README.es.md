@@ -1,10 +1,10 @@
 # Preparación para Microsoft Store (MSIX)
 
-## Candidata local 2.3.2.0 — 12-11-2026
+## Candidata local 2.3.3.0 — 12-11-2026
 
-La compilación x64 desde el commit `59d49fb26902415f0165545691a029c7830e9b9f` creó un MSIX Store sin firmar y un `.msixupload`. `npm test` pasó 32/32; la instalación 2.3.1.0→2.3.2.0 en Windows 11 Enterprise LTSC Evaluation 24H2 build 26100.1742 conservó byte por byte los seis archivos LevelDB de `localStorage`; Defender no detectó amenazas. PowerShell Direct confirmó luego paquete 2.3.2.0 `Ok`, aplicación cerrada y 174 archivos en el perfil WebView2, incluidos 6 de LevelDB; falta confirmar su contenido en pantalla. WACK terminó con `WARNING`: 22/24 pruebas pasaron, falló una comprobación opcional de ejecutables bloqueados y la comprobación DPI devolvió advertencia pese al manifiesto. Microsoft describe WACK como obsoleto y opcional para comprobaciones locales previas al envío; se conserva el resultado como advertencia técnica, no como certificación ni bloqueo automático. Falta la confirmación visual de 2.3.2.0 antes de considerar la entrega para Partner Center.
+La compilación x64 desde `0459c963c772635ec63a48aea13984dae393604e` creó un MSIX Store sin firmar y un `.msixupload`. `npm test` pasó 32/32. La actualización 2.3.2.0→2.3.3.0 en LTSC 24H2 build 26100.1742 conservó los hashes de los 10 archivos del directorio local de datos de la familia del paquete. Defender completó el análisis personalizado sin detecciones. WACK terminó con `OVERALL_RESULT=PASS` y 23/24 pruebas PASADAS; `DPIAwarenessValidation` pasó y falló únicamente la comprobación opcional de ejecutables bloqueados. Sigue pendiente abrir 2.3.3.0 y confirmar la etiqueta y los datos en pantalla, además de las pruebas de perfil estándar y desinstalación.
 
-Detalles, SHA-256, alcance exacto de las pruebas y acciones pendientes: [candidata 2.3.2.0](STORE-CANDIDATE-2.3.2.0.es.md). La actualización de la revisión de licencias está en [español e inglés](LICENSE-REVIEW-UPDATE-2.3.2.0.es.md).
+Detalles, SHA-256, alcance exacto de las pruebas y acciones pendientes: [candidata 2.3.3.0](STORE-CANDIDATE-2.3.3.0.es.md). El estado anterior queda en [2.3.2.0](STORE-CANDIDATE-2.3.2.0.es.md); la revisión de licencias está en [español e inglés](LICENSE-REVIEW-UPDATE-2.3.2.0.es.md).
 
 Los datos de 2.3.0.0 y 2.3.1.0 que aparecen en las secciones históricas siguientes no se trasladan automáticamente a la candidata actual. No se creó una release ni se envió el producto a certificación.
 

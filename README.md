@@ -6,7 +6,7 @@
 
 [Descargar para Windows 11 · x64 · v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.2.0/Semana.al.Plato_2.2.0_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
 
-La rama de prueba v2.3.0 añade el movimiento en grupo por arrastre dentro de la semana. Sigue siendo una compilación de prueba: la descarga pública más reciente continúa siendo v2.2.0.
+La candidata de prueba v2.3.3 incluye el movimiento en grupo por arrastre dentro de la semana y corrige la versión que muestra la interfaz. Sigue siendo una compilación de prueba: la descarga pública más reciente continúa siendo v2.2.0. El estado del paquete MSIX está en la [documentación para Microsoft Store](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.es.md).
 
 <img width="1397" height="1013" alt="Captura de Semana al Plato del 7 de noviembre de 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
 

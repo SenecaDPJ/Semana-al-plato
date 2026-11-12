@@ -1,10 +1,10 @@
 # Microsoft Store preparation (MSIX)
 
-## Local 2.3.2.0 candidate — 12 Nov 2026
+## Local 2.3.3.0 candidate — 12 Nov 2026
 
-The x64 build from commit `59d49fb26902415f0165545691a029c7830e9b9f` created an unsigned Store MSIX and an `.msixupload`. `npm test` passed 32/32; the 2.3.1.0→2.3.2.0 update on Windows 11 Enterprise LTSC Evaluation 24H2 build 26100.1742 preserved all six `localStorage` LevelDB files byte for byte; Defender found no threats. PowerShell Direct later confirmed package 2.3.2.0 `Ok`, the app closed, and 174 files in its WebView2 profile, including six LevelDB files; visual content confirmation remains pending. WACK returned `WARNING`: 22/24 checks passed, one optional Blocked Executables check failed, and the DPI check warned despite the embedded manifest. Microsoft describes WACK as deprecated and optional for local pre-submission checks; we retain the result as a technical warning, not certification or an automatic submission block. The visual confirmation of 2.3.2.0 remains before considering a Partner Center submission.
+The x64 build from commit `0459c963c772635ec63a48aea13984dae393604e` created an unsigned Store MSIX and an `.msixupload`. `npm test` passed 32/32. The 2.3.2.0→2.3.3.0 update on LTSC 24H2 build 26100.1742 preserved the hashes of all 10 files under the package-family local data directory. Defender completed a custom scan with no detections. WACK completed with `OVERALL_RESULT=PASS` and 23/24 tests PASS; `DPIAwarenessValidation` passed and only the optional Blocked Executables check failed. A visual launch of 2.3.3.0 to confirm its label and data remains, along with standard-profile and uninstall tests.
 
-Exact scope, SHA-256 values, test results and remaining actions: [2.3.2.0 candidate](STORE-CANDIDATE-2.3.2.0.en.md). The licence-review update is available in [English and Spanish](LICENSE-REVIEW-UPDATE-2.3.2.0.en.md).
+Exact scope, SHA-256 values, test results and remaining actions: [2.3.3.0 candidate](STORE-CANDIDATE-2.3.3.0.en.md). The previous status remains in [2.3.2.0](STORE-CANDIDATE-2.3.2.0.en.md); the licence-review update is available in [English and Spanish](LICENSE-REVIEW-UPDATE-2.3.2.0.en.md).
 
 The 2.3.0.0 and 2.3.1.0 information in the historical sections below is not automatically carried forward to the current candidate. No release was created and the product was not submitted for certification.
 

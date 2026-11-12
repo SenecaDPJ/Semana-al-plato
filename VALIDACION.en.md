@@ -1,6 +1,17 @@
 # Semana al Plato validation record
 
-## MSIX 2.3.2.0 candidate — build and tests, 12 November 2026
+## MSIX 2.3.3.0 candidate — build and tests, 12 November 2026
+
+- x64 build from `0459c963c772635ec63a48aea13984dae393604e`: `npm ci`, `npm test` (32/32), Tauri build and MakeAppx: **PASS**. The visible version label now matches package `2.3.3.0`; this change does not alter features or the data format.
+- `2.3.2.0→2.3.3.0` update on Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742, administrator account: package `Ok`; all 10 files under the package-family local data directory (98,304 bytes) retained identical hashes: **PASS within file-level scope**.
+- The user's pre-update screenshot confirms the three expected migration entries: Café de migración (Breakfast), Tortilla de migración (Lunch) and Crema de prueba (Dinner). Visual confirmation after updating to 2.3.3.0 remains pending.
+- Host Defender: custom scan completed (event 1001), protection enabled and no detections: **PASS**.
+- WACK 10.0.26100.9457: complete report, exit 0, `OVERALL_RESULT=PASS`, 23/24 tests PASS. `DPIAwarenessValidation` passed; the only failing test, `Blocked Executables`, is optional. This is not certification.
+- Manual licence, source-header and `NOTICE` review: completed according to the owner. Final legal authorization to distribute remains pending.
+- Remaining: launch and persistence check of 2.3.3.0 in the VM, standard-profile test, uninstall/data-retention test, real EN/ES screenshots and remaining Partner Center decisions. No release or certification submission was created.
+- Details, hashes and statuses: [`STORE-CANDIDATE-2.3.3.0.en.md`](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.en.md).
+
+## Historical MSIX 2.3.2.0 candidate — 12 November 2026 (superseded)
 
 - x64 build from `59d49fb26902415f0165545691a029c7830e9b9f`: `npm ci`, `npm test` (32/32), Tauri build and MakeAppx: **PASS**. Partner Center identity, architecture, version `2.3.2.0` and minimum `10.0.26100.1742`: **PASS**.
 - 2.3.1.0→2.3.2.0 update on Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742, administrator profile: MSIX `Ok`; all 174 data files remained and the six `localStorage` LevelDB files retained identical hashes: **PASS within file-level scope**. Visual confirmation of the data in this version remains pending.

@@ -1,6 +1,17 @@
 # Registro de validación de Semana al Plato
 
-## Candidata MSIX 2.3.2.0 — compilación y pruebas del 12 de noviembre de 2026
+## Candidata MSIX 2.3.3.0 — compilación y pruebas del 12 de noviembre de 2026
+
+- Compilación x64 desde `0459c963c772635ec63a48aea13984dae393604e`: `npm ci`, `npm test` (32/32), compilación Tauri y MakeAppx: **PASADOS**. La etiqueta de versión visible se alinea ahora con el paquete `2.3.3.0`; el cambio no modifica las funciones ni el formato de datos.
+- Actualización `2.3.2.0→2.3.3.0` en Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742, cuenta administradora: paquete `Ok`; los 10 archivos del directorio local de datos de la familia del paquete (98.304 bytes) conservaron hashes idénticos: **PASADA dentro del alcance de archivos**.
+- La captura del usuario anterior a la actualización confirma los tres elementos esperados de migración: Café de migración (Desayuno), Tortilla de migración (Comida) y Crema de prueba (Cena). Falta la confirmación visual después de actualizar a 2.3.3.0.
+- Defender en el anfitrión: análisis personalizado finalizado (evento 1001), protección activa y cero detecciones: **PASADO**.
+- WACK 10.0.26100.9457: informe completo, salida 0, `OVERALL_RESULT=PASS`, 23/24 pruebas PASADAS. `DPIAwarenessValidation` pasó; la única prueba fallida, `Ejecutables bloqueados`, es opcional. No equivale a certificación.
+- Revisión manual de licencias (247 crates), cabeceras y `NOTICE`: completada según el propietario. La autorización legal final para distribuir continúa pendiente.
+- Pendientes: apertura y persistencia de 2.3.3.0 en la VM, prueba con perfil estándar, desinstalación y retención de datos, capturas reales ES/EN y decisiones restantes de Partner Center. No se creó release ni se envió a certificación.
+- Detalle, hashes y estados: [`STORE-CANDIDATE-2.3.3.0.es.md`](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.es.md).
+
+## Candidata histórica MSIX 2.3.2.0 — 12 de noviembre de 2026 (sustituida)
 
 - Compilación x64 desde `59d49fb26902415f0165545691a029c7830e9b9f`: `npm ci`, `npm test` (32/32), compilación Tauri y MakeAppx: **PASADOS**. Identidad Partner Center, arquitectura, versión `2.3.2.0` y mínimo `10.0.26100.1742`: **PASADOS**.
 - Actualización 2.3.1.0→2.3.2.0 en Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742, perfil administrador: MSIX `Ok`; conservación de los 174 archivos de datos y hashes idénticos de los seis archivos LevelDB de `localStorage`: **PASADA dentro del alcance de archivos**. Falta la confirmación visual del contenido en esta versión.
