@@ -1,6 +1,6 @@
 # Ficha de Microsoft Store — Español (España)
 
-Borrador para Partner Center revisado contra la candidata local de prueba 2.3.2.0. Incluye el movimiento por arrastre de selecciones múltiples; no afirma que esta versión esté publicada o certificada. La candidata 2.3.2.0 continúa pendiente de una comprobación visual final y de resolver los resultados WACK descritos en `STORE-CANDIDATE-2.3.2.0.es.md`.
+Borrador para Partner Center revisado contra la candidata local 2.3.3.0. Incluye el movimiento por arrastre de selecciones múltiples; no afirma que esta versión esté publicada o certificada. Las pruebas funcionales informadas por el usuario y el WACK local están documentados en `STORE-CANDIDATE-2.3.3.0.es.md`.
 
 ## Nombre
 
@@ -44,14 +44,19 @@ La aplicación funciona en Windows 11 de 64 bits y utiliza Microsoft Edge WebVie
 
 ## Capturas requeridas
 
-Hay una captura real candidata de la instalación MSIX verificada, fuera del repositorio: `../Compilacion_W11/Entrega-Store-2.2.0.0-x64/Store-screenshot-es-ES-20261109.png` (1919 × 1024, 571.266 bytes; SHA-256 `A15E1FA8CAF043F9F9CA0E1B119A98E48D66F7095195B5D6007EEDC0E0A42705`). Cumple el mínimo de escritorio, pero muestra la marca de evaluación de Windows y márgenes de la VM; revisa si quieres usarla o capturar una vista más limpia. Falta una captura en inglés. Para escritorio se exige al menos una captura y se recomiendan cuatro o más (máximo 10). Deben ser PNG en horizontal o vertical, de al menos 1366 × 768 píxeles y menos de 50 MB. Si se publican fichas en español e inglés, las imágenes y sus pies se cargan por separado en cada idioma, aunque se reutilice la misma captura.
+Capturas reales candidatas de la aplicación 2.3.3.0, tomadas durante la prueba del perfil estándar y guardadas fuera de Git en `Compilacion_W11/Entrega-Store-2.3.3.0-x64/`:
 
-Pies propuestos (máximo oficial: 200 caracteres por pie):
+- Español, tema claro: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150.966 bytes; SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`.
+- Inglés, tema oscuro: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120.409 bytes; SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`.
 
-- Planifica la semana con varias comidas organizadas por día y momento.
-- Gestiona platos, alimentos y recetas desde catálogos editables.
-- Selecciona varias comidas del calendario para clonarlas, moverlas por arrastre o eliminarlas.
-- Elige tema claro u oscuro y cambia entre español e inglés.
+Las dos imágenes se copiaron sin modificar desde las capturas facilitadas por el usuario; muestran el mismo calendario con tres comidas en la aplicación real y no incluyen marco de VM ni marca de evaluación. Ambas son PNG, superan el mínimo de escritorio de 1366 × 768 y pesan menos de 50 MB. Una captura por familia de dispositivo es el mínimo; Microsoft recomienda al menos cuatro por familia y permite hasta diez. Para completar mejor la ficha se pueden añadir tres capturas por idioma que muestren otras funciones. Partner Center requiere cargar imágenes y pies por separado para cada idioma de ficha.
+
+Pies localizados propuestos (máximo oficial: 200 caracteres por pie):
+
+- Captura 1 (tema claro): `Organiza desayunos, comidas y cenas en tu calendario semanal.`
+- Captura 2 (tema oscuro): `Consulta el plan semanal con los días y cada momento de comida.`
+- Captura adicional: `Selecciona varias comidas para clonarlas, moverlas juntas o eliminarlas.`
+- Captura adicional: `Cambia entre los temas claro y oscuro y los idiomas español e inglés.`
 
 ## Comprobación de límites de ficha
 

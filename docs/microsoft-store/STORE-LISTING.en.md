@@ -1,6 +1,6 @@
 # Microsoft Store listing — English (United Kingdom)
 
-Partner Center draft reviewed against local test candidate 2.3.2.0. It includes drag-to-move for multi-selections; it does not claim that this version is released or certified. Candidate 2.3.2.0 still needs a final visual check and resolution of the WACK results in `STORE-CANDIDATE-2.3.2.0.en.md`.
+Partner Center draft reviewed against local candidate 2.3.3.0. It includes drag-to-move for multi-selections; it does not claim that this version is released or certified. User-reported functional checks and the local WACK result are documented in `STORE-CANDIDATE-2.3.3.0.en.md`.
 
 ## Name
 
@@ -44,14 +44,19 @@ The application is for 64-bit Windows 11 and uses Microsoft Edge WebView2, which
 
 ## Required screenshots
 
-One real candidate screenshot from the verified MSIX install is staged outside Git: `../Compilacion_W11/Entrega-Store-2.2.0.0-x64/Store-screenshot-es-ES-20261109.png` (1919 × 1024, 571,266 bytes; SHA-256 `A15E1FA8CAF043F9F9CA0E1B119A98E48D66F7095195B5D6007EEDC0E0A42705`). It meets the desktop minimum but includes the Windows Evaluation watermark and VM margins; review it or capture a cleaner view. An English screenshot is still needed. Desktop requires at least one screenshot and Microsoft recommends four or more (maximum 10). Files must be PNG in landscape or portrait, at least 1366 × 768 pixels and under 50 MB. For Spanish and English Store listings, upload images and captions separately for each language, even if reusing the same capture.
+Real candidate screenshots of app version 2.3.3.0, captured during the standard-profile test and staged outside Git in `Compilacion_W11/Entrega-Store-2.3.3.0-x64/`:
 
-Suggested captions (official maximum: 200 characters per caption):
+- Spanish, light theme: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150,966 bytes; SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`.
+- English, dark theme: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120,409 bytes; SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`.
 
-- Plan your week with several meals arranged by day and meal type.
-- Manage dishes, foods and recipes in editable catalogues.
-- Select several calendar entries to clone, move by drag or delete them.
-- Choose a light or dark theme and switch between Spanish and English.
+Both images were copied unchanged from the user's supplied screenshots; they show the same calendar with three meals in the real app and contain no VM frame or Evaluation watermark. Both are PNG, exceed the desktop minimum of 1366 × 768 and are under 50 MB. One screenshot per device family is the minimum; Microsoft recommends at least four per family and allows up to ten. Three additional screenshots per language can better complete the listing by showcasing other features. Partner Center requires images and captions to be uploaded separately for each listing language.
+
+Suggested localized captions (official maximum: 200 characters per caption):
+
+- Screenshot 1 (light theme): `Plan breakfast, lunch and dinner in your weekly calendar.`
+- Screenshot 2 (dark theme): `View the weekly plan with each day and meal time.`
+- Additional screenshot: `Select several entries to clone, move together or delete them.`
+- Additional screenshot: `Switch between light and dark themes and English and Spanish.`
 
 ## Listing field limits
 

@@ -2,7 +2,7 @@
 
 **Fecha:** 12 de noviembre de 2026
 
-**Estado:** paquete creado y actualizado en la VM LTSC; WACK terminó con `OVERALL_RESULT=PASS` y un único fallo opcional. Falta abrir 2.3.3.0 en la VM y confirmar visualmente la versión y los datos tras la actualización. No se ha publicado una release ni enviado el paquete a Partner Center.
+**Estado:** paquete creado, actualizado, desinstalado/reinstalado y probado en perfiles administrador y estándar de Windows 11 Enterprise LTSC Evaluation 24H2 build 26100.1742. El usuario confirmó apertura, contenido y persistencia tras reabrir en ambos perfiles. WACK terminó con `OVERALL_RESULT=PASS` y un único fallo opcional. No se ha publicado una release ni enviado el paquete a Partner Center.
 
 ## Alcance e identidad
 
@@ -29,7 +29,7 @@ Directorio ignorado por Git: `artifacts/msstore/2.3.3.0-x64-cleanbuild/`.
 | `Semana-al-Plato_2.3.3.0_x64.msixupload` | `46BAD30118C6AA190CDA0123F11D9EB37D0922F5150B947AD9D3B81868A47835` | Archivo de envío local |
 | `Semana-al-Plato_2.3.3.0_x64-LOCALTEST.msix` | `AF8FDF33F0F864B9FE145C41D5AA4E63E3444DCC8F2FF00C8102BD557A93AB34` | Firma de prueba; solo para la VM aislada |
 
-El certificado público temporal (`7CCE1273649D6287C12B98B963CD73FE769CB64B`, vence el 26-11-2026) está en `LocalMachine\TrustedPeople` de la VM. No hay PFX ni clave privada. Se retirará al terminar las pruebas. El MSIX Store y el `.msixupload` permanecen sin firmar.
+El certificado público temporal usado para pruebas se retiró de `LocalMachine\TrustedPeople` de la VM al terminar: se eliminaron 6 certificados propios del editor de prueba y no queda ninguno de ellos en ese almacén. No había PFX ni clave privada. El MSIX Store y el `.msixupload` permanecen sin firmar.
 
 ## Repetir la compilación
 
@@ -58,20 +58,21 @@ El directorio de salida debe ser nuevo. El script vuelve a generar el inventario
 | WACK 10.0.26100.9457 | **PASADO CON FALLO OPCIONAL** | Informe completo, salida 0, `OVERALL_RESULT=PASS`, 23/24 pruebas PASADAS. `DPIAwarenessValidation` pasó. La única prueba fallida es `Ejecutables bloqueados`, marcada `OPTIONAL=TRUE`; no se presenta como una certificación. SHA-256 del XML: `EDAAD3F33894A15D9A9ADCFE2E1B5E202E1D1DD5A368839C13E3CF41087E706D`. |
 | Microsoft Defender | **PASADO** | Análisis personalizado del directorio de artefactos, evento de finalización 1001; protección antivirus y en tiempo real activas, cero detecciones. Ejecutado en el anfitrión de desarrollo. |
 | Primera apertura visual y persistencia en 2.3.3.0 | **PASADO** | El usuario abrió la candidata, confirmó la etiqueta y los tres registros, cerró y volvió a abrir; confirmó la persistencia y cerró la app. |
-| Registro de 2.3.3.0 en perfil estándar | **PASADO, SOLO REGISTRO** | PowerShell Direct tras reiniciar la VM confirmó que es una cuenta estándar y que 2.3.3.0 figura `Ok`, con 185 archivos/5.188.463 bytes en su directorio de datos del paquete; no había un proceso de la app. Falta apertura interactiva, confirmación visual del contenido y persistencia tras cerrar/abrir. |
+| Apertura, contenido y persistencia en perfil estándar | **PASADO, ALCANCE MANUAL INFORMADO** | El usuario abrió la versión 2.3.3.0 en una cuenta estándar, confirmó tres elementos, alternó tema oscuro/inglés y tema claro/español, cerró y volvió a abrir y confirmó persistencia. Las capturas limpias muestran el mismo calendario en ambos idiomas y temas. PowerShell Direct confirmó paquete `Ok`, 185 archivos/5.188.463 bytes en los datos del paquete y cero procesos de la app después de la prueba. No es una auditoría exhaustiva de todas las funciones. |
 | Desinstalación y reinstalación de 2.3.3.0 | **PASADO, ALCANCE DE DATOS** | En la cuenta de prueba con permisos de administrador, `Remove-AppxPackage` quitó el MSIX. Desapareció el directorio de datos de la familia del paquete (10 archivos, 98.304 bytes); el perfil Tauri/WebView2 externo permaneció: 175 archivos y 5.079.996 bytes. Se reinstaló 2.3.3.0 (`Ok`); los 175 archivos conservaron los hashes anteriores a la desinstalación. La copia de seguridad y los manifiestos quedan en la VM, no en Git. |
 | Comprobación tras reinstalar en perfil administrador | **PASADO** | Tras reiniciar la VM, PowerShell Direct confirmó el paquete `2.3.3.0`, estado `Ok` y la app cerrada; el directorio de datos del paquete tenía 2 archivos/8.192 bytes y el perfil externo Tauri/WebView2, 175 archivos/5.079.996 bytes. Coincidieron los hashes de los 175 archivos externos previos a la desinstalación. Después, el usuario abrió la app y confirmó la versión y los tres registros, cambió tema e idioma, cerró y volvió a abrir; confirmó persistencia y cerró de nuevo. |
-| Registro del perfil estándar | **PASADO, SOLO REGISTRO** | Tras reiniciar la VM, PowerShell Direct confirmó en la cuenta estándar el paquete `2.3.3.0`, estado `Ok`, 185 archivos/5.188.463 bytes en su directorio de datos y ningún proceso de la app abierto. Faltan apertura interactiva, confirmación visual del contenido y persistencia tras cerrar/abrir. |
+| Certificado temporal de pruebas | **PASADO, RETIRADO** | Tras finalizar las pruebas, se eliminaron de `LocalMachine\TrustedPeople` de la VM seis certificados autofirmados del editor de pruebas; la comprobación final no encontró ninguno restante. No se usó ni quedó clave privada en ese almacén. |
 | Punto de control previo a desinstalar | **PASADO** | El usuario creó un punto de control de Hyper-V antes de la prueba. |
 | Revisión de licencias y avisos | **REVISIÓN MANUAL CONFIRMADA POR EL PROPIETARIO** | Inventario técnico: 247 crates, 443 archivos de licencia y 7 textos suplementarios de 6 crates. El propietario indicó haber completado la revisión manual de licencias, cabeceras de copyright y `NOTICE`. La autorización legal final para distribuir sigue siendo una decisión del propietario. |
+| Capturas de ficha | **PASADAS, MÍNIMO POR IDIOMA** | Se preparó una captura PNG por idioma, tomada de la aplicación 2.3.3.0 en el perfil estándar y copiada sin modificar; no contiene marco de VM ni marca de evaluación. Inglés/oscuro: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120.409 bytes, SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`. Español/claro: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150.966 bytes, SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`. Están en la carpeta local de entrega, fuera de Git. Una captura de escritorio es el mínimo; Microsoft recomienda al menos cuatro por familia y permite hasta diez. |
 | Certificación de Microsoft Store | **NO EJECUTADA** | No se envió el paquete a Partner Center. |
 
-Los informes completos de WACK y las salidas de instalación están en la carpeta local de artefactos, fuera del repositorio; contienen nombres y rutas internas de la VM. El resumen conservado en este documento no incluye esos datos. La consulta del estado tras reinstalar y la confirmación de funcionamiento del usuario se guardan fuera del repositorio en `vm-2.3.3.0-post-reinstall-readonly-20261112.json`; no contiene credenciales ni información privada de cuentas. La política de privacidad existente no se cambió porque esta revisión solo alinea la etiqueta y versión del paquete y no cambia el comportamiento de datos.
+Los informes completos de WACK y las salidas de instalación están en la carpeta local de artefactos, fuera del repositorio; contienen nombres y rutas internas de la VM. El informe local final `vm-2.3.3.0-post-reinstall-readonly-20261112.json` tiene SHA-256 `0D8699B89B4F38DD5375EF9DC54CABA131FEA37CEE1E631D1016533177BDB7F4`; no contiene credenciales ni información privada de cuentas. El manifiesto de capturas local registra dimensiones, tamaños y hashes. La política de privacidad existente no se cambió porque esta revisión solo alinea la etiqueta y versión del paquete y no cambia el comportamiento de datos.
 
 ## Pendiente para completar la preparación
 
-1. Iniciar sesión en la cuenta de prueba estándar, abrir la app registrada para ese perfil y confirmar versión, contenido y persistencia tras cerrar/abrir.
-2. Retirar el certificado público de prueba de `TrustedPeople` en la VM una vez terminadas las pruebas.
-3. Completar las capturas reales en español e inglés, decidir los campos de ficha restantes en Partner Center y confirmar la autorización legal de distribución.
+1. Completar en Partner Center los campos de ficha, disponibilidad, clasificación por edades, contactos y elección de inglés (`en-US` o ficha adicional `en-GB`); cargar por separado las dos capturas y sus pies para cada idioma.
+2. El propietario debe confirmar la autorización legal final de distribución. La revisión manual de licencias, cabeceras y `NOTICE` ya fue confirmada por el propietario.
+3. Evaluar el origen del fallo opcional `Ejecutables bloqueados` de WACK, sin clasificarlo como falso positivo mientras no se trace.
 
-No se presenta la candidata como validada en otras ediciones de Windows ni como lista para envío mientras queden esas tareas. WACK es una comprobación local; la certificación oficial solo ocurre tras enviar el paquete desde Partner Center.
+La prueba funcional respalda Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742; no demuestra compatibilidad con otras ediciones ni builds. WACK es una comprobación local; la certificación oficial solo ocurre tras enviar el paquete desde Partner Center.
