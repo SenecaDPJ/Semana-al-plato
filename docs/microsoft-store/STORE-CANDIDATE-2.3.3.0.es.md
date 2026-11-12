@@ -31,6 +31,7 @@ El propietario ha elegido los valores previstos para la ficha. Son decisiones re
 | Mercados | Todos los mercados que Partner Center permita seleccionar para esta aplicación |
 | Clasificación IARC | No hay IARC ID previo; el propietario responderá el cuestionario en Partner Center |
 | Capturas | Usar las dos actuales: una para `es-ES` y otra para `en-US`; no se solicitan capturas adicionales |
+| Términos adicionales de licencia | Enlazar la licencia MIT del repositorio: `https://github.com/SenecaDPJ/Semana-al-plato/blob/main/LICENSE` en ambas fichas |
 
 El propietario autoriza distribuir la versión `2.3.3.0` en Microsoft Store una vez completada la preparación pendiente. Esta autorización no crea un borrador ni envía el paquete a certificación.
 
@@ -87,7 +88,7 @@ Los informes completos de WACK y las salidas de instalación están en la carpet
 ## Pendiente para completar la preparación
 
 1. Aplicar en Partner Center las decisiones seleccionadas de categoría, precio, mercados e idiomas; verificar nombre reservado e identidad; completar las fichas `es-ES` y `en-US`; cargar la captura preparada y su pie en el idioma correspondiente. Las capturas adicionales son opcionales: hay una por idioma, el mínimo documentado.
-2. Responder con veracidad el cuestionario IARC de clasificación por edades; el propietario confirmó que no tiene un IARC ID previo. Revisar las condiciones de licencia, los campos de contacto y la URL de privacidad publicada. No se ha creado ningún borrador en Partner Center.
+2. Responder con veracidad el cuestionario IARC de clasificación por edades; el propietario confirmó que no tiene un IARC ID previo. Aplicar el enlace MIT elegido en «Additional license terms»; revisar los campos de contacto y la URL de privacidad publicada. No se ha creado ningún borrador en Partner Center.
 3. Evaluar el origen del fallo opcional `Ejecutables bloqueados` de WACK, sin clasificarlo como falso positivo mientras no se trace.
 
 La prueba funcional respalda Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742; no demuestra compatibilidad con otras ediciones ni builds. WACK es una comprobación local; la certificación oficial solo ocurre tras enviar el paquete desde Partner Center.
