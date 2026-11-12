@@ -29,6 +29,7 @@ El propietario ha elegido los valores previstos para la ficha. Son decisiones re
 | Idiomas de ficha | `es-ES` y `en-US`; el paquete declara ambos recursos |
 | Precio | Gratis |
 | Mercados | Todos los mercados que Partner Center permita seleccionar para esta aplicación |
+| Website | Página pública del repositorio: `https://github.com/SenecaDPJ/Semana-al-plato` |
 | Clasificación IARC | No hay IARC ID previo; el propietario responderá el cuestionario en Partner Center |
 | Capturas | Usar las dos actuales: una para `es-ES` y otra para `en-US`; no se solicitan capturas adicionales |
 | Términos adicionales de licencia | Enlazar la licencia MIT del repositorio: `https://github.com/SenecaDPJ/Semana-al-plato/blob/main/LICENSE` en ambas fichas |

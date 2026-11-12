@@ -29,6 +29,7 @@ The owner has selected the intended listing values below. These choices are reco
 | Listing languages | `es-ES` and `en-US`; both resources are declared by the package |
 | Price | Free |
 | Markets | All markets that Partner Center allows for this app |
+| Website | Public repository page: `https://github.com/SenecaDPJ/Semana-al-plato` |
 | IARC rating | No existing IARC ID; the owner will answer the Partner Center questionnaire |
 | Screenshots | Use the two current images: one for `es-ES` and one for `en-US`; no additional screenshots requested |
 | Additional license terms | Link the repository's MIT licence: `https://github.com/SenecaDPJ/Semana-al-plato/blob/main/LICENSE` in both listings |
