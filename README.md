@@ -4,9 +4,9 @@
 
 **Español** · [English](README.en.md)
 
-[Descargar para Windows 11 · x64 · v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.2.0/Semana.al.Plato_2.2.0_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Descargar para Windows 11 · x64 · v2.3.3](https://github.com/SenecaDPJ/Semana-al-plato/releases/download/v2.3.3/Semana.al.Plato_2.3.3_x64-setup.exe) · [Versiones](https://github.com/SenecaDPJ/Semana-al-plato/releases) · [Comunicar un problema](https://github.com/SenecaDPJ/Semana-al-plato/issues)
 
-La candidata de prueba v2.3.3 incluye el movimiento en grupo por arrastre dentro de la semana y corrige la versión que muestra la interfaz. Sigue siendo una compilación de prueba: la descarga pública más reciente continúa siendo v2.2.0. El estado del paquete MSIX está en la [documentación para Microsoft Store](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.es.md).
+La versión pública **v2.3.3** ya está disponible en GitHub. Añade **Mover en la semana** para arrastrar en grupo los elementos seleccionados por los días de la semana visible y corrige la versión que muestra la interfaz. El paquete MSIX **2.3.3.0** se envió a Partner Center y está **en proceso de certificación de Microsoft** (la última captura lo mostraba en preprocesamiento). Todavía no está certificado ni publicado en Microsoft Store; el envío se configuró para esperar a que el propietario seleccione «Publicar ahora» tras la aprobación. Consulta el [estado y las pruebas de la candidata Store](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.es.md).
 
 <img width="1397" height="1013" alt="Captura de Semana al Plato del 7 de noviembre de 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
 
@@ -41,7 +41,7 @@ Trabaja localmente, sin crear una cuenta ni conectarse a un servicio de planific
 
 ## Descargar e instalar
 
-1. Descarga **Semana.al.Plato_2.2.0_x64-setup.exe** desde el enlace superior o desde [la release v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0).
+1. Descarga **Semana.al.Plato_2.3.3_x64-setup.exe** desde el enlace superior o desde [la release v2.3.3](https://github.com/SenecaDPJ/Semana-al-plato/releases/tag/v2.3.3).
 2. Ejecuta el instalador y sigue sus indicaciones.
 3. Abre **Semana al Plato** para empezar a planificar.
 
@@ -214,4 +214,4 @@ Creado por [David De Prado · SenecaDPJ](https://github.com/SenecaDPJ).
 
 ## Preparación para Microsoft Store
 
-La preparación MSIX está documentada en [docs/microsoft-store](docs/microsoft-store/README.es.md). La candidata local 2.3.2.0 añade el manifiesto DPI por monitor y conserva `MinVersion=10.0.26100.1742`. `npm test` pasó 32/32; Defender no detectó amenazas y la actualización 2.3.1.0→2.3.2.0 conservó byte por byte los seis archivos LevelDB de `localStorage` en Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742. PowerShell Direct confirmó después paquete 2.3.2.0 `Ok`, aplicación cerrada y 174 archivos en el perfil WebView2, incluidos los seis archivos LevelDB; aún falta ver el contenido en pantalla. WACK terminó completo con una advertencia DPI y un fallo opcional de ejecutables bloqueados. Microsoft considera WACK una comprobación local opcional obsoleta; el resultado se conserva como advertencia técnica, no como certificación ni bloqueo automático. El propietario confirmó la revisión manual de cabeceras de copyright y `NOTICE`; la autorización legal final continúa pendiente. La política bilingüe 2.3.2 está publicada en GitHub Pages y respondió HTTP 200 el 12-11-2026. Antes de Partner Center faltan la confirmación visual, las capturas finales y decisiones de ficha. La descarga pública más reciente sigue siendo v2.2.0; no se ha creado release ni enviado el producto a certificación.
+La preparación MSIX y el historial de pruebas están documentados en [docs/microsoft-store](docs/microsoft-store/README.es.md). La candidata Store **2.3.3.0** se compiló desde el código del proyecto con identidad, arquitectura x64 y mínimo de Windows declarados; `npm test` pasó 32/32. En Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742, se comprobaron actualización, persistencia en perfiles administrador y estándar, desinstalación/reinstalación y restauración de una copia JSON. WACK terminó completo con `OVERALL_RESULT=PASS`: 23/24 pruebas pasaron y la única falla fue opcional (`Blocked Executables`); el resultado local no sustituye a la certificación de Store. El propietario confirmó la revisión manual de licencias, cabeceras de copyright y `NOTICE`. El paquete 2.3.3.0 está **en proceso de certificación de Microsoft** en Partner Center; la última evidencia disponible lo muestra en preprocesamiento. Aún no consta una decisión de certificación y no está publicado en Store. La publicación se retuvo hasta que el propietario pulse «Publicar ahora» tras la aprobación. La ficha, las capturas y las opciones de envío completadas, así como el alcance de las pruebas, están en la [documentación de la candidata 2.3.3.0](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.es.md).

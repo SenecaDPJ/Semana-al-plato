@@ -1,8 +1,8 @@
 # MSIX 2.3.3.0 preparation status
 
-**Date:** 12 November 2026
+**Date:** 13 November 2026
 
-**Status:** package built, updated, uninstalled/reinstalled and tested under administrator and standard profiles on Windows 11 Enterprise LTSC Evaluation 24H2 build 26100.1742. The user confirmed launch, content and persistence after reopening in both profiles. WACK completed with `OVERALL_RESULT=PASS` and one optional failure. No release was published and the package was not submitted to Partner Center.
+**Status:** package built, updated, uninstalled/reinstalled and tested under administrator and standard profiles on Windows 11 Enterprise LTSC Evaluation 24H2 build 26100.1742. The user confirmed launch, content and persistence after reopening in both profiles. WACK completed with `OVERALL_RESULT=PASS` and one optional failure. MSIX submission 1 was sent to Partner Center and is **in Microsoft's certification process**; the latest screenshot shows preprocessing and there is no Microsoft decision yet. It is not published in Microsoft Store. Publication was held until the owner selects “Publish now” after a possible approval. The traditional v2.3.3 installer was published separately on GitHub.
 
 ## Scope and identity
 
@@ -21,7 +21,7 @@ Version 2.3.3 fixes the version label in the interface, which still showed 2.3.0
 
 ## Partner Center choices selected
 
-The owner has selected the intended listing values below. These choices are recorded for entry in Partner Center; they have not been entered there yet.
+The table records the owner's selections and the portal state (13 Nov 2026). Partner Center marked price and availability, properties, age ratings, packages, Store descriptions and submission options complete. The submission is in Microsoft's certification process.
 
 | Field | Selection |
 |---|---|
@@ -30,12 +30,16 @@ The owner has selected the intended listing values below. These choices are reco
 | Price | Free |
 | Markets | All markets that Partner Center allows for this app |
 | Website | Public repository page: `https://github.com/SenecaDPJ/Semana-al-plato` |
-| IARC rating | No existing IARC ID; the owner will answer the Partner Center questionnaire |
-| Screenshots | Use the two current images: one for `es-ES` and one for `en-US`; no additional screenshots requested |
-| Additional license terms | Link the repository's MIT licence: `https://github.com/SenecaDPJ/Semana-al-plato/blob/main/LICENSE` in both listings |
+| IARC rating | Questionnaire completed; generated IARC rating: 3+ |
+| Screenshots | One captioned screenshot uploaded for each listing, `es-ES` and `en-US` |
+| Additional license terms | Repository MIT licence link applied: `https://github.com/SenecaDPJ/Semana-al-plato/blob/main/LICENSE` |
 | Personal information | “Yes”: user-entered content could include personal information; it is stored locally and not sent to the app's server |
 
-The owner confirmed that the “Semana al Plato” product name is reserved in Partner Center and supplied the exact identity from the table above, which matches the package. The owner authorizes distribution of version `2.3.3.0` through Microsoft Store once the remaining preparation is complete. This authorization does not create a draft or submit the package for certification.
+Properties records “Bars and restaurants” (Food + dining), “Yes” with the published privacy URL `https://senecadpj.github.io/Semana-al-plato/`, Website `https://github.com/SenecaDPJ/Semana-al-plato`, and support `https://github.com/SenecaDPJ/Semana-al-plato/issues/new`. Alternate-drive installation remains enabled; automatic OneDrive backups and game clip recording are disabled; other declarations and hardware requirements are unset. Both language listings, the MIT terms, and their captioned screenshots were completed in the submission.
+
+The owner confirmed that the “Semana al Plato” product name is reserved in Partner Center and supplied the exact identity from the table above, which matches the package. The owner authorized distribution of `2.3.3.0` through Store once it was prepared; that authorization was acted on by sending submission 1. Partner Center now shows the package in Microsoft's certification process. Publication is held for the owner to start manually after approval.
+
+The traditional download version, [GitHub v2.3.3](https://github.com/SenecaDPJ/Semana-al-plato/releases/tag/v2.3.3), is a separate NSIS installer, not the MSIX submitted to Store.
 
 ## Local artifacts
 
@@ -82,8 +86,8 @@ The output directory must be new. The script regenerates the inventory and unsig
 | Temporary test certificate | **PASS, REMOVED** | After testing, six self-signed test publisher certificates were removed from the VM's `LocalMachine\TrustedPeople` store; a final check found none remaining. No private key was used or left in that store. |
 | Checkpoint before uninstall | **PASS** | The user created a Hyper-V checkpoint before the test. |
 | Licence review and authorization | **MANUAL REVIEW CONFIRMED; CONDITIONAL AUTHORIZATION GRANTED** | Technical inventory: 247 crates, 443 licence files and 7 supplemental texts for 6 crates. The owner confirmed completing the manual review of licences, copyright headers and `NOTICE` files, and authorized distribution of version `2.3.3.0` through the Store once preparation is complete. |
-| Microsoft Store certification | **NOT RUN** | The package was not submitted to Partner Center. |
-| Store listing screenshots | **PASS, MINIMUM PER LANGUAGE** | One PNG screenshot per language was prepared from the 2.3.3.0 app under the standard profile and copied unchanged; neither includes a VM frame or Evaluation watermark. English/dark: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120,409 bytes, SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`. Spanish/light: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150,966 bytes, SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`. They are staged in the local delivery folder outside Git. One desktop screenshot is the minimum; Microsoft recommends at least four per device family and allows up to ten. |
+| Store submission and certification | **IN PROGRESS; DECISION PENDING** | Submission 1 appears in Partner Center as “In certification process”; the latest evidence shows preprocessing. This is Microsoft's review, not a completed approval or publication. After approval, the owner must select “Publish now.” |
+| Store listing screenshots | **UPLOADED, ONE PER LANGUAGE** | One PNG screenshot with a caption was uploaded for each listing, from the 2.3.3.0 app under the standard profile and copied unchanged; neither includes a VM frame or Evaluation watermark. English/dark: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120,409 bytes, SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`. Spanish/light: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150,966 bytes, SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`. The source files are staged in the local delivery folder outside Git. |
 
 Full WACK reports and installation output are in the local artifact folder outside the repository; they contain internal VM names and paths. This document's summary does not include those details. The final local report `vm-2.3.3.0-post-reinstall-readonly-20261112.json` has SHA-256 `0D8699B89B4F38DD5375EF9DC54CABA131FEA37CEE1E631D1016533177BDB7F4`; it contains no credentials or private account information. The local screenshot manifest records dimensions, sizes and hashes. The existing privacy policy was not changed because this candidate only aligns the UI label and package version and does not change data behaviour.
 
@@ -93,10 +97,8 @@ The 2.3.3.0 XML lists references to `kernel32.dll!CreateProcessW`, `shell32.dll!
 
 Microsoft describes optional Desktop Bridge tests as informational and says they are not used to evaluate Store onboarding. The `Blocked executables` test targets Windows 10 S compatibility risks; its documentation recommends identifying and removing calls that launch executables outside the app. The optional result has therefore been evaluated and does not block this preparation, while the incomplete attribution remains recorded. [Microsoft's official Desktop Bridge app tests](https://learn.microsoft.com/en-us/windows/uwp/debug-test-perf/windows-desktop-bridge-app-tests). WACK is not Store certification.
 
-## Remaining preparation
+## Submission status and next milestone
 
-1. Enter the selected category, price, markets and listing languages in Partner Center; complete the `es-ES` and `en-US` listings; and upload the prepared screenshot and caption for its corresponding language. Additional screenshots are optional: one per language is prepared, the documented minimum.
-2. Complete the IARC age-rating questionnaire accurately; the owner confirmed there is no existing IARC ID. The owner selected “Yes” for Partner Center's question about accessing, collecting or transmitting personal information because user-entered content could include it; the app stores it locally and does not send it to its own server. Apply the selected MIT link under “Additional license terms” and review contact fields.
-3. Apply the already-published privacy URL and verify that it appears in the listing. No Partner Center draft has been created.
+Submission preparation is complete and the package has been sent to Microsoft. **External action pending:** wait for Microsoft's certification decision in Partner Center. Do not publish automatically; if approved, the owner must select “Publish now.” Until then, the app is not available in Microsoft Store.
 
 The functional test supports Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742; it does not establish compatibility with other editions or builds. WACK is a local check; official certification occurs only after submitting the package through Partner Center.

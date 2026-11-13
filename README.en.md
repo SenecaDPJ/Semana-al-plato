@@ -4,9 +4,9 @@
 
 [Español](README.md) · **English**
 
-[Download for Windows 11 · x64 · v2.2.0](https://github.com/SenecaDPJ/semana-al-plato/releases/download/v2.2.0/Semana.al.Plato_2.2.0_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/semana-al-plato/issues)
+[Download for Windows 11 · x64 · v2.3.3](https://github.com/SenecaDPJ/Semana-al-plato/releases/download/v2.3.3/Semana.al.Plato_2.3.3_x64-setup.exe) · [Releases](https://github.com/SenecaDPJ/Semana-al-plato/releases) · [Report an issue](https://github.com/SenecaDPJ/Semana-al-plato/issues)
 
-The v2.3.3 test candidate includes drag-to-move for selected groups within the displayed week and fixes the version shown in the interface. It remains a test build; the latest public download is still v2.2.0. The MSIX package status is in the [Microsoft Store preparation notes](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.en.md).
+The public **v2.3.3** release is now available on GitHub. It adds **Move within this week**, letting you drag selected entries as a group across the displayed week, and fixes the version shown in the interface. The **2.3.3.0 MSIX** has been submitted to Partner Center and is **in Microsoft's certification process** (the latest screenshot showed preprocessing). It is not yet certified or published in Microsoft Store; the submission is set to wait until the owner selects “Publish now” after approval. See the [Store candidate status and test record](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.en.md).
 
 <img width="1397" height="1013" alt="Semana al Plato screenshot from 7 November 2026" src="https://github.com/user-attachments/assets/0979efb0-9209-41ca-82d7-4d47ece8d2a4" />
 
@@ -41,7 +41,7 @@ It works locally, without an account or a meal-planning service. Your menu stays
 
 ## Download and install
 
-1. Download **Semana.al.Plato_2.2.0_x64-setup.exe** using the link above or the [v2.2.0 release](https://github.com/SenecaDPJ/semana-al-plato/releases/tag/v2.2.0).
+1. Download **Semana.al.Plato_2.3.3_x64-setup.exe** using the link above or the [v2.3.3 release](https://github.com/SenecaDPJ/Semana-al-plato/releases/tag/v2.3.3).
 2. Run the installer and follow its instructions.
 3. Open **Semana al Plato** and start planning.
 
@@ -216,4 +216,4 @@ Created by [David De Prado · SenecaDPJ](https://github.com/SenecaDPJ).
 
 ## Microsoft Store preparation
 
-MSIX preparation is documented in [docs/microsoft-store](docs/microsoft-store/README.en.md). Local candidate 2.3.2.0 adds a per-monitor DPI manifest and keeps `MinVersion=10.0.26100.1742`. `npm test` passed 32/32; Defender found no threats, and the 2.3.1.0→2.3.2.0 update preserved all six `localStorage` LevelDB files byte for byte on Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742. PowerShell Direct later confirmed package 2.3.2.0 `Ok`, the app closed, and 174 files in the WebView2 profile, including all six LevelDB files; on-screen content confirmation is still pending. WACK completed with a DPI warning and an optional Blocked Executables failure. Microsoft describes WACK as deprecated and optional for local pre-submission checks; this result remains a technical warning, not certification or an automatic submission block. The owner confirmed manual review of copyright headers and `NOTICE` files; final legal authorization remains pending. The bilingual 2.3.2 policy is published on GitHub Pages and returned HTTP 200 on 12 Nov 2026. Before Partner Center, the visual confirmation, final screenshots and listing decisions remain. The latest public download remains v2.2.0; no release has been created and the product has not been submitted for certification.
+MSIX packaging and test history are documented in [docs/microsoft-store](docs/microsoft-store/README.en.md). Store candidate **2.3.3.0** was built from the project with the declared identity, x64 architecture and Windows minimum; `npm test` passed 32/32. On Windows 11 Enterprise LTSC Evaluation 24H2 x64, build 26100.1742, update, persistence under administrator and standard profiles, uninstall/reinstall and JSON backup restore were checked. WACK completed with `OVERALL_RESULT=PASS`: 23/24 tests passed and its only failure was optional (`Blocked Executables`); this local result does not replace Store certification. The owner confirmed manual review of licences, copyright headers and `NOTICE` files. The 2.3.3.0 package is **in Microsoft's certification process** in Partner Center; the latest evidence showed preprocessing. No certification decision is recorded yet, and the app is not published in Store. Publication was held until the owner selects “Publish now” after approval. The completed listing, screenshots and submission options, plus test scope, are in the [2.3.3.0 candidate record](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.en.md).

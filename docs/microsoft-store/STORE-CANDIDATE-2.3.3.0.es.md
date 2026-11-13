@@ -1,8 +1,8 @@
 # Estado de preparación MSIX 2.3.3.0
 
-**Fecha:** 12 de noviembre de 2026
+**Fecha:** 13 de noviembre de 2026
 
-**Estado:** paquete creado, actualizado, desinstalado/reinstalado y probado en perfiles administrador y estándar de Windows 11 Enterprise LTSC Evaluation 24H2 build 26100.1742. El usuario confirmó apertura, contenido y persistencia tras reabrir en ambos perfiles. WACK terminó con `OVERALL_RESULT=PASS` y un único fallo opcional. No se ha publicado una release ni enviado el paquete a Partner Center.
+**Estado:** paquete creado, actualizado, desinstalado/reinstalado y probado en perfiles administrador y estándar de Windows 11 Enterprise LTSC Evaluation 24H2 build 26100.1742. El usuario confirmó apertura, contenido y persistencia tras reabrir en ambos perfiles. WACK terminó con `OVERALL_RESULT=PASS` y un único fallo opcional. El envío 1 del MSIX se presentó a Partner Center y está **en proceso de certificación**; la última captura muestra preprocesamiento y aún no hay decisión de Microsoft. No se ha publicado en Microsoft Store. La publicación se retuvo hasta que el propietario pulse «Publicar ahora» tras una eventual aprobación. El instalador tradicional v2.3.3 sí se publicó por separado en GitHub.
 
 ## Alcance e identidad
 
@@ -21,7 +21,7 @@ La versión 2.3.3 corrige la etiqueta de versión de la interfaz, que aún mostr
 
 ## Decisiones seleccionadas para Partner Center
 
-El propietario ha elegido los valores previstos para la ficha. Son decisiones registradas para aplicarlas en Partner Center; todavía no se han introducido allí.
+Valores seleccionados por el propietario y estado del portal (13-11-2026). Partner Center marcó como completadas las secciones de precio y disponibilidad, propiedades, clasificación por edades, paquetes, descripciones y opciones de envío. El envío está en proceso de certificación.
 
 | Campo | Selección |
 |---|---|
@@ -30,12 +30,16 @@ El propietario ha elegido los valores previstos para la ficha. Son decisiones re
 | Precio | Gratis |
 | Mercados | Todos los mercados que Partner Center permita seleccionar para esta aplicación |
 | Website | Página pública del repositorio: `https://github.com/SenecaDPJ/Semana-al-plato` |
-| Clasificación IARC | No hay IARC ID previo; el propietario responderá el cuestionario en Partner Center |
-| Capturas | Usar las dos actuales: una para `es-ES` y otra para `en-US`; no se solicitan capturas adicionales |
-| Términos adicionales de licencia | Enlazar la licencia MIT del repositorio: `https://github.com/SenecaDPJ/Semana-al-plato/blob/main/LICENSE` en ambas fichas |
+| Clasificación IARC | Cuestionario completado; clasificación IARC generada: 3+ |
+| Capturas | Una captura con pie se cargó para cada ficha: `es-ES` y `en-US` |
+| Términos adicionales de licencia | Enlace a la licencia MIT del repositorio aplicado: `https://github.com/SenecaDPJ/Semana-al-plato/blob/main/LICENSE` |
 | Información personal | «Sí»: los datos que introduzca el usuario podrían incluirla; se guardan localmente y no se envían al servidor de la app |
 
-El propietario confirmó que el nombre «Semana al Plato» está reservado en Partner Center y proporcionó la identidad exacta de la tabla anterior, que coincide con el paquete. Autoriza distribuir la versión `2.3.3.0` en Microsoft Store una vez completada la preparación pendiente. Esta autorización no crea un borrador ni envía el paquete a certificación.
+En «Propiedades» se guardaron «Bares y restaurantes» (Food + dining), «Sí» con la URL de privacidad publicada `https://senecadpj.github.io/Semana-al-plato/`, Website `https://github.com/SenecaDPJ/Semana-al-plato` y soporte `https://github.com/SenecaDPJ/Semana-al-plato/issues/new`. Se permitió la instalación en unidades alternativas y se desactivaron las copias automáticas de OneDrive y la grabación de clips; las demás declaraciones y requisitos de hardware no se seleccionaron. Las fichas de ambos idiomas, el enlace MIT y las capturas con sus pies se completaron en el envío.
+
+El propietario confirmó que el nombre «Semana al Plato» está reservado en Partner Center y proporcionó la identidad exacta de la tabla anterior, que coincide con el paquete. Autorizó distribuir `2.3.3.0` en Store una vez preparada; esa autorización se materializó en el envío 1. Partner Center mantiene ahora el paquete en proceso de certificación. La publicación se retuvo para que el propietario la inicie manualmente después de la aprobación.
+
+La versión tradicional para descarga, [GitHub v2.3.3](https://github.com/SenecaDPJ/Semana-al-plato/releases/tag/v2.3.3), es un instalador NSIS independiente; no es el MSIX entregado a Store.
 
 ## Artefactos locales
 
@@ -82,8 +86,8 @@ El directorio de salida debe ser nuevo. El script vuelve a generar el inventario
 | Certificado temporal de pruebas | **PASADO, RETIRADO** | Tras finalizar las pruebas, se eliminaron de `LocalMachine\TrustedPeople` de la VM seis certificados autofirmados del editor de pruebas; la comprobación final no encontró ninguno restante. No se usó ni quedó clave privada en ese almacén. |
 | Punto de control previo a desinstalar | **PASADO** | El usuario creó un punto de control de Hyper-V antes de la prueba. |
 | Revisión de licencias y autorización | **REVISIÓN MANUAL CONFIRMADA; AUTORIZACIÓN CONDICIONAL OTORGADA** | Inventario técnico: 247 crates, 443 archivos de licencia y 7 textos suplementarios de 6 crates. El propietario confirmó haber completado la revisión manual de licencias, cabeceras de copyright y `NOTICE`, y autorizó distribuir la versión `2.3.3.0` en Store cuando termine la preparación. |
-| Capturas de ficha | **PASADAS, MÍNIMO POR IDIOMA** | Se preparó una captura PNG por idioma, tomada de la aplicación 2.3.3.0 en el perfil estándar y copiada sin modificar; no contiene marco de VM ni marca de evaluación. Inglés/oscuro: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120.409 bytes, SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`. Español/claro: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150.966 bytes, SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`. Están en la carpeta local de entrega, fuera de Git. Una captura de escritorio es el mínimo; Microsoft recomienda al menos cuatro por familia y permite hasta diez. |
-| Certificación de Microsoft Store | **NO EJECUTADA** | No se envió el paquete a Partner Center. |
+| Capturas de ficha | **CARGADAS, UNA POR IDIOMA** | Se cargó una captura PNG con pie en cada ficha, tomada de la aplicación 2.3.3.0 en el perfil estándar y copiada sin modificar; no contiene marco de VM ni marca de evaluación. Inglés/oscuro: `Store-screenshot-en-2.3.3.0.png`, 1393 × 977, 120.409 bytes, SHA-256 `506BBFEA81BD202B1E99EA01AA3B1FEC71D0CE4D1A6A5EDF8215BE74B789DB24`. Español/claro: `Store-screenshot-es-ES-2.3.3.0.png`, 1395 × 981, 150.966 bytes, SHA-256 `1CB7376B94A39FEE65156C63D62A508055DF0A93AE1936FECEE75400A6E026F4`. Los archivos de origen están en la carpeta local de entrega, fuera de Git. |
+| Envío y certificación de Microsoft Store | **EN PROCESO; DECISIÓN PENDIENTE** | El envío 1 aparece en Partner Center como «En proceso de certificación» y la última evidencia muestra preprocesamiento. Aún no hay aprobación ni publicación. Tras aprobarse, el propietario debe seleccionar «Publicar ahora». |
 
 Los informes completos de WACK y las salidas de instalación están en la carpeta local de artefactos, fuera del repositorio; contienen nombres y rutas internas de la VM. El informe local final `vm-2.3.3.0-post-reinstall-readonly-20261112.json` tiene SHA-256 `0D8699B89B4F38DD5375EF9DC54CABA131FEA37CEE1E631D1016533177BDB7F4`; no contiene credenciales ni información privada de cuentas. El manifiesto de capturas local registra dimensiones, tamaños y hashes. La política de privacidad existente no se cambió porque esta revisión solo alinea la etiqueta y versión del paquete y no cambia el comportamiento de datos.
 
@@ -93,10 +97,8 @@ El XML de 2.3.3.0 enumera referencias a `kernel32.dll!CreateProcessW`, `shell32.
 
 Microsoft describe las pruebas opcionales de Desktop Bridge como informativas y señala que no se usan para evaluar la incorporación a Store. La prueba `Blocked executables` está orientada a riesgos de compatibilidad con Windows 10 S; su documentación recomienda identificar y retirar llamadas que lancen ejecutables ajenos a la aplicación. Por ello, el resultado opcional se evaluó y no bloquea esta preparación, pero la atribución incompleta queda registrada. [Documentación oficial de Microsoft sobre pruebas Desktop Bridge](https://learn.microsoft.com/en-us/windows/uwp/debug-test-perf/windows-desktop-bridge-app-tests). WACK no equivale a certificación de Store.
 
-## Pendiente para completar la preparación
+## Estado de envío y siguiente hito
 
-1. Aplicar en Partner Center las decisiones seleccionadas de categoría, precio, mercados e idiomas; completar las fichas `es-ES` y `en-US`; cargar la captura preparada y su pie en el idioma correspondiente. Las capturas adicionales son opcionales: hay una por idioma, el mínimo documentado.
-2. Responder con veracidad el cuestionario IARC de clasificación por edades; el propietario confirmó que no tiene un IARC ID previo. El propietario eligió responder «Sí» a la pregunta de Partner Center sobre acceso, recopilación o transmisión de información personal, porque el contenido que se introduce podría incluirla; la app lo guarda localmente y no lo envía a un servidor propio. Aplicar el enlace MIT elegido en «Additional license terms» y revisar los campos de contacto.
-3. Aplicar la URL de privacidad ya publicada y comprobar que se muestra en la ficha. No se ha creado ningún borrador en Partner Center.
+La preparación del envío está completa y el paquete se entregó a Microsoft. **Pendiente externo:** esperar la decisión de certificación de Microsoft en Partner Center. No publicar automáticamente: si se aprueba, el propietario debe seleccionar «Publicar ahora». Hasta entonces, la aplicación no está disponible en Microsoft Store.
 
 La prueba funcional respalda Windows 11 Enterprise LTSC Evaluation 24H2 x64 build 26100.1742; no demuestra compatibilidad con otras ediciones ni builds. WACK es una comprobación local; la certificación oficial solo ocurre tras enviar el paquete desde Partner Center.
