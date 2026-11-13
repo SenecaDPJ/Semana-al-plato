@@ -8,9 +8,9 @@
 
 La versión pública **v2.3.3** ya está disponible en GitHub. Añade **Mover en la semana** para arrastrar en grupo los elementos seleccionados por los días de la semana visible y corrige la versión que muestra la interfaz. El paquete MSIX **2.3.3.0** se envió a Partner Center y está **en proceso de certificación de Microsoft** (la última captura lo mostraba en preprocesamiento). Todavía no está certificado ni publicado en Microsoft Store; el envío se configuró para esperar a que el propietario seleccione «Publicar ahora» tras la aprobación. Consulta el [estado y las pruebas de la candidata Store](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.es.md).
 
-<img width="1395" height="981" alt="Store-screenshot-es-ES-2 3 3 0" src="https://github.com/user-attachments/assets/8f310190-c6c0-4836-b704-0b3bb7ba0152" />
+<img width="1395" height="975" alt="Store-screenshot-es-ES-2 3 3 0" src="https://github.com/user-attachments/assets/1d288c1c-8603-44bf-b236-9642cb6cb391" />
 
-<img width="1393" height="977" alt="Store-screenshot-en-2 3 3 0" src="https://github.com/user-attachments/assets/58f4489f-49e1-4c59-9557-6ca497ffd0d5" />
+<img width="1387" height="966" alt="Store-screenshot-en-2 3 3 0" src="https://github.com/user-attachments/assets/89f1fc55-194d-40bd-875c-d9fb2ea1d86e" />
 
 ## Qué puedes hacer
 
