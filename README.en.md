@@ -8,9 +8,9 @@
 
 The public **v2.3.3** release is now available on GitHub. It adds **Move within this week**, letting you drag selected entries as a group across the displayed week, and fixes the version shown in the interface. The **2.3.3.0 MSIX** has been submitted to Partner Center and is **in Microsoft's certification process** (the latest screenshot showed preprocessing). It is not yet certified or published in Microsoft Store; the submission is set to wait until the owner selects “Publish now” after approval. See the [Store candidate status and test record](docs/microsoft-store/STORE-CANDIDATE-2.3.3.0.en.md).
 
-<img width="1395" height="981" alt="Store-screenshot-es-ES-2 3 3 0" src="https://github.com/user-attachments/assets/8f310190-c6c0-4836-b704-0b3bb7ba0152" />
-
 <img width="1393" height="977" alt="Store-screenshot-en-2 3 3 0" src="https://github.com/user-attachments/assets/58f4489f-49e1-4c59-9557-6ca497ffd0d5" />
+
+<img width="1395" height="981" alt="Store-screenshot-es-ES-2 3 3 0" src="https://github.com/user-attachments/assets/8f310190-c6c0-4836-b704-0b3bb7ba0152" />
 
 ## What you can do
 
