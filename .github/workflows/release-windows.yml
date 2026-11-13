@@ -39,20 +39,18 @@ jobs:
           tagName: v__VERSION__
           releaseName: Semana al Plato v__VERSION__
           releaseBody: |
-            Calendario semanal de comidas para Windows 11.
+            Semana al Plato 2.3.3 updates the displayed version to match the installed package and adds “Move this week” for multiple selection: keep selected items active and drag them together to another day in the visible week.
 
-            La versión 2.2.0 reúne el selector bilingüe con la bandera correspondiente (España/Reino Unido), los temas claro y oscuro, colores de categoría legibles y un icono propio para Windows.
+            It also includes the Spanish/English interface, light and dark themes, improved category colours, individual item cloning and movement, and JSON backup and restore.
 
-            Incluye clonado individual y múltiple, reordenado y movimiento por arrastre dentro de cada categoría, selección de varios elementos y avisos destacados para destinos no válidos.
-
-            El enlace al perfil de GitHub pide confirmación antes de abrirse en el navegador predeterminado.
+            Meal plans are stored locally. The app asks before opening the GitHub profile.
 
             ---
 
-            Semana al Plato 2.2.0 brings together the Spanish/English selector with the matching Spain/UK flag, light and dark themes, readable category colours, and a custom Windows icon.
+            Semana al Plato 2.3.3 actualiza la versión mostrada para que coincida con el paquete instalado y añade «Mover en la semana» para selección múltiple: conserva los elementos seleccionados y permite arrastrarlos juntos a otro día de la semana visible.
 
-            It includes individual and group cloning, reordering and drag-and-drop within each category, multi-selection, and prominent feedback for invalid drop targets.
+            También incluye interfaz en español e inglés, temas claro y oscuro, colores de categoría mejorados, clonado y movimiento individual de elementos, y copia y restauración JSON.
 
-            The GitHub profile link asks for confirmation before opening in the default browser.
+            Los planes se guardan localmente. La aplicación solicita confirmación antes de abrir el perfil de GitHub.
           releaseDraft: false
           prerelease: false
